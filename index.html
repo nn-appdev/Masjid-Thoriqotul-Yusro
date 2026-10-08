@@ -1707,7 +1707,11 @@
                 if (rowId) payload.id = rowId;
                 
                 const response = await fetch(GAS_URL, {
+                    redirect: "follow",
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8', // PENTING: Mencegah error CORS dari Browser
+                    },
                     body: JSON.stringify(payload)
                 });
                 
@@ -1719,7 +1723,8 @@
                     showToast('Gagal: ' + result.message, 'error');
                 }
             } catch (error) {
-                showToast('Gagal terhubung ke server', 'error');
+                console.error("POST Error:", error);
+                showToast('Gagal menyimpan. Pastikan Web App GAS sudah di-Deploy sebagai versi BARU.', 'error');
             }
         }
 
