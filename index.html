@@ -140,6 +140,11 @@
             display: none !important;
         }
         
+        /* Memaksa tombol admin selalu terlihat jelas (100% opacity) saat login, tanpa perlu hover */
+        body.is-admin .admin-only {
+            opacity: 1 !important;
+        }
+        
         /* Modal Animation */
         .modal-enter { opacity: 0; transform: scale(0.95); }
         .modal-enter-active { opacity: 1; transform: scale(1); transition: all 0.2s ease-out; }
@@ -296,7 +301,7 @@
                 
                 <div class="relative rounded-3xl overflow-hidden shadow-xl bg-emerald-700 text-white arch-top border border-emerald-500/30 group">
                     <div class="absolute top-4 right-4 z-20 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="bg-white/20 hover:bg-white/40 text-white p-2 rounded-lg shadow-sm backdrop-blur-md transition-colors text-xs font-bold" onclick="showToast('Edit Banner & Sambutan', 'info')"><i class="fa-solid fa-pen mr-1"></i> Edit Hero</button>
+                        <button class="bg-white/20 hover:bg-white/40 text-white p-2 rounded-lg shadow-sm backdrop-blur-md transition-colors text-xs font-bold" onclick="openAdminModal('Edit Banner Utama', 'Pengaturan', 'insert', null, {kunci: 'hero_title', nilai: 'Selamat Datang di T. Yusro'})"><i class="fa-solid fa-pen mr-1"></i> Edit Hero</button>
                     </div>
                     <div class="absolute inset-0 bg-islamic-pattern opacity-10"></div>
                     <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/90 via-emerald-700/80 to-teal-500/40"></div>
@@ -306,15 +311,15 @@
                             <!-- Bismillah Ornament Teks Asli (Anti-Pecah) -->
                             <div class="mb-6 inline-block bg-emerald-900/40 px-6 py-3 rounded-2xl backdrop-blur-sm border border-emerald-500/30 shadow-lg">
                                 <h2 class="font-arabic text-4xl lg:text-5xl text-white drop-shadow-lg leading-relaxed text-center">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h2>
-                            </div>
-                            
-                            <br>
-                            <span class="inline-block px-4 py-1.5 bg-emerald-500/40 backdrop-blur-md rounded-full text-xs font-bold mb-4 border border-emerald-300/40 flex items-center w-max shadow-sm">
-                                <i class="star-8-icon w-3.5 h-3.5 bg-gold-400 mr-2"></i> Sistem Manajemen Terpadu
-                            </span>
-                            <h2 class="font-heading text-3xl md:text-5xl font-extrabold mb-3 tracking-tight drop-shadow-md">Selamat Datang di T. Yusro</h2>
-                            
-                            <!-- Real-time Live Clock -->
+                        </div>
+                        
+                        <br>
+                        <span class="inline-block px-4 py-1.5 bg-emerald-500/40 backdrop-blur-md rounded-full text-xs font-bold mb-4 border border-emerald-300/40 flex items-center w-max shadow-sm">
+                            <i class="star-8-icon w-3.5 h-3.5 bg-gold-400 mr-2"></i> Sistem Manajemen Terpadu
+                        </span>
+                        <h2 id="dynamic-hero-title" class="font-heading text-3xl md:text-5xl font-extrabold mb-3 tracking-tight drop-shadow-md">Selamat Datang di T. Yusro</h2>
+                        
+                        <!-- Real-time Live Clock -->
                             <div class="mt-5 mb-4 flex items-center bg-black/30 w-max px-5 py-2.5 rounded-2xl border border-white/20 backdrop-blur-md shadow-lg">
                                 <i class="fa-regular fa-clock text-gold-400 text-2xl mr-3 animate-pulse"></i>
                                 <span id="live-clock" class="text-3xl md:text-4xl font-mono font-bold tracking-widest text-white drop-shadow-md">00:00:00</span>
@@ -344,11 +349,11 @@
                     <!-- Running Text -->
                     <div class="bg-emerald-950/60 backdrop-blur-md px-4 py-2 flex items-center border-t border-emerald-500/30 relative w-full overflow-hidden">
                         <div class="admin-only z-20 mr-3">
-                            <button class="bg-white/20 hover:bg-white/40 text-white p-1.5 rounded shadow-sm backdrop-blur-md transition-colors" onclick="showToast('Edit Teks Pengumuman', 'info')" title="Edit Pengumuman"><i class="fa-solid fa-pen text-xs"></i></button>
+                            <button class="bg-white/20 hover:bg-white/40 text-white p-1.5 rounded shadow-sm backdrop-blur-md transition-colors" onclick="openAdminModal('Edit Pengumuman (Running Text)', 'Pengaturan', 'insert', null, {kunci: 'running_text', keterangan: 'Teks Berjalan'})" title="Edit Pengumuman"><i class="fa-solid fa-pen text-xs"></i></button>
                         </div>
                         <i class="fa-solid fa-bullhorn text-gold-400 mr-3 text-sm shrink-0"></i>
                         <div class="marquee-container flex-1 overflow-hidden">
-                            <div class="marquee-content text-sm text-emerald-50">
+                            <div id="dynamic-running-text" class="marquee-content text-sm text-emerald-50">
                                 📢 Pengumuman: Pengajian rutin Ahad Pagi minggu ini akan diisi oleh Ustadz Dr. H. Fulan, M.Ag dengan tema "Keluarga Sakinah". 📢 Saldo Kas Masjid per tanggal 15: Rp 45.500.000. Mari tingkatkan infak dan sedekah.
                             </div>
                         </div>
@@ -390,7 +395,7 @@
                         <!-- Jadwal Shalat -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 relative overflow-hidden group">
                             <div class="absolute top-3 right-3 admin-only z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-blue-50 text-blue-600 p-1.5 rounded-lg text-[10px] font-bold shadow-sm hover:bg-blue-100" onclick="showToast('Buka Setting Lokasi API', 'info')"><i class="fa-solid fa-gear"></i></button>
+                                <button class="bg-blue-50 text-blue-600 p-1.5 rounded-lg text-[10px] font-bold shadow-sm hover:bg-blue-100" onclick="openAdminModal('Pengaturan API Shalat', 'Pengaturan', 'insert', null, {kunci: 'lokasi_api', nilai: 'Wonosobo, Indonesia'})"><i class="fa-solid fa-gear"></i></button>
                             </div>
                             <div class="absolute top-0 right-0 w-32 h-32 bg-arabesque opacity-30 rounded-bl-full pointer-events-none"></div>
                             <div class="flex justify-between items-start mb-4 relative z-10">
@@ -421,7 +426,7 @@
                                 <h3 class="font-heading font-semibold text-slate-800 flex items-center">
                                     <i class="fa-solid fa-microphone-lines text-emerald-500 mr-2"></i> Petugas Jumat Ini
                                 </h3>
-                                <button class="text-xs bg-blue-50 text-blue-500 hover:bg-blue-100 px-2 py-1 rounded admin-only transition-colors" onclick="showToast('Edit Petugas Jumat', 'info')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="text-xs bg-blue-50 text-blue-500 hover:bg-blue-100 px-2 py-1 rounded admin-only transition-colors" onclick="openAdminModal('Tambah Petugas Jumat', 'Jumat', 'insert')"><i class="fa-solid fa-pen"></i></button>
                             </div>
                             <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
                                 <p class="text-xs text-emerald-600 font-semibold mb-3">Jumat Wage, 9 Okt 2026</p>
@@ -462,8 +467,8 @@
                                 <!-- Agenda Item 1 -->
                                 <div class="flex items-center p-3 hover:bg-slate-50 rounded-xl transition-colors border border-transparent hover:border-slate-100 relative group">
                                     <div class="absolute right-3 top-1/2 -translate-y-1/2 admin-only flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="bg-white border border-slate-200 text-blue-500 p-1.5 rounded shadow-sm hover:bg-blue-50" onclick="showToast('Edit Agenda', 'info')"><i class="fa-solid fa-pen text-xs"></i></button>
-                                        <button class="bg-white border border-slate-200 text-red-500 p-1.5 rounded shadow-sm hover:bg-red-50" onclick="showToast('Hapus Agenda', 'error')"><i class="fa-solid fa-trash text-xs"></i></button>
+                                        <button class="bg-white border border-slate-200 text-blue-500 p-1.5 rounded shadow-sm hover:bg-blue-50" onclick="openAdminModal('Edit Agenda', 'Agenda', 'insert')"><i class="fa-solid fa-pen text-xs"></i></button>
+                                        <button class="bg-white border border-slate-200 text-red-500 p-1.5 rounded shadow-sm hover:bg-red-50" onclick="hapusDataAdmin('Agenda', 'dummy')"><i class="fa-solid fa-trash text-xs"></i></button>
                                     </div>
                                     <div class="bg-emerald-100 text-emerald-600 rounded-lg p-2 text-center w-14 h-14 flex flex-col justify-center flex-shrink-0">
                                         <span class="text-xs font-bold leading-none">09</span>
@@ -478,8 +483,8 @@
                                 <!-- Agenda Item 2 -->
                                 <div class="flex items-center p-3 hover:bg-slate-50 rounded-xl transition-colors border border-transparent hover:border-slate-100 relative group">
                                     <div class="absolute right-3 top-1/2 -translate-y-1/2 admin-only flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="bg-white border border-slate-200 text-blue-500 p-1.5 rounded shadow-sm hover:bg-blue-50" onclick="showToast('Edit Agenda', 'info')"><i class="fa-solid fa-pen text-xs"></i></button>
-                                        <button class="bg-white border border-slate-200 text-red-500 p-1.5 rounded shadow-sm hover:bg-red-50" onclick="showToast('Hapus Agenda', 'error')"><i class="fa-solid fa-trash text-xs"></i></button>
+                                        <button class="bg-white border border-slate-200 text-blue-500 p-1.5 rounded shadow-sm hover:bg-blue-50" onclick="openAdminModal('Edit Agenda', 'Agenda', 'insert')"><i class="fa-solid fa-pen text-xs"></i></button>
+                                        <button class="bg-white border border-slate-200 text-red-500 p-1.5 rounded shadow-sm hover:bg-red-50" onclick="hapusDataAdmin('Agenda', 'dummy')"><i class="fa-solid fa-trash text-xs"></i></button>
                                     </div>
                                     <div class="bg-emerald-100 text-emerald-600 rounded-lg p-2 text-center w-14 h-14 flex flex-col justify-center flex-shrink-0">
                                         <span class="text-xs font-bold leading-none">11</span>
@@ -494,8 +499,8 @@
                                  <!-- Agenda Item 3 -->
                                  <div class="flex items-center p-3 hover:bg-slate-50 rounded-xl transition-colors border border-transparent hover:border-slate-100 relative group">
                                     <div class="absolute right-3 top-1/2 -translate-y-1/2 admin-only flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="bg-white border border-slate-200 text-blue-500 p-1.5 rounded shadow-sm hover:bg-blue-50" onclick="showToast('Edit Agenda', 'info')"><i class="fa-solid fa-pen text-xs"></i></button>
-                                        <button class="bg-white border border-slate-200 text-red-500 p-1.5 rounded shadow-sm hover:bg-red-50" onclick="showToast('Hapus Agenda', 'error')"><i class="fa-solid fa-trash text-xs"></i></button>
+                                        <button class="bg-white border border-slate-200 text-blue-500 p-1.5 rounded shadow-sm hover:bg-blue-50" onclick="openAdminModal('Edit Agenda', 'Agenda', 'insert')"><i class="fa-solid fa-pen text-xs"></i></button>
+                                        <button class="bg-white border border-slate-200 text-red-500 p-1.5 rounded shadow-sm hover:bg-red-50" onclick="hapusDataAdmin('Agenda', 'dummy')"><i class="fa-solid fa-trash text-xs"></i></button>
                                     </div>
                                     <div class="bg-emerald-100 text-emerald-600 rounded-lg p-2 text-center w-14 h-14 flex flex-col justify-center flex-shrink-0">
                                         <span class="text-xs font-bold leading-none">15</span>
@@ -637,7 +642,7 @@
                 <div id="tab-imam" class="imarah-content space-y-6">
                     <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 relative group overflow-x-auto">
                         <div class="absolute top-4 right-4 admin-only z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors" onclick="showToast('Edit Jadwal Imam', 'info')"><i class="fa-solid fa-pen mr-1"></i> Edit Jadwal</button>
+                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors" onclick="openAdminModal('Tambah Jadwal Imam', 'Imam_Harian', 'insert')"><i class="fa-solid fa-pen mr-1"></i> Edit Jadwal</button>
                         </div>
                         <h3 class="font-heading font-semibold text-lg text-slate-800 mb-4 border-b border-slate-100 pb-2">Jadwal Imam Rawatib (Minggu Ini)</h3>
                         <table class="w-full text-sm text-left min-w-[600px]">
@@ -675,7 +680,7 @@
                     <!-- Baru: Jadwal Petugas Jumat dengan Pasaran Jawa -->
                     <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 relative group overflow-x-auto">
                         <div class="absolute top-4 right-4 admin-only z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors" onclick="showToast('Edit Jadwal Jumat', 'info')"><i class="fa-solid fa-pen mr-1"></i> Edit Jadwal</button>
+                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors" onclick="openAdminModal('Tambah Petugas Jumat', 'Jumat', 'insert')"><i class="fa-solid fa-pen mr-1"></i> Edit Jadwal</button>
                         </div>
                         <h3 class="font-heading font-semibold text-lg text-slate-800 mb-4 border-b border-slate-100 pb-2">Jadwal Petugas Shalat Jumat (Bulan Ini)</h3>
                         <table class="w-full text-sm text-left min-w-[600px]">
@@ -705,7 +710,7 @@
                         <!-- Pengajian Malam Jumat -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden relative group hover:shadow-md transition-shadow">
                             <div class="absolute top-3 right-3 admin-only z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-white text-blue-600 p-2 rounded-lg text-xs font-bold shadow hover:bg-blue-50" onclick="showToast('Edit Pengajian', 'info')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="bg-white text-blue-600 p-2 rounded-lg text-xs font-bold shadow hover:bg-blue-50" onclick="openAdminModal('Tambah Pengajian', 'Kegiatan', 'insert', null, {kategori: 'Rutin'})"><i class="fa-solid fa-pen"></i></button>
                             </div>
                             <div class="h-2 bg-emerald-500"></div>
                             <div class="p-5">
@@ -727,7 +732,7 @@
                         <!-- Pengajian Ibu-ibu -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden relative group hover:shadow-md transition-shadow">
                             <div class="absolute top-3 right-3 admin-only z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-white text-blue-600 p-2 rounded-lg text-xs font-bold shadow hover:bg-blue-50" onclick="showToast('Edit Pengajian', 'info')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="bg-white text-blue-600 p-2 rounded-lg text-xs font-bold shadow hover:bg-blue-50" onclick="openAdminModal('Tambah Pengajian', 'Kegiatan', 'insert', null, {kategori: 'Rutin'})"><i class="fa-solid fa-pen"></i></button>
                             </div>
                             <div class="h-2 bg-pink-500"></div>
                             <div class="p-5">
@@ -749,7 +754,7 @@
                         <!-- Pengajian Remaja -->
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden relative group hover:shadow-md transition-shadow">
                             <div class="absolute top-3 right-3 admin-only z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-white text-blue-600 p-2 rounded-lg text-xs font-bold shadow hover:bg-blue-50" onclick="showToast('Edit Pengajian', 'info')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="bg-white text-blue-600 p-2 rounded-lg text-xs font-bold shadow hover:bg-blue-50" onclick="openAdminModal('Tambah Pengajian', 'Kegiatan', 'insert', null, {kategori: 'Rutin'})"><i class="fa-solid fa-pen"></i></button>
                             </div>
                             <div class="h-2 bg-blue-500"></div>
                             <div class="p-5">
@@ -774,7 +779,7 @@
                 <div id="tab-phbi" class="imarah-content hidden">
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center relative group">
                         <div class="absolute top-4 right-4 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="showToast('Tambah Event', 'success')">+ Tambah Event</button>
+                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="openAdminModal('Tambah Event PHBI', 'Kegiatan', 'insert', null, {kategori: 'PHBI'})">+ Tambah Event</button>
                         </div>
                         <i class="fa-solid fa-calendar-star text-4xl text-slate-300 mb-3"></i>
                         <h3 class="font-heading font-bold text-lg text-slate-700">Peringatan Hari Besar Islam (PHBI)</h3>
@@ -784,7 +789,7 @@
                 <div id="tab-ramadhan" class="imarah-content hidden">
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center relative group">
                          <div class="absolute top-4 right-4 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="showToast('Atur Panitia', 'success')"><i class="fa-solid fa-users-gear"></i> Kepanitiaan</button>
+                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="openAdminModal('Input Kegiatan Ramadhan', 'Kegiatan', 'insert', null, {kategori: 'Ramadhan'})"><i class="fa-solid fa-users-gear"></i> Kepanitiaan</button>
                         </div>
                         <i class="fa-solid fa-moon text-4xl text-emerald-400 mb-3"></i>
                         <h3 class="font-heading font-bold text-lg text-slate-700">Program Semarak Ramadhan</h3>
@@ -794,7 +799,7 @@
                 <div id="tab-qurban" class="imarah-content hidden">
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-center relative group">
                         <div class="absolute top-4 right-4 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="showToast('Input Shohibul Qurban', 'success')"><i class="fa-solid fa-plus"></i> Shohibul Qurban</button>
+                            <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="openAdminModal('Input Data Qurban', 'Keuangan', 'insert', null, {kategori: 'Qurban', tipe: 'Pemasukan'})"><i class="fa-solid fa-plus"></i> Shohibul Qurban</button>
                         </div>
                         <i class="fa-solid fa-cow text-4xl text-orange-400 mb-3"></i>
                         <h3 class="font-heading font-bold text-lg text-slate-700">Manajemen Qurban (Idul Adha)</h3>
@@ -816,7 +821,7 @@
                         <!-- Booking Fasilitas -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 relative group">
                              <div class="absolute top-4 right-4 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="text-blue-500 hover:text-blue-700 bg-blue-50 p-1.5 rounded" onclick="showToast('Kelola Peminjaman', 'info')"><i class="fa-solid fa-gear"></i></button>
+                                <button class="text-blue-500 hover:text-blue-700 bg-blue-50 p-1.5 rounded" onclick="openAdminModal('Data Peminjaman', 'Booking', 'insert')"><i class="fa-solid fa-gear"></i></button>
                             </div>
                             <h3 class="font-heading font-semibold text-slate-800 flex items-center mb-4"><i class="fa-regular fa-calendar-plus text-emerald-500 mr-2"></i> Booking Fasilitas</h3>
                             <p class="text-xs text-slate-500 mb-4">Ajukan penggunaan area/fasilitas masjid untuk kegiatan warga atau pernikahan.</p>
@@ -834,7 +839,7 @@
                         <!-- Lapor Kerusakan -->
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 relative group">
                             <div class="absolute top-4 right-4 admin-only opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                                <button class="text-blue-500 hover:text-blue-700 bg-blue-50 px-2 py-1 rounded text-xs font-bold" onclick="showToast('Kelola Daftar Laporan', 'info')"><i class="fa-solid fa-list-check mr-1"></i> Kelola</button>
+                                <button class="text-blue-500 hover:text-blue-700 bg-blue-50 px-2 py-1 rounded text-xs font-bold" onclick="openAdminModal('Kelola Laporan Riayah', 'Laporan_Riayah', 'insert')"><i class="fa-solid fa-list-check mr-1"></i> Kelola</button>
                             </div>
                             <h3 class="font-heading font-semibold text-slate-800 flex items-center mb-4"><i class="fa-solid fa-triangle-exclamation text-orange-500 mr-2"></i> Lapor Kerusakan</h3>
                             <div class="bg-orange-50 p-3 rounded-lg border border-orange-100 mb-4">
@@ -850,7 +855,7 @@
                     <div class="lg:col-span-2">
                         <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 h-full relative group">
                             <div class="absolute top-6 right-6 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="showToast('Kelola Inventaris', 'info')"><i class="fa-solid fa-box-open mr-1"></i> Data Barang</button>
+                                <button class="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="openAdminModal('Data Inventaris', 'Inventaris', 'insert')"><i class="fa-solid fa-box-open mr-1"></i> Data Barang</button>
                             </div>
                             <h3 class="font-heading font-semibold text-slate-800 mb-6">Status Kondisi Inventaris</h3>
                             <div class="h-64 relative w-full flex justify-center">
@@ -981,8 +986,8 @@
                         <!-- Chart Keuangan -->
                         <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 relative group">
                              <div class="absolute top-4 right-4 admin-only opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
-                                <button class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="showToast('Catat Pengeluaran', 'success')">- Pengeluaran</button>
-                                <button class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="showToast('Catat Pemasukan', 'success')">+ Pemasukan</button>
+                                <button class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="openAdminModal('Catat Pengeluaran', 'Keuangan', 'insert', null, {tipe: 'Pengeluaran'})">- Pengeluaran</button>
+                                <button class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-lg text-xs font-bold" onclick="openAdminModal('Catat Pemasukan', 'Keuangan', 'insert', null, {tipe: 'Pemasukan'})">+ Pemasukan</button>
                             </div>
                             <h3 class="font-heading font-semibold text-slate-800 mb-6">Arus Kas (6 Bulan Terakhir)</h3>
                             <div class="h-72 w-full"><canvas id="financeChart"></canvas></div>
@@ -1007,7 +1012,7 @@
                         <!-- Saldo Card -->
                         <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 shadow-md text-white relative group">
                             <div class="absolute top-4 right-4 admin-only z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-white/20 hover:bg-white/30 text-white p-1.5 rounded text-[10px] font-bold transition-colors" onclick="showToast('Koreksi Saldo Manual', 'warning')" title="Koreksi Saldo"><i class="fa-solid fa-pen"></i></button>
+                                <button class="bg-white/20 hover:bg-white/30 text-white p-1.5 rounded text-[10px] font-bold transition-colors" onclick="openAdminModal('Koreksi Saldo', 'Keuangan', 'insert', null, {kategori: 'Koreksi Saldo', tipe: 'Pemasukan'})" title="Koreksi Saldo"><i class="fa-solid fa-pen"></i></button>
                             </div>
                             <p class="text-slate-400 text-sm mb-1">Total Saldo Kas Terpadu</p>
                             <h3 class="text-3xl font-heading font-bold text-emerald-400">Rp 45.500.000</h3>
@@ -1058,22 +1063,22 @@
                         <h3 class="font-heading font-semibold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-users-viewfinder text-blue-500 mr-2"></i> Database Jamaah</h3>
                         <p class="text-xs text-slate-500 mb-4">Kelola data sensus jamaah lingkungan masjid (CRM Masjid) dengan menjaga privasi data (Private/Non-Public).</p>
                         <div class="space-y-3">
-                            <button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors text-sm font-medium text-slate-700" onclick="showToast('Membuka form pendaftaran jamaah', 'info')">Input Data Warga/Jamaah Baru</button>
-                            <button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors text-sm font-medium text-slate-700" onclick="showToast('Membuka modul absensi', 'info')">Absensi & Presensi Shalat Berjamaah</button>
-                            <button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors text-sm font-medium text-slate-700" onclick="showToast('Membuka daftar Mustahiq Zakat', 'info')">Daftar Mustahiq (Penerima Zakat)</button>
+                            <button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors text-sm font-medium text-slate-700" onclick="openAdminModal('Input Data Jamaah', 'Jamaah', 'insert', null, {status_aktif: 'Aktif'})">Input Data Warga/Jamaah Baru</button>
+                            <button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors text-sm font-medium text-slate-700" onclick="openAdminModal('Catat Absensi Jamaah', 'Kegiatan', 'insert', null, {kategori: 'Absensi'})">Absensi & Presensi Shalat Berjamaah</button>
+                            <button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-emerald-50 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors text-sm font-medium text-slate-700" onclick="openAdminModal('Input Mustahiq Zakat', 'Jamaah', 'insert', null, {kategori_zakat: 'Mustahiq'})">Daftar Mustahiq (Penerima Zakat)</button>
                         </div>
                     </div>
 
                     <!-- Konfigurasi Website -->
                     <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                         <h3 class="font-heading font-semibold text-slate-800 mb-4 flex items-center"><i class="fa-solid fa-sliders text-purple-500 mr-2"></i> Konfigurasi Sistem</h3>
-                        <p class="text-xs text-slate-500 mb-4">Pengaturan API Jadwal Shalat, Tema Website, dan Integrasi Supabase Database.</p>
+                        <p class="text-xs text-slate-500 mb-4">Pengaturan API Jadwal Shalat, Tema Website, dan Integrasi Database.</p>
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-semibold text-slate-600 mb-1">Lokasi Jadwal Shalat (API Kemenag)</label>
                                 <div class="flex gap-2">
                                     <input type="text" class="flex-1 text-sm p-2 bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-emerald-500" value="Wonosobo, Indonesia" disabled>
-                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-xs font-bold" onclick="showToast('Lokasi diupdate', 'success')">Ubah</button>
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-xs font-bold" onclick="openAdminModal('Update Lokasi Shalat', 'Pengaturan', 'insert', null, {kunci: 'lokasi_api'})">Ubah</button>
                                 </div>
                             </div>
                             <div class="pt-4 border-t border-slate-100">
@@ -1153,6 +1158,41 @@
                 <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white hover:bg-slate-800 transition-colors z-20 w-8 h-8 flex items-center justify-center rounded-full focus:outline-none">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
+            </div>
+        </div>
+
+        <!-- UNIVERSAL ADMIN MODAL (CRUD DYNAMIC FORM) -->
+        <div id="admin-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 p-4">
+            <div class="relative bg-slate-900/95 border border-emerald-500/50 rounded-3xl shadow-[0_0_50px_rgba(16,185,129,0.3)] w-full max-w-lg overflow-hidden transform scale-95 transition-all duration-300 flex flex-col max-h-[90vh]" id="admin-modal-content">
+                
+                <!-- Header -->
+                <div class="p-5 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/80 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-400"></div>
+                    <h3 class="text-lg font-heading font-bold text-white flex items-center z-10" id="admin-modal-title">
+                        <i class="fa-solid fa-pen-to-square text-emerald-400 mr-3"></i> Form Manajemen
+                    </h3>
+                    <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white hover:bg-slate-700/50 transition-colors w-8 h-8 rounded-full flex items-center justify-center z-10">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <!-- Body (Scrollable Form) -->
+                <div class="p-6 overflow-y-auto custom-scrollbar flex-1">
+                    <form id="admin-modal-form" onsubmit="handleAdminModalSubmit(event)" class="space-y-4">
+                        
+                        <div id="admin-modal-fields" class="space-y-4">
+                            <!-- Input Fields will be injected here dynamically by JS -->
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="pt-6 mt-6 border-t border-slate-700/50 flex justify-end gap-3 sticky bottom-0 bg-slate-900/95">
+                            <button type="button" onclick="closeAdminModal()" class="px-5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 font-medium transition-colors border border-slate-700">Batal</button>
+                            <button type="submit" id="admin-modal-submit-btn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold hover:from-emerald-500 hover:to-teal-400 shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all flex items-center">
+                                <i class="fa-solid fa-cloud-arrow-up mr-2"></i> Simpan ke Database
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -1404,6 +1444,118 @@
             }
         }
 
+        // --- UNIVERSAL ADMIN CRUD LOGIC ---
+        let currentAdminModalData = { sheet: '', action: '', id: null };
+
+        // Definisi Tipe Form (Memandu AI membuat jenis form yang tepat)
+        const adminSchemas = {
+            'Keuangan': { tanggal: 'date', tipe: 'select:Pemasukan,Pengeluaran', kategori: 'text', nominal: 'number', keterangan: 'text' },
+            'Program': { nama_program: 'text', bidang: 'text', target: 'date', status: 'select:Rencana,Berjalan,Selesai', pic: 'text' },
+            'Jumat': { tanggal: 'date', khatib: 'text', imam: 'text', muadzin: 'text' },
+            'Agenda': { tanggal: 'date', judul: 'text', waktu: 'time', lokasi: 'text' },
+            'Inventaris': { nama_barang: 'text', kategori: 'text', jumlah: 'number', kondisi: 'select:Baik,Perawatan,Rusak Ringan,Rusak Berat', lokasi: 'text' },
+            'Laporan_Riayah': { tanggal: 'date', fasilitas: 'text', pelapor: 'text', deskripsi_kerusakan: 'text', status: 'select:Dilaporkan,Diproses,Selesai' },
+            'Pengurus': { nama: 'text', jabatan: 'text', bidang: 'text', kontak: 'text', status: 'select:Aktif,Nonaktif' },
+            'Tugas': { tugas: 'text', pic: 'text', status: 'select:todo,progress,done', deadline: 'date' },
+            'Surat': { nomor: 'text', tanggal: 'date', jenis: 'select:Masuk,Keluar', perihal: 'text' },
+            'Jamaah': { nama: 'text', no_hp: 'text', alamat: 'text', kategori_zakat: 'select:Muzakki,Mustahiq,Umum', status_aktif: 'select:Aktif,Pindah,Wafat' },
+            'Kegiatan': { nama_kegiatan: 'text', kategori: 'select:Rutin,PHBI,Sosial', waktu: 'text', pemateri: 'text' },
+            'Pengaturan': { kunci: 'text', nilai: 'text' }
+        };
+
+        function openAdminModal(title, sheet, action, id = null, defaultData = {}) {
+            if (!isAdmin) { showToast('Akses ditolak. Silakan login sebagai Admin terlebih dahulu.', 'error'); return; }
+            
+            document.getElementById('admin-modal-title').innerHTML = `<i class="fa-solid ${action === 'insert' ? 'fa-plus' : 'fa-pen-to-square'} text-emerald-400 mr-3"></i> ${title}`;
+            currentAdminModalData = { sheet, action, id };
+            
+            const fieldsContainer = document.getElementById('admin-modal-fields');
+            fieldsContainer.innerHTML = ''; // Clear lama
+            
+            const schema = adminSchemas[sheet] || {}; 
+            // Jika schema tidak ada di daftar, kita buatkan otomatis dari defaultData
+            const keys = Object.keys(schema).length > 0 ? Object.keys(schema) : Object.keys(defaultData);
+
+            keys.forEach(key => {
+                if(key === 'id' || key === 'pasaran' || key === 'isCurrent') return; // Skip internal ID
+                
+                const fieldDef = schema[key] || 'text';
+                const value = defaultData[key] || '';
+                const label = key.replace(/_/g, ' ').toUpperCase();
+                
+                let inputHTML = '';
+                if (fieldDef.startsWith('select:')) {
+                    const options = fieldDef.split(':')[1].split(',').map(o => `<option value="${o}" ${value === o ? 'selected' : ''}>${o}</option>`).join('');
+                    inputHTML = `<select id="modal-field-${key}" class="w-full p-3 bg-slate-800/80 border border-slate-700 rounded-xl text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-medium appearance-none cursor-pointer">${options}</select>`;
+                } else {
+                    inputHTML = `<input type="${fieldDef}" id="modal-field-${key}" value="${value}" class="w-full p-3 bg-slate-800/80 border border-slate-700 rounded-xl text-white outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all placeholder-slate-600 font-medium" placeholder="Masukkan ${label.toLowerCase()}...">`;
+                }
+                
+                fieldsContainer.innerHTML += `
+                    <div class="relative">
+                        <label class="block text-[10px] font-bold text-emerald-400 mb-1.5 ml-1 tracking-widest uppercase">${label}</label>
+                        ${inputHTML}
+                    </div>
+                `;
+            });
+
+            // Animasi Masuk
+            const modal = document.getElementById('admin-modal');
+            const modalContent = document.getElementById('admin-modal-content');
+            modal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            });
+        }
+
+        function closeAdminModal() {
+            const modal = document.getElementById('admin-modal');
+            const modalContent = document.getElementById('admin-modal-content');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        async function handleAdminModalSubmit(e) {
+            e.preventDefault();
+            
+            // Ambil data dari form input & select
+            const dataObj = {};
+            const inputs = document.getElementById('admin-modal-fields').querySelectorAll('input, select');
+            inputs.forEach(input => {
+                const key = input.id.replace('modal-field-', '');
+                dataObj[key] = input.value;
+            });
+
+            // Ganti status tombol menjadi loading
+            const btn = document.getElementById('admin-modal-submit-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengunggah...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75');
+
+            // Kirim ke Google Apps Script
+            await submitToSpreadsheet(currentAdminModalData.sheet, currentAdminModalData.action, dataObj, currentAdminModalData.id);
+            
+            // Kembalikan status tombol & tutup
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            btn.classList.remove('opacity-75');
+            closeAdminModal();
+        }
+
+        function hapusDataAdmin(sheet, id) {
+            if (!isAdmin) { showToast('Akses ditolak!', 'error'); return; }
+            if (confirm(`Apakah Anda yakin ingin menghapus data ini dari tabel ${sheet}? Proses ini tidak bisa dibatalkan.`)) {
+                submitToSpreadsheet(sheet, 'delete', {}, id);
+            }
+        }
+
         // --- 1. STATE & ROUTING ---
         
         function navigate(target) {
@@ -1517,6 +1669,7 @@
                     // Render ulang komponen dengan data asli dari Spreadsheet
                     renderIdarah();
                     renderJumatFromData();
+                    applyDynamicSettings(); // Menerapkan Pengaturan Dinamis dari GAS
                 } else {
                     showToast('Gagal memuat database', 'error');
                 }
@@ -1526,6 +1679,22 @@
                 // Render ulang dengan data dummy jika koneksi gagal
                 renderIdarah();
                 renderJumatFromData();
+            }
+        }
+
+        // Terapkan Pengaturan Dinamis (Kunci-Nilai) dari Sheet Pengaturan
+        function applyDynamicSettings() {
+            if (appData.pengaturan && appData.pengaturan.length > 0) {
+                appData.pengaturan.forEach(setting => {
+                    if (setting.kunci === 'running_text') {
+                        const el = document.getElementById('dynamic-running-text');
+                        if (el) el.innerHTML = setting.nilai;
+                    }
+                    if (setting.kunci === 'hero_title') {
+                        const el = document.getElementById('dynamic-hero-title');
+                        if (el) el.innerHTML = setting.nilai;
+                    }
+                });
             }
         }
 
@@ -1790,11 +1959,12 @@
             if(orgCont && orgData) {
                 const o = orgData;
                 
-                // Helper Card Renderer
+                // Helper Card Renderer (Ditambah fitur Buka Modal Edit)
                 const renderCard = (data) => `
                     <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col items-center relative group hover:border-emerald-400 hover:shadow-md transition-all w-40 md:w-48 text-center mx-auto z-10">
-                        <div class="absolute top-2 right-2 admin-only z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-slate-50 border border-slate-200 hover:bg-blue-50 text-blue-500 w-6 h-6 rounded flex items-center justify-center shadow-sm text-[10px]" onclick="showToast('Edit Jabatan ${data.jabatan}', 'info')"><i class="fa-solid fa-pen"></i></button>
+                        <div class="absolute top-2 right-2 admin-only z-20 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="bg-slate-50 border border-slate-200 hover:bg-blue-50 text-blue-500 w-6 h-6 rounded flex items-center justify-center shadow-sm text-[10px]" onclick="openAdminModal('Edit Jabatan', 'Pengurus', 'update', '${data.id}', {nama: '${data.nama}', jabatan: '${data.jabatan}', bidang: '${data.bidang || '-'}', kontak: '${data.kontak}'})"><i class="fa-solid fa-pen"></i></button>
+                            <button class="bg-slate-50 border border-slate-200 hover:bg-red-50 text-red-500 w-6 h-6 rounded flex items-center justify-center shadow-sm text-[10px]" onclick="hapusDataAdmin('Pengurus', '${data.id}')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-100 to-teal-50 text-emerald-600 flex items-center justify-center mb-2 border border-emerald-200 shadow-inner">
                             <i class="fa-solid fa-user-tie text-lg"></i>
@@ -1824,12 +1994,12 @@
                                 <div class="flex flex-col items-center relative">
                                     <!-- Garis Vertikal Pendek ke Kartu -->
                                     <div class="absolute top-[-1rem] w-0.5 h-4 bg-emerald-300"></div>
-                                    ${renderCard(o.staff[0])}
+                                    ${renderCard(o.staff[0] || {jabatan: 'Sekretaris', nama: '-', kontak: '-'})}
                                 </div>
                                 <div class="flex flex-col items-center relative">
                                     <!-- Garis Vertikal Pendek ke Kartu -->
                                     <div class="absolute top-[-1rem] w-0.5 h-4 bg-emerald-300"></div>
-                                    ${renderCard(o.staff[1])}
+                                    ${renderCard(o.staff[1] || {jabatan: 'Bendahara', nama: '-', kontak: '-'})}
                                 </div>
                             </div>
                             
@@ -1845,7 +2015,7 @@
                             <!-- Garis Horizontal Pembagian Bidang -->
                             <div class="absolute top-0 w-[70%] h-0.5 bg-emerald-300"></div>
                             
-                            <div class="flex justify-around w-full pt-4">
+                            <div class="flex justify-around w-full pt-4 gap-4">
                                 ${o.bidang.map(b => `
                                     <div class="flex flex-col items-center relative px-2">
                                         <div class="absolute top-[-1rem] w-0.5 h-4 bg-emerald-300"></div>
@@ -1858,13 +2028,13 @@
                 `;
             }
 
-            // Render Program (Fallback to Mock Data if Sheet is empty)
+            // Render Program
             const progCont = document.getElementById('idarah-program-list');
             if(progCont) {
                 const progData = (appData.program && appData.program.length > 0) ? appData.program : idarahState.program;
                 
                 progCont.innerHTML = progData.map(p => {
-                    const nama = p.nama_program || p.nama; // Support Google Sheet header format
+                    const nama = p.nama_program || p.nama; 
                     let badge = '';
                     if(p.status === 'Berjalan') badge = '<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-[10px] font-bold uppercase whitespace-nowrap">Berjalan</span>';
                     else if(p.status === 'Selesai') badge = '<span class="px-2 py-1 bg-emerald-100 text-emerald-700 rounded text-[10px] font-bold uppercase whitespace-nowrap">Selesai</span>';
@@ -1878,14 +2048,14 @@
                         <td class="px-6 py-4">${badge}</td>
                         <td class="px-6 py-4 text-slate-600 font-medium whitespace-nowrap">${p.pic}</td>
                         <td class="px-6 py-4 text-center admin-col whitespace-nowrap">
-                            <button class="text-blue-500 hover:text-blue-700 bg-blue-50 p-1.5 rounded mr-1" onclick="showToast('Edit Program', 'info')"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="text-red-500 hover:text-red-700 bg-red-50 p-1.5 rounded" onclick="showToast('Hapus Program', 'error')"><i class="fa-solid fa-trash"></i></button>
+                            <button class="text-blue-500 hover:text-blue-700 bg-blue-50 p-1.5 rounded mr-1" onclick="openAdminModal('Edit Program', 'Program', 'update', '${p.id}', {nama_program: '${nama}', bidang: '${p.bidang}', target: '${p.target}', status: '${p.status}', pic: '${p.pic}'})"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="text-red-500 hover:text-red-700 bg-red-50 p-1.5 rounded" onclick="hapusDataAdmin('Program', '${p.id}')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `}).join('');
             }
 
-            // Render Surat (Fallback to Mock Data)
+            // Render Surat
             const suratCont = document.getElementById('idarah-surat-list');
             if(suratCont) {
                 const suratData = (appData.surat && appData.surat.length > 0) ? appData.surat : idarahState.surat;
@@ -1899,24 +2069,24 @@
                         <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 py-1 ${s.jenis==='Masuk' ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-blue-600'} rounded text-xs font-medium">${s.jenis}</span></td>
                         <td class="px-6 py-4 text-slate-600 text-sm min-w-[250px] whitespace-normal">${s.perihal}</td>
                         <td class="px-6 py-4 text-center admin-col whitespace-nowrap">
-                            <button class="text-blue-500 hover:text-blue-700 bg-blue-50 p-1.5 rounded mr-1" onclick="showToast('Edit Surat', 'info')"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="text-red-500 hover:text-red-700 bg-red-50 p-1.5 rounded" onclick="showToast('Hapus Surat', 'error')"><i class="fa-solid fa-trash"></i></button>
+                            <button class="text-blue-500 hover:text-blue-700 bg-blue-50 p-1.5 rounded mr-1" onclick="openAdminModal('Edit Surat', 'Surat', 'update', '${s.id}', {nomor: '${no}', tanggal: '${tgl}', jenis: '${s.jenis}', perihal: '${s.perihal}'})"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="text-red-500 hover:text-red-700 bg-red-50 p-1.5 rounded" onclick="hapusDataAdmin('Surat', '${s.id}')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `}).join('');
             }
 
-            // Render Agenda/Rapat (Fallback to Mock Data)
+            // Render Agenda/Rapat
             const rapatCont = document.getElementById('mock-rapat-list');
             if(rapatCont) {
                 const rapatData = (appData.agenda && appData.agenda.length > 0) ? appData.agenda : idarahState.rapat;
                 rapatCont.innerHTML = rapatData.map(r => {
-                    const tglArr = (r.tanggal || r.tgl).split(' '); // Ambil tanggal dan bulan
+                    const tglArr = (r.tanggal || r.tgl).split(' '); 
                     return `
                     <div class="flex p-3 bg-slate-50 rounded-lg border border-slate-100 relative group">
                         <div class="absolute top-2 right-2 admin-only z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="bg-white border border-slate-200 hover:bg-blue-50 text-blue-500 p-1 rounded shadow-sm text-[10px]" onclick="showToast('Edit Agenda', 'info')"><i class="fa-solid fa-pen"></i></button>
-                            <button class="bg-white border border-slate-200 hover:bg-red-50 text-red-500 p-1 rounded shadow-sm text-[10px]" onclick="showToast('Hapus Agenda', 'error')"><i class="fa-solid fa-trash"></i></button>
+                            <button class="bg-white border border-slate-200 hover:bg-blue-50 text-blue-500 p-1 rounded shadow-sm text-[10px]" onclick="openAdminModal('Edit Agenda', 'Agenda', 'update', '${r.id}', {tanggal: '${r.tanggal || r.tgl}', judul: '${r.judul}', waktu: '${r.waktu}', lokasi: '${r.lokasi}'})"><i class="fa-solid fa-pen"></i></button>
+                            <button class="bg-white border border-slate-200 hover:bg-red-50 text-red-500 p-1 rounded shadow-sm text-[10px]" onclick="hapusDataAdmin('Agenda', '${r.id}')"><i class="fa-solid fa-trash"></i></button>
                         </div>
                         <div class="bg-white border border-slate-200 rounded w-12 h-12 flex flex-col items-center justify-center text-emerald-600 shrink-0">
                             <span class="text-xs font-bold leading-none">${tglArr[0] || '-'}</span>
@@ -1937,7 +2107,8 @@
             const renderTaskCard = (t) => `
                 <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-100 cursor-move hover:border-emerald-300 transition-colors relative group">
                     <div class="absolute top-1 right-1 admin-only z-10 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button class="bg-slate-50 border border-slate-100 hover:bg-blue-50 text-blue-500 p-1 rounded shadow-sm text-[10px]" onclick="showToast('Edit Tugas', 'info')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="bg-slate-50 border border-slate-100 hover:bg-blue-50 text-blue-500 p-1 rounded shadow-sm text-[10px]" onclick="openAdminModal('Edit Tugas', 'Tugas', 'update', '${t.id}', {tugas: '${t.tugas}', pic: '${t.pic}', status: '${t.status}', deadline: '${t.deadline || ''}'})"><i class="fa-solid fa-pen"></i></button>
+                        <button class="bg-slate-50 border border-slate-100 hover:bg-red-50 text-red-500 p-1 rounded shadow-sm text-[10px]" onclick="hapusDataAdmin('Tugas', '${t.id}')"><i class="fa-solid fa-trash"></i></button>
                     </div>
                     <p class="text-xs font-medium text-slate-800 mb-2 pr-6">${t.tugas}</p>
                     <div class="flex justify-between items-center mt-2 pt-2 border-t border-slate-50">
@@ -2324,11 +2495,11 @@
                 petugasData = appData.jumat;
             } else {
                 petugasData = [
-                    { tanggal: "2 Okt 2026", khatib: "Ust. H. Abdullah", imam: "Ust. H. Abdullah", muadzin: "Sdr. Ilham" },
-                    { tanggal: "9 Okt 2026", khatib: "Ust. H. M. Yasin, Lc", imam: "Ust. H. M. Yasin, Lc", muadzin: "Sdr. Abdul Rozak" },
-                    { tanggal: "16 Okt 2026", khatib: "KH. Ahmad Fauzi", imam: "KH. Ahmad Fauzi", muadzin: "Bpk. Sholeh" },
-                    { tanggal: "23 Okt 2026", khatib: "Ust. Zaidan", imam: "Ust. Zaidan", muadzin: "Sdr. Rizky" },
-                    { tanggal: "30 Okt 2026", khatib: "Ust. Ali Hasan", imam: "Ust. Ali Hasan", muadzin: "Sdr. Umar" }
+                    { id: '1', tanggal: "2 Okt 2026", khatib: "Ust. H. Abdullah", imam: "Ust. H. Abdullah", muadzin: "Sdr. Ilham" },
+                    { id: '2', tanggal: "9 Okt 2026", khatib: "Ust. H. M. Yasin, Lc", imam: "Ust. H. M. Yasin, Lc", muadzin: "Sdr. Abdul Rozak" },
+                    { id: '3', tanggal: "16 Okt 2026", khatib: "KH. Ahmad Fauzi", imam: "KH. Ahmad Fauzi", muadzin: "Bpk. Sholeh" },
+                    { id: '4', tanggal: "23 Okt 2026", khatib: "Ust. Zaidan", imam: "Ust. Zaidan", muadzin: "Sdr. Rizky" },
+                    { id: '5', tanggal: "30 Okt 2026", khatib: "Ust. Ali Hasan", imam: "Ust. Ali Hasan", muadzin: "Sdr. Umar" }
                 ];
             }
 
@@ -2362,12 +2533,12 @@
                 // Diabaikan, Kalkulator Pasaran internal sudah jalan
             }
 
-            // Beri label "Minggu Ini" untuk item pertama (atau logika lain)
+            // Beri label "Minggu Ini" untuk item pertama
             const combinedData = petugasData.map((p, index) => {
-                return { ...p, pasaran: pasaranList[index], isCurrent: index === 0 }; // Anggap baris 1 adalah minggu ini
+                return { ...p, pasaran: pasaranList[index], isCurrent: index === 0 };
             });
 
-            // Render ke Tabel HTML
+            // Render ke Tabel HTML dengan tombol Edit
             tbody.innerHTML = combinedData.map(j => {
                 const tgl = j.tanggal || j.date;
                 if(j.isCurrent) {
@@ -2376,8 +2547,9 @@
                         <td class="px-4 py-3 font-semibold text-slate-700 flex items-center">
                             ${tgl} 
                             <span class="ml-2 bg-emerald-500 text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Minggu Ini</span>
-                            <div class="absolute right-2 top-2 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-blue-50 text-blue-500 p-1.5 rounded text-[10px]" onclick="showToast('Edit Petugas', 'info')"><i class="fa-solid fa-pen"></i></button>
+                            <div class="absolute right-2 top-2 admin-only flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="bg-blue-50 text-blue-500 p-1.5 rounded text-[10px]" onclick="openAdminModal('Edit Petugas', 'Jumat', 'update', '${j.id}', {tanggal: '${tgl}', khatib: '${j.khatib}', imam: '${j.imam}', muadzin: '${j.muadzin}'})"><i class="fa-solid fa-pen"></i></button>
+                                <button class="bg-red-50 text-red-500 p-1.5 rounded text-[10px]" onclick="hapusDataAdmin('Jumat', '${j.id}')"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                         <td class="px-4 py-3 text-emerald-700 font-medium">${j.khatib}</td>
@@ -2393,8 +2565,9 @@
                     <tr class="hover:bg-slate-50 relative group">
                         <td class="px-4 py-3 font-semibold text-slate-700">
                             ${tgl} <br><span class="text-xs text-emerald-600 font-medium">Jumat ${j.pasaran}</span>
-                            <div class="absolute right-2 top-2 admin-only opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button class="bg-blue-50 text-blue-500 p-1.5 rounded text-[10px]" onclick="showToast('Edit Petugas', 'info')"><i class="fa-solid fa-pen"></i></button>
+                            <div class="absolute right-2 top-2 admin-only flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button class="bg-blue-50 text-blue-500 p-1.5 rounded text-[10px]" onclick="openAdminModal('Edit Petugas', 'Jumat', 'update', '${j.id}', {tanggal: '${tgl}', khatib: '${j.khatib}', imam: '${j.imam}', muadzin: '${j.muadzin}'})"><i class="fa-solid fa-pen"></i></button>
+                                <button class="bg-red-50 text-red-500 p-1.5 rounded text-[10px]" onclick="hapusDataAdmin('Jumat', '${j.id}')"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         </td>
                         <td class="px-4 py-3 text-slate-600">${j.khatib}</td>
