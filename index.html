@@ -181,6 +181,35 @@
     <!-- Toast Notifications -->
     <div id="toastContainer" class="toast-container"></div>
 
+    <!-- MODAL LOGIN ADMIN -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content shadow-2xl relative dark:bg-gray-800 p-6 max-w-sm">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-primary-light text-primary rounded-full flex items-center justify-center text-3xl mx-auto mb-3">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 dark:text-white">Login Admin C-Panel</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Masukkan kredensial khusus administrator</p>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-user mr-1"></i> Username</label>
+                    <input type="text" id="loginUsername" required placeholder="Ketik admin" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-lock mr-1"></i> Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Ketik adminn 123" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary-dark transition-colors shadow-md flex items-center justify-center gap-2 mt-4">
+                    <i class="fas fa-sign-in-alt"></i> Masuk Sekarang
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- UNIVERSAL ADMIN MODAL (Untuk Insert/Update Data ke GAS) -->
     <div id="adminModal" class="modal-overlay">
         <div class="modal-content shadow-2xl relative dark:bg-gray-800">
