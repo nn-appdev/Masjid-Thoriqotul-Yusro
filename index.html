@@ -409,250 +409,239 @@
                 </div>
 
                 <!-- ===== QURAN MODULE: BEGIN ===== -->
-                <section id="quranModule">
+                <section id="mushafPageApp">
                   <style>
-                    #quranModule {
-                      --q-green: #0d9488;
-                      --q-gold: #c5a15a;
-                      --q-paper: #fbfaf5;
-                      color: #24372e;
-                      font-family: system-ui, sans-serif;
+                    #mushafPageApp {
+                      --mp-green: #0d9488; /* Disesuaikan dengan tema aplikasi */
+                      --mp-cream: #fbf8ef;
+                      font-family: system-ui, Arial, sans-serif;
+                      color: #24352c;
+                      margin: 0 auto;
                       width: 100%;
                     }
-                    #quranModule * { box-sizing: border-box; }
-                    #quranModule .q-head { background: linear-gradient(135deg,#0f766e,#0d9488); color: white; padding: 24px; border-radius: 18px; margin-bottom: 16px; }
-                    #quranModule .q-head h2 { margin: 0 0 6px; font-size: 25px; }
-                    #quranModule .q-head p { margin: 0; opacity: .85; font-size: 14px; }
-                    #quranModule .q-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-                    #quranModule input, #quranModule select, #quranModule button { font: inherit; }
-                    #quranModule .q-input, #quranModule .q-select { width: 100%; min-width: 0; padding: 12px; border: 1px solid #d9e1da; border-radius: 10px; background: white; color: #24372e; }
-                    #quranModule .q-btn { padding: 10px 13px; border: 1px solid #d7e1d9; border-radius: 10px; background: white; color: var(--q-green); cursor: pointer; font-weight: 600; }
-                    #quranModule .q-btn-primary { background: var(--q-green); color: white; border-color: var(--q-green); }
-                    #quranModule .q-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-                    #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; color: #24372e; }
-                    #quranModule .q-info { padding: 18px; text-align: center; color: #65746a; }
-                    #quranModule .q-ayah { background: white; border: 1px solid #e5e9e2; border-radius: 14px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px #193c2510; }
-                    #quranModule .q-ayah-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #edf0eb; padding-bottom: 12px; margin-bottom: 16px; }
-                    #quranModule .q-number { color: var(--q-green); font-size: 13px; font-weight: 700; }
-                    #quranModule .q-arabic { font-family: "Noto Naskh Arabic", "Amiri", serif; font-size: 30px; line-height: 2.05; text-align: right; direction: rtl; margin: 12px 0 18px; overflow-wrap: anywhere; }
-                    #quranModule .q-translation { font-size: 15px; line-height: 1.9; color: #425248; margin-bottom: 15px; }
-                    #quranModule .q-ayah-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-                    #quranModule .q-tafsir { background: #f7f7f0; border-left: 3px solid var(--q-gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; color: #24372e; }
-                    #quranModule .q-hidden { display: none; }
-                    #quranModule .q-footer { color: #788279; font-size: 12px; line-height: 1.7; margin-top: 16px; }
-                    @media (max-width: 520px) { #quranModule .q-controls { grid-template-columns: 1fr; } #quranModule .q-head { padding: 19px; } #quranModule .q-arabic { font-size: 27px; } #quranModule .q-ayah { padding: 15px; } }
+                    #mushafPageApp * { box-sizing: border-box; }
+                    #mushafPageApp .mp-panel { background: var(--mp-cream); border: 1px solid #e7e1d1; border-radius: 18px; padding: 18px; }
+                    #mushafPageApp .mp-heading { color: var(--mp-green); font-size: 1.35rem; font-weight: 750; margin: 0 0 6px; }
+                    #mushafPageApp .mp-muted { color: #6b776e; font-size: .9rem; }
+                    #mushafPageApp .mp-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0; }
+                    #mushafPageApp select, #mushafPageApp button { border: 1px solid #d8ded7; border-radius: 10px; padding: 10px 12px; font: inherit; background: white; color: #24352c; }
+                    #mushafPageApp button { cursor: pointer; font-weight: 650; }
+                    #mushafPageApp button.mp-primary { background: var(--mp-green); color: white; border-color: var(--mp-green); }
+                    #mushafPageApp button:disabled { opacity: .45; cursor: not-allowed; }
+                    #mushafPageApp .mp-status { margin: 10px 0; font-size: .9rem; min-height: 1.4em; }
+                    #mushafPageApp .mp-paper { background: #fffdf7; border: 1px solid #e5dcc8; border-radius: 12px; padding: clamp(18px, 4vw, 36px); box-shadow: 0 5px 20px #24352c0b; }
+                    #mushafPageApp .mp-page-title { text-align: center; border-bottom: 1px solid #e5dcc8; padding-bottom: 14px; margin-bottom: 20px; }
+                    #mushafPageApp .mp-ayah { padding: 14px 0; border-bottom: 1px solid #eee9de; transition: background .2s; }
+                    #mushafPageApp .mp-ayah.mp-playing { background: #ccfbf1; border-radius: 8px; padding-left: 10px; padding-right: 10px; }
+                    #mushafPageApp .mp-arabic { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: clamp(1.65rem, 4.5vw, 2.25rem); line-height: 2.1; text-align: right; direction: rtl; margin-bottom: 8px; overflow-wrap: anywhere; }
+                    #mushafPageApp .mp-translation { color: #4d5a50; line-height: 1.8; font-size: .96rem; }
+                    #mushafPageApp .mp-ref { color: var(--mp-green); font-size: .78rem; font-weight: 700; margin-bottom: 4px; }
+                    #mushafPageApp .mp-audio-box { background: white; border: 1px solid #e7e1d1; border-radius: 12px; padding: 14px; margin-top: 14px; }
+                    #mushafPageApp audio { width: 100%; margin-top: 10px; }
+                    #mushafPageApp .mp-progress { height: 6px; border-radius: 8px; background: #e3e9e3; overflow: hidden; margin-top: 10px; }
+                    #mushafPageApp .mp-progress-bar { width: 0; height: 100%; background: var(--mp-green); transition: width .2s; }
+                    @media (max-width: 520px) { #mushafPageApp .mp-controls > * { flex: 1 1 40%; } #mushafPageApp .mp-panel { padding: 12px; } }
                   </style>
 
-                  <header class="q-head">
-                    <h2>القرآن الكريم</h2>
-                    <p>Pembaca Al-Qur'an · Terjemahan · Murottal</p>
-                  </header>
+                  <div class="mp-panel">
+                    <h2 class="mp-heading">Al-Qur’an — Mushaf per Halaman</h2>
+                    <div class="mp-muted">Pilih halaman 1–604, baca teks Arab dan terjemahan, lalu dengarkan tilawah berurutan.</div>
 
-                  <div class="q-controls">
-                    <input id="qSearch" class="q-input" type="search" placeholder="Cari nama surah..." aria-label="Cari surah">
-                    <select id="qSurah" class="q-select" aria-label="Pilih surah"><option value="">Memuat surah...</option></select>
-                    <select id="qEdition" class="q-select" aria-label="Pilih terjemahan"><option value="">Memuat terjemahan...</option></select>
-                    <select id="qReciter" class="q-select" aria-label="Pilih qari">
-                      <option value="ar.alafasy">Mishary Alafasy</option>
-                      <option value="ar.husary">Mahmoud Al-Husary</option>
-                      <option value="ar.minshawi">Al-Minshawi</option>
-                      <option value="ar.abdulbasit">Abdul Basit</option>
-                      <option value="ar.sudais">Abdurrahman As-Sudais</option>
-                    </select>
+                    <div class="mp-controls">
+                      <button type="button" id="mpPrev">← Sebelumnya</button>
+                      <label>
+                        <span class="mp-muted">Halaman</span><br>
+                        <select id="mpPage" aria-label="Pilih halaman mushaf"></select>
+                      </label>
+                      <button type="button" id="mpNext">Berikutnya →</button>
+                    </div>
+
+                    <div class="mp-controls">
+                      <label>
+                        <span class="mp-muted">Qari</span><br>
+                        <select id="mpReciter">
+                          <option value="ar.alafasy">Mishary Rashid Alafasy</option>
+                          <option value="ar.husary">Mahmoud Khalil Al-Husary</option>
+                          <option value="ar.minshawi">Mohamed Siddiq Al-Minshawi</option>
+                          <option value="ar.abdulbasit">Abdul Basit</option>
+                          <option value="ar.sudais">Abdurrahman As-Sudais</option>
+                        </select>
+                      </label>
+                      <button type="button" class="mp-primary" id="mpPlay">▶ Putar halaman</button>
+                      <button type="button" id="mpPause">Ⅱ Jeda</button>
+                      <button type="button" id="mpStop">■ Berhenti</button>
+                    </div>
+
+                    <div id="mpStatus" class="mp-status" role="status" aria-live="polite">Memuat daftar halaman...</div>
+
+                    <div class="mp-audio-box">
+                      <strong id="mpAudioTitle">Audio halaman</strong>
+                      <div class="mp-muted" id="mpAudioInfo">Audio diputar ayat demi ayat hingga halaman selesai.</div>
+                      <audio id="mpAudio" controls preload="none"></audio>
+                      <div class="mp-progress">
+                        <div id="mpProgressBar" class="mp-progress-bar"></div>
+                      </div>
+                    </div>
+
+                    <div class="mp-paper" style="margin-top:16px">
+                      <div class="mp-page-title">
+                        <div style="font-weight:750;color:#0d9488" id="mpPageHeading">Mushaf</div>
+                        <div class="mp-muted" id="mpPageSubheading"></div>
+                      </div>
+                      <div id="mpAyahs"></div>
+                    </div>
                   </div>
-
-                  <div class="q-toolbar">
-                    <button class="q-btn q-btn-primary" id="qLoad">Baca surah</button>
-                    <button class="q-btn" id="qSave">Simpan teks offline</button>
-                  </div>
-
-                  <div id="qStatus" class="q-status" role="status">Menyiapkan pembaca Al-Qur'an...</div>
-                  <div id="qSurahInfo"></div>
-                  <div id="qVerses"></div>
-                  <div class="q-footer">Sumber teks dan terjemahan: AlQuran Cloud API.</div>
 
                   <script>
                   (() => {
                     "use strict";
-                    const root = document.getElementById("quranModule");
-                    if (!root || root.dataset.initialized === "1") return;
-                    root.dataset.initialized = "1";
+                    const root = document.getElementById("mushafPageApp");
+                    if (!root || root.dataset.initialized === "true") return;
+                    root.dataset.initialized = "true";
 
                     const API = "https://api.alquran.cloud/v1";
-                    const AUDIO = "https://cdn.islamic.network/quran/audio/128";
-                    const DB_NAME = "quran-module-cache-v1";
+                    const CDN = "https://cdn.islamic.network/quran/audio/128";
+                    const $ = id => document.getElementById(id);
 
-                    const $ = id => root.querySelector("#" + id);
-                    const status = $("qStatus");
-                    const surahSelect = $("qSurah");
-                    const editionSelect = $("qEdition");
-                    const versesBox = $("qVerses");
-                    const infoBox = $("qSurahInfo");
+                    const pageSelect = $("mpPage");
+                    const reciterSelect = $("mpReciter");
+                    const audio = $("mpAudio");
 
-                    let db; let surahs = []; let editions = []; let currentSurahNumber = 1; let currentAudio = null; let tafsirEdition = null;
-                    
-                    window._stopQuranAudio = () => { if(currentAudio) currentAudio.pause(); };
+                    let currentPage = 1;
+                    let ayahs = [];
+                    let playIndex = -1;
+                    let queueActive = false;
+                    let requestId = 0;
 
-                    function setStatus(message) { status.textContent = message; }
-                    function node(tag, className, text) { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; }
-
-                    function openDB() {
-                      return new Promise((resolve, reject) => {
-                        if (!("indexedDB" in window)) { reject(new Error("Browser tidak mendukung IndexedDB.")); return; }
-                        const request = indexedDB.open(DB_NAME, 1);
-                        request.onupgradeneeded = () => { request.result.createObjectStore("data", { keyPath: "key" }); };
-                        request.onsuccess = () => resolve(request.result);
-                        request.onerror = () => reject(request.error);
-                      });
+                    for (let p = 1; p <= 604; p++) {
+                      const option = document.createElement("option");
+                      option.value = String(p); option.textContent = `Halaman ${p}`;
+                      pageSelect.appendChild(option);
                     }
 
-                    function dbGet(key) {
-                      return new Promise((resolve, reject) => {
-                        const request = db.transaction("data", "readonly").objectStore("data").get(key);
-                        request.onsuccess = () => resolve(request.result || null);
-                        request.onerror = () => reject(request.error);
-                      });
-                    }
+                    // FUNGSI INI DITAMBAHKAN UNTUK SINKRONISASI TOMBOL TUTUP
+                    window._stopMushafAudio = () => { stopPlayback(true); };
 
-                    function dbPut(key, value) {
-                      return new Promise((resolve, reject) => {
-                        const tx = db.transaction("data", "readwrite");
-                        tx.objectStore("data").put({ key, value, savedAt: Date.now() });
-                        tx.oncomplete = () => resolve(); tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error);
-                      });
-                    }
+                    function status(message) { $("mpStatus").textContent = message; }
 
-                    async function apiGet(url) {
+                    async function fetchJSON(url) {
                       const response = await fetch(url);
-                      if (!response.ok) throw new Error("HTTP " + response.status);
+                      if (!response.ok) throw new Error(`Permintaan API gagal (${response.status}).`);
                       const json = await response.json();
-                      if (json.code !== 200 || json.data == null) throw new Error("Data tidak valid.");
+                      if (json.code !== 200 || !json.data) throw new Error("Data tidak tersedia dari API.");
                       return json.data;
                     }
 
-                    async function cachedGet(key, url) {
-                      const cached = await dbGet(key);
-                      if (!navigator.onLine) { if (cached) return cached.value; throw new Error("Data belum disimpan (offline)."); }
-                      try { const value = await apiGet(url); await dbPut(key, value); return value; } 
-                      catch (error) { if (cached) return cached.value; throw error; }
+                    function clearPlayingHighlight() {
+                      root.querySelectorAll(".mp-ayah.mp-playing").forEach(el => { el.classList.remove("mp-playing"); });
                     }
 
-                    function setOptions(select, items, getValue, getLabel) {
-                      select.replaceChildren();
-                      items.forEach(item => { const option = document.createElement("option"); option.value = getValue(item); option.textContent = getLabel(item); select.appendChild(option); });
+                    function highlightAyah(index) {
+                      clearPlayingHighlight();
+                      const item = ayahs[index];
+                      if (!item) return;
+                      const el = root.querySelector(`[data-global-ayah="${item.number}"]`);
+                      if (el) { el.classList.add("mp-playing"); el.scrollIntoView({ behavior: "smooth", block: "center" }); }
+                      $("mpAudioTitle").textContent = `Halaman ${currentPage} · ${item.surah.englishName}`;
+                      $("mpAudioInfo").textContent = `Ayat ${item.numberInSurah} · ${index + 1} dari ${ayahs.length}`;
+                      $("mpProgressBar").style.width = `${((index + 1) / Math.max(ayahs.length, 1)) * 100}%`;
                     }
 
-                    async function loadSurahList() {
-                      surahs = await cachedGet("surah-list", API + "/surah");
-                      renderSurahOptions();
-                    }
+                    function renderPage() {
+                      const container = $("mpAyahs");
+                      container.replaceChildren();
+                      $("mpPageHeading").textContent = `Halaman ${currentPage}`;
+                      const first = ayahs[0]; const last = ayahs[ayahs.length - 1];
+                      $("mpPageSubheading").textContent = first && last ? `${first.surah.englishName} ${first.numberInSurah} – ${last.surah.englishName} ${last.numberInSurah}` : "";
 
-                    function renderSurahOptions() {
-                      const query = $("qSearch").value.trim().toLowerCase();
-                      const filtered = surahs.filter(s => String(s.number).includes(query) || s.name.toLowerCase().includes(query) || s.englishName.toLowerCase().includes(query) || s.englishNameTranslation.toLowerCase().includes(query));
-                      const previous = surahSelect.value;
-                      setOptions(surahSelect, filtered, s => s.number, s => `${s.number}. ${s.englishName} — ${s.name}`);
-                      if (filtered.some(s => String(s.number) === previous)) surahSelect.value = previous;
-                    }
+                      ayahs.forEach((ayah, index) => {
+                        const article = document.createElement("article");
+                        article.className = "mp-ayah"; article.dataset.globalAyah = String(ayah.number);
 
-                    async function loadEditions() {
-                      editions = await cachedGet("translation-editions-id", API + "/edition/language/id");
-                      const usable = editions.filter(e => e.format === "text" && e.type === "translation");
-                      if (!usable.length) throw new Error("Terjemahan Indonesia tidak ditemukan.");
-                      setOptions(editionSelect, usable, e => e.identifier, e => e.name || e.englishName || e.identifier);
-                      const preferred = usable.find(e => e.identifier === "id.indonesian") || usable[0];
-                      editionSelect.value = preferred.identifier;
-                    }
+                        const ref = document.createElement("div"); ref.className = "mp-ref"; ref.textContent = `${ayah.surah.englishName} · Ayat ${ayah.numberInSurah}`;
+                        const arabic = document.createElement("div"); arabic.className = "mp-arabic"; arabic.lang = "ar"; arabic.dir = "rtl"; arabic.textContent = ayah.text;
+                        const translation = document.createElement("div"); translation.className = "mp-translation"; translation.textContent = ayah.translation || "Terjemahan belum tersedia.";
 
-                    async function getSurahData(number, edition) {
-                      return cachedGet(`surah:${number}:edition:${edition}`, `${API}/surah/${number}/editions/quran-uthmani,${encodeURIComponent(edition)}`);
-                    }
-
-                    function renderSurah(data) {
-                      if (!Array.isArray(data) || data.length < 2) throw new Error("Format surah salah.");
-                      const arabic = data[0]; const translation = data[1];
-                      currentSurahNumber = arabic.number; versesBox.replaceChildren();
-                      infoBox.replaceChildren( node("h3", "", `${arabic.englishName} · ${arabic.name}`), node("p", "q-info", `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`) );
-
-                      arabic.ayahs.forEach((ayah, index) => {
-                        const translated = translation.ayahs[index];
-                        const card = node("article", "q-ayah");
-                        const top = node("div", "q-ayah-top");
-                        const number = node("span", "q-number", `Ayat ${ayah.numberInSurah}`);
-                        const actions = node("div", "q-ayah-actions");
-
-                        top.append(number);
-                        const arabicText = node("div", "q-arabic", ayah.text); arabicText.lang = "ar"; arabicText.dir = "rtl";
-                        const translationText = node("div", "q-translation", translated.text);
-                        const playButton = node("button", "q-btn", "▶ Putar"); playButton.type = "button";
-                        playButton.addEventListener("click", () => { playAyah(ayah.number, playButton); });
-
-                        const tafsirButton = node("button", "q-btn", "Baca tafsir"); tafsirButton.type = "button";
-                        const tafsirPanel = node("div", "q-tafsir q-hidden"); tafsirPanel.setAttribute("aria-live", "polite");
-
-                        tafsirButton.addEventListener("click", async () => {
-                          if (!tafsirPanel.classList.contains("q-hidden")) { tafsirPanel.classList.add("q-hidden"); return; }
-                          tafsirPanel.classList.remove("q-hidden"); tafsirPanel.textContent = "Memeriksa sumber tafsir...";
-                          try {
-                            if (!tafsirEdition) {
-                              const available = await cachedGet("tafsir-editions-id", API + "/edition/type/tafsir");
-                              tafsirEdition = available.find(e => e.format === "text" && e.language === "id") || null;
-                            }
-                            if (!tafsirEdition) { tafsirPanel.textContent = "Tafsir Indonesia belum tersedia."; return; }
-                            const tafsirData = await cachedGet(`tafsir:${arabic.number}:${ayah.numberInSurah}:${tafsirEdition.identifier}`, `${API}/ayah/${arabic.number}:${ayah.numberInSurah}/${encodeURIComponent(tafsirEdition.identifier)}`);
-                            tafsirPanel.textContent = (tafsirEdition.name || tafsirEdition.englishName) + "\n\n" + tafsirData.text;
-                          } catch (error) { tafsirPanel.textContent = "Tafsir belum dapat dimuat. " + error.message; }
-                        });
-
-                        actions.append(playButton, tafsirButton);
-                        card.append(top, arabicText, translationText, actions, tafsirPanel);
-                        versesBox.appendChild(card);
+                        article.append(ref, arabic, translation);
+                        container.appendChild(article);
                       });
+                      $("mpProgressBar").style.width = "0%";
                     }
 
-                    async function playAyah(globalNumber, button) {
-                      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-                      const reciter = $("qReciter").value;
-                      const url = `${AUDIO}/${encodeURIComponent(reciter)}/${globalNumber}.mp3`;
-                      const audio = new Audio(url); currentAudio = audio;
-                      button.textContent = "Memuat audio...";
-                      audio.onended = () => { button.textContent = "▶ Putar"; };
-                      audio.onerror = () => { button.textContent = "▶ Putar"; setStatus("Audio gagal dimuat."); };
-                      try { await audio.play(); button.textContent = "❚❚ Diputar"; setStatus("Murottal sedang diputar."); } catch { button.textContent = "▶ Putar"; setStatus("Audio belum dapat diputar."); }
-                    }
+                    async function loadPage(page) {
+                      const thisRequest = ++requestId;
+                      stopPlayback(false);
+                      currentPage = Math.max(1, Math.min(604, Number(page) || 1));
+                      pageSelect.value = String(currentPage);
+                      $("mpPrev").disabled = currentPage === 1; $("mpNext").disabled = currentPage === 604;
+                      $("mpAyahs").replaceChildren();
+                      status(`Memuat halaman ${currentPage}...`);
 
-                    async function loadSelectedSurah() {
-                      const number = Number(surahSelect.value); const edition = editionSelect.value;
-                      if (!number || !edition) { setStatus("Pilih surah dan terjemahan terlebih dahulu."); return; }
-                      setStatus("Memuat teks Arab dan terjemahan..."); versesBox.replaceChildren(); infoBox.replaceChildren();
                       try {
-                        const data = await getSurahData(number, edition); renderSurah(data);
-                        setStatus(navigator.onLine ? "Surah berhasil dimuat." : "Mode offline: data tersimpan digunakan.");
-                      } catch (error) { setStatus("Gagal memuat surah: " + error.message); }
+                        const [arabicData, translationData] = await Promise.all([
+                          fetchJSON(`${API}/page/${currentPage}/quran-uthmani`),
+                          fetchJSON(`${API}/page/${currentPage}/id.indonesian`)
+                        ]);
+
+                        if (thisRequest !== requestId) return;
+
+                        const arabicAyahs = arabicData.ayahs || [];
+                        const translatedAyahs = translationData.ayahs || [];
+                        if (!arabicAyahs.length) throw new Error("Tidak ada ayat untuk halaman ini.");
+
+                        const translationMap = new Map(translatedAyahs.map(a => [a.number, a.text]));
+                        ayahs = arabicAyahs.map(a => ({ ...a, translation: translationMap.get(a.number) || "" }));
+
+                        renderPage();
+                        status(`Halaman ${currentPage} berhasil dimuat · ${ayahs.length} ayat.`);
+                      } catch (error) {
+                        if (thisRequest !== requestId) return;
+                        ayahs = [];
+                        status(`${error.message} Periksa koneksi internet lalu coba lagi.`);
+                      }
                     }
 
-                    async function saveSelectedSurah() {
-                      if (!navigator.onLine) { setStatus("Hubungkan internet untuk menyimpan surah baru."); return; }
-                      try {
-                        const number = Number(surahSelect.value); const edition = editionSelect.value;
-                        setStatus("Menyimpan teks Arab dan terjemahan..."); await getSurahData(number, edition);
-                        setStatus("Teks Arab dan terjemahan surah tersimpan di perangkat.");
-                      } catch (error) { setStatus("Penyimpanan gagal: " + error.message); }
+                    function stopPlayback(resetAudio = true) {
+                      queueActive = false; playIndex = -1;
+                      if (resetAudio) { audio.pause(); audio.removeAttribute("src"); audio.load(); }
+                      clearPlayingHighlight();
+                      $("mpProgressBar").style.width = "0%";
+                      $("mpAudioTitle").textContent = `Audio halaman ${currentPage}`;
+                      $("mpAudioInfo").textContent = "Pilih Putar halaman untuk memulai tilawah.";
                     }
 
-                    async function init() {
-                      try {
-                        db = await openDB();
-                        await Promise.all([loadSurahList(), loadEditions()]);
-                        $("qSearch").addEventListener("input", renderSurahOptions); $("qLoad").addEventListener("click", loadSelectedSurah); $("qSave").addEventListener("click", saveSelectedSurah);
-                        surahSelect.addEventListener("change", loadSelectedSurah); editionSelect.addEventListener("change", loadSelectedSurah);
-                        setStatus(navigator.onLine ? "Siap digunakan." : "Offline: hanya data tersimpan tersedia.");
-                        if (surahSelect.options.length) await loadSelectedSurah();
-                      } catch (error) { setStatus("Inisialisasi gagal: " + error.message); }
+                    async function playAt(index) {
+                      if (!queueActive || index < 0 || index >= ayahs.length) {
+                        queueActive = false; clearPlayingHighlight();
+                        status(`Tilawah halaman ${currentPage} selesai.`);
+                        $("mpAudioInfo").textContent = "Halaman selesai diputar."; return;
+                      }
+
+                      playIndex = index; const ayah = ayahs[index]; highlightAyah(index);
+                      audio.src = `${CDN}/${encodeURIComponent(reciterSelect.value)}/${ayah.number}.mp3`;
+                      status(`Memutar halaman ${currentPage} · ayat ${ayah.numberInSurah} (${index + 1}/${ayahs.length}).`);
+
+                      try { await audio.play(); } catch (error) {
+                        queueActive = false; status("Audio tidak dapat diputar. Tekan tombol putar atau coba pilih qari lain.");
+                      }
                     }
-                    window.addEventListener("online", () => { setStatus("Koneksi kembali tersedia."); });
-                    window.addEventListener("offline", () => { setStatus("Offline: gunakan surah yang sudah tersimpan."); });
-                    init();
+
+                    $("mpPlay").addEventListener("click", () => {
+                      if (!ayahs.length) { status("Muat halaman yang berisi ayat terlebih dahulu."); return; }
+                      queueActive = true; const startIndex = playIndex >= 0 ? playIndex : 0; playAt(startIndex);
+                    });
+
+                    $("mpPause").addEventListener("click", () => { audio.pause(); status("Audio dijeda."); });
+                    $("mpStop").addEventListener("click", () => { stopPlayback(true); status("Pemutaran dihentikan."); });
+                    audio.addEventListener("ended", () => { if (queueActive) playAt(playIndex + 1); });
+                    audio.addEventListener("error", () => { if (queueActive) { queueActive = false; status("Audio ayat ini gagal dimuat."); } });
+
+                    pageSelect.addEventListener("change", () => { loadPage(pageSelect.value); });
+                    $("mpPrev").addEventListener("click", () => { if (currentPage > 1) loadPage(currentPage - 1); });
+                    $("mpNext").addEventListener("click", () => { if (currentPage < 604) loadPage(currentPage + 1); });
+                    reciterSelect.addEventListener("change", () => { if (queueActive && playIndex >= 0) playAt(playIndex); });
+
+                    loadPage(1);
                   })();
                   </script>
                 </section>
@@ -2089,7 +2078,8 @@
         function tutupQuranDiBeranda() {
             document.getElementById('quranContainerBeranda').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            if(window._stopQuranAudio) window._stopQuranAudio();
+            // Menghentikan audio Murottal jika user menutup Al-Quran
+            if(window._stopMushafAudio) window._stopMushafAudio();
         }
 
         // ====================================================================
