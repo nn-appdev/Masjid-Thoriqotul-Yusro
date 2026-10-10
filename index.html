@@ -403,7 +403,7 @@
             <!-- Kontainer Utama Al-Quran -->
             <div id="quranContainerBeranda" class="hidden mb-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 p-4 md:p-6 transition-all duration-500 ease-in-out origin-top">
                 <div class="flex justify-end items-center mb-2 pb-2">
-                    <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900 bg-white dark:bg-gray-800">
+                    <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900">
                         <i class="fas fa-times"></i> Tutup Al-Qur'an
                     </button>
                 </div>
@@ -427,127 +427,33 @@
                       border-radius: 18px;
                       margin-bottom: 16px;
                     }
-                    #quranModule .q-head h2 {
-                      margin: 0 0 6px;
-                      font-size: 25px;
-                    }
-                    #quranModule .q-head p {
-                      margin: 0;
-                      opacity: .85;
-                      font-size: 14px;
-                    }
-                    #quranModule .q-controls {
-                      display: grid;
-                      grid-template-columns: 1fr 1fr;
-                      gap: 10px;
-                      margin-bottom: 12px;
-                    }
-                    #quranModule input,
-                    #quranModule select,
-                    #quranModule button {
-                      font: inherit;
-                    }
-                    #quranModule .q-input,
-                    #quranModule .q-select {
-                      width: 100%;
-                      min-width: 0;
-                      padding: 12px;
-                      border: 1px solid #d9e1da;
-                      border-radius: 10px;
-                      background: white;
-                      color: #24372e;
+                    #quranModule .q-head h2 { margin: 0 0 6px; font-size: 25px; }
+                    #quranModule .q-head p { margin: 0; opacity: .85; font-size: 14px; }
+                    #quranModule .q-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+                    #quranModule input, #quranModule select, #quranModule button { font: inherit; }
+                    #quranModule .q-input, #quranModule .q-select {
+                      width: 100%; min-width: 0; padding: 12px; border: 1px solid #d9e1da; border-radius: 10px; background: white; color: #24372e;
                     }
                     #quranModule .q-btn {
-                      padding: 10px 13px;
-                      border: 1px solid #d7e1d9;
-                      border-radius: 10px;
-                      background: white;
-                      color: var(--q-green);
-                      cursor: pointer;
-                      font-weight: 600;
+                      padding: 10px 13px; border: 1px solid #d7e1d9; border-radius: 10px; background: white; color: var(--q-green); cursor: pointer; font-weight: 600;
                     }
-                    #quranModule .q-btn-primary {
-                      background: var(--q-green);
-                      color: white;
-                      border-color: var(--q-green);
-                    }
-                    #quranModule .q-toolbar {
-                      display: flex;
-                      flex-wrap: wrap;
-                      gap: 8px;
-                      margin: 12px 0;
-                    }
-                    #quranModule .q-status {
-                      padding: 10px 12px;
-                      background: #eef4ed;
-                      border-radius: 10px;
-                      font-size: 13px;
-                      margin: 12px 0;
-                    }
-                    #quranModule .q-info {
-                      padding: 18px;
-                      text-align: center;
-                      color: #65746a;
-                    }
+                    #quranModule .q-btn-primary { background: var(--q-green); color: white; border-color: var(--q-green); }
+                    #quranModule .q-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+                    #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; }
+                    #quranModule .q-info { padding: 18px; text-align: center; color: #65746a; }
                     #quranModule .q-ayah {
-                      background: white;
-                      border: 1px solid #e5e9e2;
-                      border-radius: 14px;
-                      padding: 20px;
-                      margin: 12px 0;
-                      box-shadow: 0 2px 8px #193c2510;
+                      background: white; border: 1px solid #e5e9e2; border-radius: 14px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px #193c2510;
                     }
-                    #quranModule .q-ayah-top {
-                      display: flex;
-                      justify-content: space-between;
-                      align-items: center;
-                      gap: 8px;
-                      border-bottom: 1px solid #edf0eb;
-                      padding-bottom: 12px;
-                      margin-bottom: 16px;
-                    }
-                    #quranModule .q-number {
-                      color: var(--q-green);
-                      font-size: 13px;
-                      font-weight: 700;
-                    }
+                    #quranModule .q-ayah-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #edf0eb; padding-bottom: 12px; margin-bottom: 16px; }
+                    #quranModule .q-number { color: var(--q-green); font-size: 13px; font-weight: 700; }
                     #quranModule .q-arabic {
-                      font-family: "Noto Naskh Arabic", "Amiri", serif;
-                      font-size: 30px;
-                      line-height: 2.05;
-                      text-align: right;
-                      direction: rtl;
-                      margin: 12px 0 18px;
-                      overflow-wrap: anywhere;
+                      font-family: "Noto Naskh Arabic", "Amiri", serif; font-size: 30px; line-height: 2.05; text-align: right; direction: rtl; margin: 12px 0 18px; overflow-wrap: anywhere;
                     }
-                    #quranModule .q-translation {
-                      font-size: 15px;
-                      line-height: 1.9;
-                      color: #425248;
-                      margin-bottom: 15px;
-                    }
-                    #quranModule .q-ayah-actions {
-                      display: flex;
-                      flex-wrap: wrap;
-                      gap: 8px;
-                    }
-                    #quranModule .q-tafsir {
-                      background: #f7f7f0;
-                      border-left: 3px solid var(--q-gold);
-                      border-radius: 6px;
-                      padding: 12px;
-                      margin-top: 12px;
-                      font-size: 14px;
-                      line-height: 1.8;
-                      white-space: pre-wrap;
-                    }
+                    #quranModule .q-translation { font-size: 15px; line-height: 1.9; color: #425248; margin-bottom: 15px; }
+                    #quranModule .q-ayah-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+                    #quranModule .q-tafsir { background: #f7f7f0; border-left: 3px solid var(--q-gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
                     #quranModule .q-hidden { display: none; }
-                    #quranModule .q-footer {
-                      color: #788279;
-                      font-size: 12px;
-                      line-height: 1.7;
-                      margin-top: 16px;
-                    }
+                    #quranModule .q-footer { color: #788279; font-size: 12px; line-height: 1.7; margin-top: 16px; }
                     @media (max-width: 520px) {
                       #quranModule .q-controls { grid-template-columns: 1fr; }
                       #quranModule .q-head { padding: 19px; }
@@ -562,22 +468,10 @@
                   </header>
 
                   <div class="q-controls">
-                    <input id="qSearch" class="q-input"
-                      type="search" placeholder="Cari nama surah..."
-                      aria-label="Cari surah">
-
-                    <select id="qSurah" class="q-select"
-                      aria-label="Pilih surah">
-                      <option value="">Memuat surah...</option>
-                    </select>
-
-                    <select id="qEdition" class="q-select"
-                      aria-label="Pilih terjemahan">
-                      <option value="">Memuat terjemahan...</option>
-                    </select>
-
-                    <select id="qReciter" class="q-select"
-                      aria-label="Pilih qari">
+                    <input id="qSearch" class="q-input" type="search" placeholder="Cari nama surah..." aria-label="Cari surah">
+                    <select id="qSurah" class="q-select" aria-label="Pilih surah"><option value="">Memuat surah...</option></select>
+                    <select id="qEdition" class="q-select" aria-label="Pilih terjemahan"><option value="">Memuat terjemahan...</option></select>
+                    <select id="qReciter" class="q-select" aria-label="Pilih qari">
                       <option value="ar.alafasy">Mishary Alafasy</option>
                       <option value="ar.husary">Mahmoud Al-Husary</option>
                       <option value="ar.minshawi">Al-Minshawi</option>
@@ -587,31 +481,22 @@
                   </div>
 
                   <div class="q-toolbar">
-                    <button class="q-btn q-btn-primary" id="qLoad">
-                      Baca surah
-                    </button>
-                    <button class="q-btn" id="qSave">
-                      Simpan teks offline
-                    </button>
+                    <button class="q-btn q-btn-primary" id="qLoad">Baca surah</button>
+                    <button class="q-btn" id="qSave">Simpan teks offline</button>
                   </div>
 
-                  <div id="qStatus" class="q-status" role="status">
-                    Menyiapkan pembaca Al-Qur'an...
-                  </div>
-
+                  <div id="qStatus" class="q-status" role="status">Menyiapkan pembaca Al-Qur'an...</div>
                   <div id="qSurahInfo"></div>
                   <div id="qVerses"></div>
 
                   <div class="q-footer">
                     Sumber teks dan terjemahan: AlQuran Cloud API.
-                    Audio diputar melalui CDN. Ketersediaan offline bergantung
-                    pada data yang telah disimpan di perangkat.
+                    Audio diputar melalui CDN. Ketersediaan offline bergantung pada data yang telah disimpan di perangkat.
                   </div>
 
                   <script>
                   (() => {
                     "use strict";
-
                     const root = document.getElementById("quranModule");
                     if (!root || root.dataset.initialized === "1") return;
                     root.dataset.initialized = "1";
@@ -627,41 +512,18 @@
                     const versesBox = $("qVerses");
                     const infoBox = $("qSurahInfo");
 
-                    let db;
-                    let surahs = [];
-                    let editions = [];
-                    let currentData = null;
-                    let currentSurahNumber = 1;
-                    let currentAudio = null;
-                    let tafsirEdition = null;
+                    let db; let surahs = []; let editions = []; let currentData = null; let currentSurahNumber = 1; let currentAudio = null; let tafsirEdition = null;
                     
                     window._stopQuranAudio = () => { if(currentAudio) currentAudio.pause(); };
 
-                    function setStatus(message) {
-                      status.textContent = message;
-                    }
-
-                    function node(tag, className, text) {
-                      const el = document.createElement(tag);
-                      if (className) el.className = className;
-                      if (text !== undefined) el.textContent = text;
-                      return el;
-                    }
+                    function setStatus(message) { status.textContent = message; }
+                    function node(tag, className, text) { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; }
 
                     function openDB() {
                       return new Promise((resolve, reject) => {
-                        if (!("indexedDB" in window)) {
-                          reject(new Error("Browser tidak mendukung IndexedDB."));
-                          return;
-                        }
-
+                        if (!("indexedDB" in window)) { reject(new Error("Browser tidak mendukung IndexedDB.")); return; }
                         const request = indexedDB.open(DB_NAME, 1);
-
-                        request.onupgradeneeded = () => {
-                          const database = request.result;
-                          database.createObjectStore("data", { keyPath: "key" });
-                        };
-
+                        request.onupgradeneeded = () => { request.result.createObjectStore("data", { keyPath: "key" }); };
                         request.onsuccess = () => resolve(request.result);
                         request.onerror = () => reject(request.error);
                       });
@@ -669,9 +531,7 @@
 
                     function dbGet(key) {
                       return new Promise((resolve, reject) => {
-                        const request = db.transaction("data", "readonly")
-                          .objectStore("data").get(key);
-
+                        const request = db.transaction("data", "readonly").objectStore("data").get(key);
                         request.onsuccess = () => resolve(request.result || null);
                         request.onerror = () => reject(request.error);
                       });
@@ -680,231 +540,94 @@
                     function dbPut(key, value) {
                       return new Promise((resolve, reject) => {
                         const tx = db.transaction("data", "readwrite");
-                        tx.objectStore("data").put({
-                          key,
-                          value,
-                          savedAt: Date.now()
-                        });
-                        tx.oncomplete = () => resolve();
-                        tx.onerror = () => reject(tx.error);
-                        tx.onabort = () => reject(tx.error);
+                        tx.objectStore("data").put({ key, value, savedAt: Date.now() });
+                        tx.oncomplete = () => resolve(); tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error);
                       });
                     }
 
                     async function apiGet(url) {
                       const response = await fetch(url);
-                      if (!response.ok) {
-                        throw new Error("Server API merespons HTTP " + response.status);
-                      }
-
+                      if (!response.ok) throw new Error("Server API merespons HTTP " + response.status);
                       const json = await response.json();
-
-                      if (json.code !== 200 || json.data == null) {
-                        throw new Error("Data API tidak valid.");
-                      }
-
+                      if (json.code !== 200 || json.data == null) throw new Error("Data API tidak valid.");
                       return json.data;
                     }
 
                     async function cachedGet(key, url) {
                       const cached = await dbGet(key);
-
-                      if (!navigator.onLine) {
-                        if (cached) return cached.value;
-                        throw new Error("Data belum disimpan untuk akses offline.");
-                      }
-
-                      try {
-                        const value = await apiGet(url);
-                        await dbPut(key, value);
-                        return value;
-                      } catch (error) {
-                        if (cached) return cached.value;
-                        throw error;
-                      }
+                      if (!navigator.onLine) { if (cached) return cached.value; throw new Error("Data belum disimpan untuk akses offline."); }
+                      try { const value = await apiGet(url); await dbPut(key, value); return value; } 
+                      catch (error) { if (cached) return cached.value; throw error; }
                     }
 
                     function setOptions(select, items, getValue, getLabel) {
                       select.replaceChildren();
-
-                      items.forEach(item => {
-                        const option = document.createElement("option");
-                        option.value = getValue(item);
-                        option.textContent = getLabel(item);
-                        select.appendChild(option);
-                      });
+                      items.forEach(item => { const option = document.createElement("option"); option.value = getValue(item); option.textContent = getLabel(item); select.appendChild(option); });
                     }
 
                     async function loadSurahList() {
-                      surahs = await cachedGet(
-                        "surah-list",
-                        API + "/surah"
-                      );
-
+                      surahs = await cachedGet("surah-list", API + "/surah");
                       renderSurahOptions();
                     }
 
                     function renderSurahOptions() {
                       const query = $("qSearch").value.trim().toLowerCase();
-
-                      const filtered = surahs.filter(s =>
-                        String(s.number).includes(query) ||
-                        s.name.toLowerCase().includes(query) ||
-                        s.englishName.toLowerCase().includes(query) ||
-                        s.englishNameTranslation.toLowerCase().includes(query)
-                      );
-
+                      const filtered = surahs.filter(s => String(s.number).includes(query) || s.name.toLowerCase().includes(query) || s.englishName.toLowerCase().includes(query) || s.englishNameTranslation.toLowerCase().includes(query));
                       const previous = surahSelect.value;
-
-                      setOptions(
-                        surahSelect,
-                        filtered,
-                        s => s.number,
-                        s => `${s.number}. ${s.englishName} —${s.name}`
-                      );
-
-                      if (filtered.some(s => String(s.number) === previous)) {
-                        surahSelect.value = previous;
-                      }
+                      setOptions(surahSelect, filtered, s => s.number, s => `${s.number}. ${s.englishName} — ${s.name}`);
+                      if (filtered.some(s => String(s.number) === previous)) surahSelect.value = previous;
                     }
 
                     async function loadEditions() {
-                      editions = await cachedGet(
-                        "translation-editions-id",
-                        API + "/edition/language/id"
-                      );
-
-                      const usable = editions.filter(e =>
-                        e.format === "text" &&
-                        e.type === "translation"
-                      );
-
-                      if (!usable.length) {
-                        throw new Error("Edisi terjemahan Indonesia tidak ditemukan.");
-                      }
-
-                      setOptions(
-                        editionSelect,
-                        usable,
-                        e => e.identifier,
-                        e => e.name || e.englishName || e.identifier
-                      );
-
-                      const preferred = usable.find(e =>
-                        e.identifier === "id.indonesian"
-                      ) || usable[0];
-
+                      editions = await cachedGet("translation-editions-id", API + "/edition/language/id");
+                      const usable = editions.filter(e => e.format === "text" && e.type === "translation");
+                      if (!usable.length) throw new Error("Edisi terjemahan Indonesia tidak ditemukan.");
+                      setOptions(editionSelect, usable, e => e.identifier, e => e.name || e.englishName || e.identifier);
+                      const preferred = usable.find(e => e.identifier === "id.indonesian") || usable[0];
                       editionSelect.value = preferred.identifier;
                     }
 
                     async function getSurahData(number, edition) {
                       const key = `surah:${number}:edition:${edition}`;
-
-                      return cachedGet(
-                        key,
-                        `${API}/surah/${number}/editions/quran-uthmani,${encodeURIComponent(edition)}`
-                      );
+                      return cachedGet(key, `${API}/surah/${number}/editions/quran-uthmani,${encodeURIComponent(edition)}`);
                     }
 
                     function renderSurah(data) {
-                      if (!Array.isArray(data) || data.length < 2) {
-                        throw new Error("Format data surah tidak sesuai.");
-                      }
+                      if (!Array.isArray(data) || data.length < 2) throw new Error("Format data surah tidak sesuai.");
+                      const arabic = data[0]; const translation = data[1];
+                      if (!arabic.ayahs || !translation.ayahs || arabic.ayahs.length !== translation.ayahs.length) throw new Error("Data ayat tidak lengkap.");
 
-                      const arabic = data[0];
-                      const translation = data[1];
-
-                      if (!arabic.ayahs ||
-                          !translation.ayahs ||
-                          arabic.ayahs.length !== translation.ayahs.length) {
-                        throw new Error("Data ayat tidak lengkap.");
-                      }
-
-                      currentData = data;
-                      currentSurahNumber = arabic.number;
-                      versesBox.replaceChildren();
-
-                      infoBox.replaceChildren(
-                        node("h3", "", `${arabic.englishName} ·${arabic.name}`),
-                        node("p", "q-info",
-                          `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`)
-                      );
+                      currentData = data; currentSurahNumber = arabic.number; versesBox.replaceChildren();
+                      infoBox.replaceChildren(node("h3", "", `${arabic.englishName} · ${arabic.name}`), node("p", "q-info", `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`));
 
                       arabic.ayahs.forEach((ayah, index) => {
                         const translated = translation.ayahs[index];
                         const card = node("article", "q-ayah");
                         const top = node("div", "q-ayah-top");
-                        const number = node("span", "q-number",
-                          `Ayat ${ayah.numberInSurah}`);
+                        const number = node("span", "q-number", `Ayat ${ayah.numberInSurah}`);
                         const actions = node("div", "q-ayah-actions");
 
                         top.append(number);
+                        const arabicText = node("div", "q-arabic", ayah.text); arabicText.lang = "ar"; arabicText.dir = "rtl";
+                        const translationText = node("div", "q-translation", translated.text);
+                        const playButton = node("button", "q-btn", "▶ Putar"); playButton.type = "button";
+                        playButton.addEventListener("click", () => { playAyah(ayah.number, playButton); });
 
-                        const arabicText = node("div", "q-arabic", ayah.text);
-                        arabicText.lang = "ar";
-                        arabicText.dir = "rtl";
-
-                        const translationText = node(
-                          "div",
-                          "q-translation",
-                          translated.text
-                        );
-
-                        const playButton = node("button", "q-btn", "▶ Putar");
-                        playButton.type = "button";
-                        playButton.addEventListener("click", () => {
-                          playAyah(ayah.number, playButton);
-                        });
-
-                        const tafsirButton = node("button", "q-btn", "Baca tafsir");
-                        tafsirButton.type = "button";
-
-                        const tafsirPanel = node("div", "q-tafsir q-hidden");
-                        tafsirPanel.setAttribute("aria-live", "polite");
+                        const tafsirButton = node("button", "q-btn", "Baca tafsir"); tafsirButton.type = "button";
+                        const tafsirPanel = node("div", "q-tafsir q-hidden"); tafsirPanel.setAttribute("aria-live", "polite");
 
                         tafsirButton.addEventListener("click", async () => {
-                          if (!tafsirPanel.classList.contains("q-hidden")) {
-                            tafsirPanel.classList.add("q-hidden");
-                            return;
-                          }
-
-                          tafsirPanel.classList.remove("q-hidden");
-                          tafsirPanel.textContent = "Memeriksa sumber tafsir...";
-
+                          if (!tafsirPanel.classList.contains("q-hidden")) { tafsirPanel.classList.add("q-hidden"); return; }
+                          tafsirPanel.classList.remove("q-hidden"); tafsirPanel.textContent = "Memeriksa sumber tafsir...";
                           try {
                             if (!tafsirEdition) {
-                              const available = await cachedGet(
-                                "tafsir-editions-id",
-                                API + "/edition/type/tafsir"
-                              );
-
-                              tafsirEdition = available.find(e =>
-                                e.format === "text" &&
-                                e.language === "id"
-                              ) || null;
+                              const available = await cachedGet("tafsir-editions-id", API + "/edition/type/tafsir");
+                              tafsirEdition = available.find(e => e.format === "text" && e.language === "id") || null;
                             }
-
-                            if (!tafsirEdition) {
-                              tafsirPanel.textContent =
-                                "Tafsir Indonesia belum tersedia dari edisi API yang terdeteksi. " +
-                                "Untuk Tafsir Kemenag, tambahkan integrasi setelah memperoleh " +
-                                "token dan endpoint resmi.";
-                              return;
-                            }
-
-                            const tafsirData = await cachedGet(
-                              `tafsir:${arabic.number}:${ayah.numberInSurah}:${tafsirEdition.identifier}`,
-                              `${API}/ayah/${arabic.number}:${ayah.numberInSurah}/${encodeURIComponent(tafsirEdition.identifier)}`
-                            );
-
-                            tafsirPanel.textContent =
-                              (tafsirEdition.name || tafsirEdition.englishName) +
-                              "\n\n" + tafsirData.text;
-                          } catch (error) {
-                            tafsirPanel.textContent =
-                              "Tafsir belum dapat dimuat. Periksa koneksi atau " +
-                              "konfigurasi sumber tafsir. " + error.message;
-                          }
+                            if (!tafsirEdition) { tafsirPanel.textContent = "Tafsir Indonesia belum tersedia."; return; }
+                            const tafsirData = await cachedGet(`tafsir:${arabic.number}:${ayah.numberInSurah}:${tafsirEdition.identifier}`, `${API}/ayah/${arabic.number}:${ayah.numberInSurah}/${encodeURIComponent(tafsirEdition.identifier)}`);
+                            tafsirPanel.textContent = (tafsirEdition.name || tafsirEdition.englishName) + "\n\n" + tafsirData.text;
+                          } catch (error) { tafsirPanel.textContent = "Tafsir belum dapat dimuat. " + error.message; }
                         });
 
                         actions.append(playButton, tafsirButton);
@@ -914,124 +637,51 @@
                     }
 
                     async function playAyah(globalNumber, button) {
-                      if (currentAudio) {
-                        currentAudio.pause();
-                        currentAudio = null;
-                      }
-
+                      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
                       const reciter = $("qReciter").value;
                       const url = `${AUDIO}/${encodeURIComponent(reciter)}/${globalNumber}.mp3`;
-
-                      const audio = new Audio(url);
-                      currentAudio = audio;
+                      const audio = new Audio(url); currentAudio = audio;
                       button.textContent = "Memuat audio...";
-
-                      audio.onended = () => {
-                        button.textContent = "▶ Putar";
-                      };
-
-                      audio.onerror = () => {
-                        button.textContent = "▶ Putar";
-                        setStatus("Audio gagal dimuat. Periksa koneksi internet.");
-                      };
-
-                      try {
-                        await audio.play();
-                        button.textContent = "❚❚ Diputar";
-                        setStatus("Murottal sedang diputar.");
-                      } catch {
-                        button.textContent = "▶ Putar";
-                        setStatus("Audio belum dapat diputar. Periksa koneksi atau izin browser.");
-                      }
+                      audio.onended = () => { button.textContent = "▶ Putar"; };
+                      audio.onerror = () => { button.textContent = "▶ Putar"; setStatus("Audio gagal dimuat."); };
+                      try { await audio.play(); button.textContent = "❚❚ Diputar"; setStatus("Murottal sedang diputar."); } catch { button.textContent = "▶ Putar"; setStatus("Audio belum dapat diputar."); }
                     }
 
                     async function loadSelectedSurah() {
-                      const number = Number(surahSelect.value);
-                      const edition = editionSelect.value;
-
-                      if (!number || !edition) {
-                        setStatus("Pilih surah dan terjemahan terlebih dahulu.");
-                        return;
-                      }
-
-                      setStatus("Memuat teks Arab dan terjemahan...");
-                      versesBox.replaceChildren();
-                      infoBox.replaceChildren();
-
+                      const number = Number(surahSelect.value); const edition = editionSelect.value;
+                      if (!number || !edition) { setStatus("Pilih surah dan terjemahan terlebih dahulu."); return; }
+                      setStatus("Memuat teks Arab dan terjemahan..."); versesBox.replaceChildren(); infoBox.replaceChildren();
                       try {
-                        const data = await getSurahData(number, edition);
-                        renderSurah(data);
-                        setStatus(
-                          navigator.onLine
-                            ? "Surah berhasil dimuat."
-                            : "Mode offline: data tersimpan digunakan."
-                        );
-                      } catch (error) {
-                        setStatus("Gagal memuat surah: " + error.message);
-                      }
+                        const data = await getSurahData(number, edition); renderSurah(data);
+                        setStatus(navigator.onLine ? "Surah berhasil dimuat." : "Mode offline: data tersimpan digunakan.");
+                      } catch (error) { setStatus("Gagal memuat surah: " + error.message); }
                     }
 
                     async function saveSelectedSurah() {
-                      if (!navigator.onLine) {
-                        setStatus("Hubungkan internet untuk menyimpan surah baru.");
-                        return;
-                      }
-
+                      if (!navigator.onLine) { setStatus("Hubungkan internet untuk menyimpan surah baru."); return; }
                       try {
-                        const number = Number(surahSelect.value);
-                        const edition = editionSelect.value;
-
-                        setStatus("Menyimpan teks Arab dan terjemahan...");
-                        await getSurahData(number, edition);
-
-                        setStatus(
-                          "Teks Arab dan terjemahan surah tersimpan di perangkat."
-                        );
-                      } catch (error) {
-                        setStatus("Penyimpanan gagal: " + error.message);
-                      }
+                        const number = Number(surahSelect.value); const edition = editionSelect.value;
+                        setStatus("Menyimpan teks Arab dan terjemahan..."); await getSurahData(number, edition);
+                        setStatus("Teks Arab dan terjemahan surah tersimpan di perangkat.");
+                      } catch (error) { setStatus("Penyimpanan gagal: " + error.message); }
                     }
 
                     async function init() {
                       try {
                         db = await openDB();
-
-                        await Promise.all([
-                          loadSurahList(),
-                          loadEditions()
-                        ]);
-
+                        await Promise.all([loadSurahList(), loadEditions()]);
                         $("qSearch").addEventListener("input", renderSurahOptions);
                         $("qLoad").addEventListener("click", loadSelectedSurah);
                         $("qSave").addEventListener("click", saveSelectedSurah);
-
                         surahSelect.addEventListener("change", loadSelectedSurah);
                         editionSelect.addEventListener("change", loadSelectedSurah);
-
-                        setStatus(
-                          navigator.onLine
-                            ? "Siap digunakan."
-                            : "Offline: hanya data yang sebelumnya disimpan tersedia."
-                        );
-
-                        if (surahSelect.options.length) {
-                          await loadSelectedSurah();
-                        }
-                      } catch (error) {
-                        setStatus(
-                          "Inisialisasi gagal: " + error.message +
-                          " Buka aplikasi saat online untuk memuat data awal."
-                        );
-                      }
+                        setStatus(navigator.onLine ? "Siap digunakan." : "Offline: hanya data tersimpan tersedia.");
+                        if (surahSelect.options.length) { await loadSelectedSurah(); }
+                      } catch (error) { setStatus("Inisialisasi gagal: " + error.message); }
                     }
 
-                    window.addEventListener("online", () => {
-                      setStatus("Koneksi kembali tersedia.");
-                    });
-
-                    window.addEventListener("offline", () => {
-                      setStatus("Offline: gunakan surah yang sudah tersimpan.");
-                    });
+                    window.addEventListener("online", () => { setStatus("Koneksi kembali tersedia."); });
+                    window.addEventListener("offline", () => { setStatus("Offline: gunakan surah yang sudah tersimpan."); });
 
                     init();
                   })();
@@ -1174,7 +824,7 @@
 
                       filtered.forEach(item => {
                         const card = document.createElement("article"); card.className = "arb-card";
-                        const title = document.createElement("div"); title.className = "arb-title"; title.textContent = `Hadis ${item.no} —${item.judul || "Arba'in Nawawi"}`;
+                        const title = document.createElement("div"); title.className = "arb-title"; title.textContent = `Hadis ${item.no} — ${item.judul || "Arba'in Nawawi"}`;
                         const arab = document.createElement("div"); arab.className = "arb-arab"; arab.lang = "ar"; arab.dir = "rtl"; arab.textContent = item.arab;
                         const translationTitle = document.createElement("strong"); translationTitle.className = "block mb-2 text-sm text-gray-700 dark:text-gray-300"; translationTitle.textContent = "Terjemahan Indonesia:";
                         const translation = document.createElement("div"); translation.className = "arb-translation"; translation.textContent = item.indo;
@@ -1628,7 +1278,7 @@
             let icon = type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle';
             let color = type === 'success' ? 'text-green-500' : type === 'error' ? 'text-red-500' : type === 'warning' ? 'text-yellow-500' : 'text-blue-500';
             
-            toast.innerHTML = `<i class="fas fa-${icon} text-xl${color}"></i> <span class="text-sm font-semibold text-gray-700">${message}</span>`;
+            toast.innerHTML = `<i class="fas fa-${icon} text-xl ${color}"></i> <span class="text-sm font-semibold text-gray-700">${message}</span>`;
             container.appendChild(toast);
             
             setTimeout(() => toast.classList.add('show'), 10);
@@ -1860,7 +1510,8 @@
                 tr.className = `hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${isCurrent ? 'bg-primary-light/30 dark:bg-primary-dark/20' : ''}`;
                 tr.innerHTML = `
                     <td class="px-4 py-3 font-bold text-primary dark:text-primary-light whitespace-nowrap">
-                        Jumat ${pasaran}${isCurrent ? '<span class="ml-2 bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm">Minggu Ini</span>' : ''}
+                        Jumat ${pasaran} 
+                        ${isCurrent ? '<span class="ml-2 bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm">Minggu Ini</span>' : ''}
                     </td>
                     <td class="px-4 py-3">${row.khatib || '-'}</td>
                     <td class="px-4 py-3">${row.imam || '-'}</td>
@@ -1953,7 +1604,9 @@
                         </div>
                         
                         <h4 class="font-bold text-lg mb-1 leading-tight text-gray-800 dark:text-white z-10">${row.nama_kegiatan}</h4>
-                        <p class="text-sm font-medium text-primary mb-3 flex items-center gap-1.5 z-10"><i class="fas fa-user-circle"></i> ${row.pemateri}</p>${row.deskripsi ? `<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 z-10">${row.deskripsi}</p>` : ''}
+                        <p class="text-sm font-medium text-primary mb-3 flex items-center gap-1.5 z-10"><i class="fas fa-user-circle"></i> ${row.pemateri}</p>
+                        
+                        ${row.deskripsi ? `<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 z-10">${row.deskripsi}</p>` : ''}
                         
                         <div class="mt-auto pt-4 border-t dark:border-gray-700 flex justify-between items-center z-10">
                             <div class="flex items-center text-xs font-semibold text-gray-600 dark:text-gray-300">
@@ -2128,10 +1781,10 @@
                     tbody.innerHTML += `
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                             <td class="px-4 py-3 font-medium whitespace-nowrap text-gray-600 dark:text-gray-300">${formatDate(row.tanggal)}</td>
-                            <td class="px-4 py-3"><span class="${textColor}${bgColor} border px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${row.tipe}</span></td>
+                            <td class="px-4 py-3"><span class="${textColor} ${bgColor} border px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${row.tipe}</span></td>
                             <td class="px-4 py-3 font-medium dark:text-gray-200">${row.kategori}</td>
                             <td class="px-4 py-3 text-gray-500 dark:text-gray-400 max-w-[200px] truncate" title="${row.keterangan}">${row.keterangan}</td>
-                            <td class="px-4 py-3 text-right font-bold ${textColor} whitespace-nowrap">${iconSign}${formatRupiah(nom)}</td>
+                            <td class="px-4 py-3 text-right font-bold ${textColor} whitespace-nowrap">${iconSign} ${formatRupiah(nom)}</td>
                             <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
                                 <button onclick='openAdminModal("Keuangan", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1" title="Edit Transaksi"><i class="fas fa-edit"></i></button>
                                 <button onclick='deleteData("Keuangan", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition" title="Hapus Transaksi"><i class="fas fa-trash"></i></button>
@@ -2284,7 +1937,8 @@
 
             nodeKetua.innerHTML = `
                 <div class="text-[10px] bg-primary-light text-primary px-2 py-0.5 rounded font-bold uppercase tracking-widest mb-2 inline-block">${ketua.jabatan || 'Pimpinan'}</div>
-                <div class="font-bold text-gray-800 dark:text-white text-lg">${ketua.nama}</div>${ketua.kontak ? `<div class="text-xs text-gray-500 mt-1"><i class="fas fa-phone-alt mr-1"></i>${ketua.kontak}</div>` : ''}
+                <div class="font-bold text-gray-800 dark:text-white text-lg">${ketua.nama}</div>
+                ${ketua.kontak ? `<div class="text-xs text-gray-500 mt-1"><i class="fas fa-phone-alt mr-1"></i>${ketua.kontak}</div>` : ''}
                 
                 <button class="admin-col ${isAdmin ? 'absolute -top-3 -right-3 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-md text-blue-500 hover:bg-blue-50 transition' : 'hidden'}" onclick='openAdminModal("Pengurus", "update", ${JSON.stringify(ketua).replace(/'/g, "&#39;")})' title="Edit Posisi">
                     <i class="fas fa-edit text-xs"></i>
@@ -2297,7 +1951,7 @@
                     <div class="flex flex-col items-center flex-1 relative min-w-[120px]">
                         <div class="org-connector h-[20px]"></div>
                         <div class="org-node text-sm border-t-2 border-t-blue-400 bg-white dark:bg-gray-800 shadow-sm relative group w-full">
-                             <div class="text-[10px] text-gray-500 dark:text-gray-400 mb-1 font-bold uppercase tracking-wider">${b.jabatan \vert{}\vert{} 'Pengurus'}${b.bidang ? `(${b.bidang})` : ''}</div>
+                             <div class="text-[10px] text-gray-500 dark:text-gray-400 mb-1 font-bold uppercase tracking-wider">${b.jabatan || 'Pengurus'} ${b.bidang ? `(${b.bidang})` : ''}</div>
                              <div class="font-bold text-gray-800 dark:text-white leading-tight">${b.nama}</div>
                              
                              <div class="admin-col ${isAdmin ? 'absolute -top-3 -right-3 flex flex-col gap-1' : 'hidden'}">
@@ -2329,4 +1983,424 @@
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                         <td class="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">${row.nomor || '-'}</td>
-                        <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">${formatDate
+                        <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">${formatDate(row.tanggal)}</td>
+                        <td class="px-4 py-3"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${jenisClass}">${row.jenis || '-'}</span></td>
+                        <td class="px-4 py-3 max-w-[200px] truncate text-gray-700 dark:text-gray-200" title="${row.perihal}">${row.perihal || '-'}</td>
+                        <td class="px-4 py-3 text-right admin-col ${isAdmin ? 'whitespace-nowrap' : 'hidden'}">
+                            ${row.file_url ? `<a href="${row.file_url}" target="_blank" class="text-blue-500 hover:bg-blue-50 p-1.5 rounded inline-block mr-1" title="Buka Lampiran"><i class="fas fa-external-link-alt text-xs"></i></a>` : ''}
+                            <button onclick='openAdminModal("Surat", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-50 p-1.5 rounded mr-1"><i class="fas fa-edit text-xs"></i></button>
+                            <button onclick='deleteData("Surat", "${row.id}")' class="text-red-500 hover:bg-red-50 p-1.5 rounded"><i class="fas fa-trash text-xs"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderJamaah() {
+            const tbody = document.getElementById('tableBodyJamaah');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            const data = appData.jamaah || [];
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-gray-500 italic">Database jamaah masih kosong.</td></tr>`;
+                return;
+            }
+
+            data.forEach(row => {
+                let badgeKat = 'bg-gray-700 text-gray-300';
+                const kat = (row.kategori_zakat || '').toLowerCase();
+                if(kat.includes('muzakki')) badgeKat = 'bg-green-900/50 text-green-400 border border-green-800';
+                if(kat.includes('mustahiq')) badgeKat = 'bg-yellow-900/50 text-yellow-400 border border-yellow-800';
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-700/50 transition-colors">
+                        <td class="p-3">
+                            <p class="font-bold text-gray-200">${row.nama}</p>
+                            <p class="text-[10px] text-gray-400"><i class="fas fa-phone-alt mr-1"></i>${row.no_hp || '-'}</p>
+                        </td>
+                        <td class="p-3"><span class="${badgeKat} px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">${row.kategori_zakat || 'Umum'}</span></td>
+                        <td class="p-3"><span class="text-green-400 text-xs flex items-center gap-1.5 font-medium"><span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span> Aktif</span></td>
+                        <td class="p-3 text-right">
+                             <button onclick='openAdminModal("Jamaah", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-400 hover:text-blue-300 mr-2"><i class="fas fa-edit"></i></button>
+                             <button onclick='deleteData("Jamaah", "${row.id}")' class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function applyDynamicSettings() {
+            const data = appData.pengaturan || [];
+            data.forEach(setting => {
+                const key = setting.kunci;
+                const val = setting.nilai;
+                
+                if(key === 'running_text') {
+                    const el = document.getElementById('runningTextBeranda');
+                    if(el && val) el.innerText = val;
+                }
+                
+                if(key === 'hero_text') {
+                    const titleEl = document.getElementById('heroTitleText');
+                    if(titleEl && val) titleEl.innerText = val;
+                }
+            });
+        }
+
+        function updateDynamicBeranda() {
+            const rawatibCont = document.getElementById('beranda-info-rawatib');
+            if (rawatibCont) {
+                const nextPrayerNameEl = document.getElementById('nextPrayerName');
+                let targetWaktu = 'Dzuhur';
+                if (nextPrayerNameEl && nextPrayerNameEl.innerText.includes('Waktu')) {
+                    targetWaktu = nextPrayerNameEl.innerText.replace('Waktu ', '').trim();
+                }
+                const rawatibData = appData.imam_harian || [];
+                const imamObj = rawatibData.find(x => x.waktu && x.waktu.toLowerCase().includes(targetWaktu.toLowerCase()));
+                if(imamObj) {
+                    rawatibCont.innerHTML = `
+                        <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Shalat ${targetWaktu}</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: <span class="text-primary-dark dark:text-primary-light">${imamObj.imam_utama || '-'}</span></p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-microphone text-gray-400 w-4 mr-1"></i> Muadzin: ${imamObj.muadzin || '-'}</p>
+                    `;
+                } else {
+                    rawatibCont.innerHTML = `<p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Shalat ${targetWaktu}</p><p class="text-sm text-gray-500">Petugas belum dijadwalkan.</p>`;
+                }
+            }
+
+            const jumatCont = document.getElementById('beranda-info-jumat');
+            if (jumatCont) {
+                const jumatData = appData.jumat || [];
+                if(jumatData.length > 0) {
+                    const j = jumatData[0];
+                    jumatCont.innerHTML = `
+                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || 'Ini'}</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
+                    `;
+                } else {
+                    jumatCont.innerHTML = `<p class="text-sm text-gray-500">Jadwal Jumat belum tersedia.</p>`;
+                }
+            }
+
+            const kajianCont = document.getElementById('beranda-info-kajian');
+            if (kajianCont) {
+                const kegiatanData = appData.kegiatan || [];
+                if(kegiatanData.length > 0) {
+                    const k = kegiatanData[0];
+                    kajianCont.innerHTML = `
+                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
+                    `;
+                } else {
+                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
+                }
+            }
+        }
+
+        // ====================================================================
+        // 7. SISTEM FORMULIR ADMIN UNIVERSAL (OPERASI CRUD KE SPREADSHEET)
+        // ====================================================================
+        function openAdminModal(sheetName, action = 'insert', existingData = null) {
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('modalTitle');
+            const fieldsContainer = document.getElementById('modalFields');
+            
+            currentSubmitParams = { sheet: sheetName, action: action, id: existingData ? existingData.id : null };
+            
+            title.innerText = action === 'insert' ? `Input Data Baru (${sheetName})` : `Edit Data (${sheetName})`;
+            fieldsContainer.innerHTML = ''; 
+
+            const schema = {
+                'Jumat': ['pasaran|select:Legi,Pahing,Pon,Wage,Kliwon', 'khatib|text', 'imam|text', 'muadzin|text'],
+                'Imam_Harian': ['waktu|select:Subuh,Dzuhur,Ashar,Maghrib,Isya', 'imam_utama|text', 'imam_pengganti|text', 'muadzin|text'],
+                'Kegiatan': ['nama_kegiatan|text', 'kategori|select:Umum,Ibu-ibu,Remaja', 'waktu|text', 'pemateri|text', 'deskripsi|textarea'],
+                'Program': ['nama_program|text', 'bidang|select:PHBI,Ramadhan,Idul Qurban,Zakat Fitrah', 'target|text', 'status|select:Perencanaan,Berjalan,Selesai', 'pic|text'],
+                'Ramadhan': ['kegiatan|select:Shalat Tarawih,Kuliah Subuh,Pengajian Ifthar', 'waktu|text', 'penceramah|text', 'pic|text'],
+                'Laporan_Riayah': ['tanggal|date', 'fasilitas|text', 'pelapor|text', 'deskripsi_kerusakan|textarea', 'status|select:Pending,Proses,Selesai'],
+                'Pengurus': ['nama|text', 'jabatan|text', 'bidang|text', 'kontak|text'],
+                'Surat': ['nomor|text', 'tanggal|date', 'jenis|select:Surat Masuk,Surat Keluar', 'perihal|text', 'file_url|url'],
+                'Keuangan': ['tanggal|date', 'tipe|select:Pemasukan,Pengeluaran', 'kategori|text', 'nominal|number', 'keterangan|textarea'],
+                'Jamaah': ['nama|text', 'no_hp|text', 'alamat|textarea', 'kategori_zakat|select:Muzakki,Mustahiq,Donatur Tetap'],
+                'Pengaturan': ['nilai|textarea'] 
+            };
+
+            const columns = schema[sheetName] || [];
+            
+            columns.forEach(colConfig => {
+                const [colName, colTypeInfo] = colConfig.split('|');
+                const [inputType, optionsStr] = colTypeInfo.split(':');
+                
+                const wrapper = document.createElement('div');
+                const label = document.createElement('label');
+                label.className = 'block text-sm font-semibold text-gray-700 dark:text-gray-300 capitalize mb-1';
+                label.innerText = colName.replace(/_/g, ' '); 
+
+                let inputEl;
+                if (inputType === 'select') {
+                    inputEl = document.createElement('select');
+                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
+                    const options = optionsStr.split(',');
+                    options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt;
+                        option.innerText = opt;
+                        inputEl.appendChild(option);
+                    });
+                } else if (inputType === 'textarea') {
+                    inputEl = document.createElement('textarea');
+                    inputEl.rows = 3;
+                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
+                } else {
+                    inputEl = document.createElement('input');
+                    inputEl.type = inputType;
+                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
+                }
+                
+                inputEl.id = `input_${colName}`;
+                inputEl.name = colName;
+                inputEl.required = true;
+                
+                if (existingData && existingData[colName]) {
+                    if(inputType === 'date') {
+                        try { 
+                            const d = new Date(existingData[colName]);
+                            if(!isNaN(d.getTime())) {
+                                inputEl.value = d.toISOString().split('T')[0]; 
+                            }
+                        } catch(e) {}
+                    } else {
+                        inputEl.value = existingData[colName];
+                    }
+                }
+
+                wrapper.appendChild(label);
+                wrapper.appendChild(inputEl);
+                fieldsContainer.appendChild(wrapper);
+            });
+
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        async function handleAdminFormSubmit(e) {
+            e.preventDefault(); 
+            
+            const btnText = document.getElementById('btnSubmitText');
+            const btnLoader = document.getElementById('btnSubmitLoader');
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+            document.getElementById('btnSubmitForm').disabled = true;
+
+            const formData = new FormData(e.target);
+            const dataObj = {};
+            formData.forEach((value, key) => { dataObj[key] = value; });
+
+            const payload = {
+                sheet: currentSubmitParams.sheet,
+                action: currentSubmitParams.action,
+                id: currentSubmitParams.id, 
+                data: dataObj
+            };
+
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' }, 
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                
+                if(result.status === 'success') {
+                    showToast('Operasi database berhasil!', 'success');
+                    closeAdminModal();
+                    await fetchSpreadsheetData(); 
+                } else {
+                    showToast('Gagal memproses data: ' + result.message, 'error');
+                }
+            } catch(err) {
+                console.error("Submit Error:", err);
+                showToast('Gagal terhubung ke Server Database.', 'error');
+            } finally {
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+                document.getElementById('btnSubmitForm').disabled = false;
+            }
+        }
+
+        async function deleteData(sheetName, id) {
+            if(!confirm(`PERINGATAN: Apakah Anda yakin ingin menghapus data ini dari Database (${sheetName}) secara permanen?`)) return;
+            showToast('Sedang menghapus baris data...', 'info');
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify({ sheet: sheetName, action: 'delete', id: id }) 
+                });
+                
+                const result = await response.json();
+                
+                if(result.status === 'success') {
+                    showToast('Data berhasil dibasmi dari sistem!', 'success');
+                    await fetchSpreadsheetData();
+                } else {
+                    showToast('Gagal menghapus: ' + result.message, 'error');
+                }
+            } catch(e) {
+                showToast('Koneksi terputus saat proses penghapusan.', 'error');
+            }
+        }
+
+        // ====================================================================
+        // 8. PENGENDALI MODUL AL-QURAN DIGITAL & HADIS OFFLINE
+        // ====================================================================
+        function bukaQuranDiBeranda() {
+            const container = document.getElementById('quranContainerBeranda');
+            container.classList.remove('hidden');
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function tutupQuranDiBeranda() {
+            document.getElementById('quranContainerBeranda').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(window._stopQuranAudio) window._stopQuranAudio();
+        }
+
+        function bukaHadisDiBeranda() {
+            const container = document.getElementById('hadisContainerBeranda');
+            container.classList.remove('hidden');
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+            if(window._initHadis) window._initHadis();
+        }
+
+        function tutupHadisDiBeranda() {
+            document.getElementById('hadisContainerBeranda').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ====================================================================
+        // 9. API JADWAL WAKTU SHALAT (KEMENAG) & SISTEM JAM DIGITAL REALTIME
+        // ====================================================================
+        async function fetchPrayerTimes() {
+            const grid = document.getElementById('prayerTimesGrid');
+            const nextEl = document.getElementById('nextPrayerTime');
+            const nameEl = document.getElementById('nextPrayerName');
+            
+            try {
+                const d = new Date();
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                
+                const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/1628/${yyyy}/${mm}/${dd}`);
+                const data = await res.json();
+                
+                const jadwal = data.data.jadwal;
+
+                const times = [
+                    { name: 'Imsak', time: jadwal.imsak, icon: 'fa-cloud-moon' },
+                    { name: 'Subuh', time: jadwal.subuh, icon: 'fa-moon' },
+                    { name: 'Terbit', time: jadwal.terbit, icon: 'fa-sun text-yellow-500' },
+                    { name: 'Dzuhur', time: jadwal.dzuhur, icon: 'fa-sun text-yellow-600' },
+                    { name: 'Ashar', time: jadwal.ashar, icon: 'fa-cloud-sun text-orange-500' },
+                    { name: 'Maghrib', time: jadwal.maghrib, icon: 'fa-sunset text-red-500' },
+                    { name: 'Isya', time: jadwal.isya, icon: 'fa-star text-indigo-500' }
+                ];
+
+                const now = new Date();
+                const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
+                let nextPrayer = null;
+                const obligatory = ['Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
+                
+                for (let t of times) {
+                    if(!obligatory.includes(t.name)) continue;
+                    const [h, m] = t.time.split(':').map(Number);
+                    const prayerMinutes = h * 60 + m;
+                    if (prayerMinutes > currentTotalMinutes) {
+                        nextPrayer = t;
+                        break;
+                    }
+                }
+                
+                if (!nextPrayer) {
+                    nextPrayer = times.find(t => t.name === 'Subuh');
+                    nameEl.innerText = "Waktu " + nextPrayer.name + " (Besok)";
+                } else {
+                    nameEl.innerText = "Waktu " + nextPrayer.name;
+                }
+                nextEl.innerText = nextPrayer.time + " WIB";
+
+                grid.innerHTML = '';
+                times.forEach(t => {
+                    const isNext = (t.name === nextPrayer.name);
+                    const highlightClass = isNext ? 'border-primary shadow-md bg-primary-light/20 dark:bg-primary-dark/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-800 scale-105 z-10' : 'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shadow-sm hover:shadow-md';
+                    const textHighlight = isNext ? 'text-primary dark:text-primary-light' : 'text-gray-500 dark:text-gray-400';
+                    const iconHighlight = isNext ? 'text-primary drop-shadow-md' : t.icon.split(' ')[1] || '';
+
+                    grid.innerHTML += `
+                        <div class="text-center p-3.5 rounded-xl border transition-all duration-300 ${highlightClass}">
+                            <i class="fas ${t.icon.split(' ')[0]} text-xl mb-2.5 block ${iconHighlight}"></i>
+                            <p class="text-[11px] uppercase tracking-wider font-bold ${textHighlight}">${t.name}</p>
+                            <p class="text-base font-bold text-gray-800 dark:text-gray-200 mt-1">${t.time}</p>
+                        </div>
+                    `;
+                });
+
+                setTimeout(() => updateDynamicBeranda(), 500); 
+                
+            } catch(e) {
+                console.error("Gagal muat jadwal shalat:", e);
+                grid.innerHTML = '<div class="col-span-full text-red-500 text-sm py-4 bg-red-50 rounded text-center"><i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke Server Jadwal Kemenag.</div>';
+            }
+        }
+        
+        function injectMockData() {
+            appData = {
+                jumat: [{ id: '1', pasaran: 'Wage', khatib: 'Ust. H. Mahmud', imam: 'Ust. H. Mahmud', muadzin: 'Sdr. Fauzan' }],
+                imam_harian: [{ id: '1', waktu: 'Maghrib', imam_utama: 'KH. Abdullah', imam_pengganti: 'Ust. Zaid', muadzin: 'Bpk. Sholeh' }],
+                kegiatan: [], 
+                program: [{ id: '1', nama_program: 'Kepanitiaan Idul Adha 2026', bidang: 'Idul Qurban', target: 'Penyembelihan 5 Ekor Sapi', status: 'Perencanaan', pic: 'H. Sudirman' }],
+                ramadhan: [], 
+                laporan_riayah: [{ id: '1', tanggal: '2026-10-01', fasilitas: 'AC Utama Shift Kanan', pelapor: 'Budi (Jamaah)', deskripsi_kerusakan: 'Bocor netes air deras', status: 'Pending' }],
+                keuangan: [{ id: '1', tanggal: '2026-10-02', tipe: 'Pemasukan', kategori: 'Kotak Jumat', keterangan: 'Kotak Amal Jumat Minggu ke-1', nominal: 2500000 }],
+                pengurus: [
+                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir DKM', kontak: '0812-xxxx-xxxx' },
+                    { id: '2', nama: 'Ust. Rasyid', jabatan: 'Koordinator', bidang: 'Imarah (Peribadatan)' },
+                    { id: '3', nama: 'Bpk. Wahyu', jabatan: 'Koordinator', bidang: 'Riayah (Fasilitas)' }
+                ],
+                surat: [{ id: '1', nomor: '001/DKM/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
+                pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }]
+            };
+        }
+
+        // ====================================================================
+        // 10. SYSTEM BOOTSTRAP
+        // ====================================================================
+        setInterval(() => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const el = document.getElementById('clockDisplay');
+            if(el) el.innerText = timeString;
+        }, 1000);
+
+        window.onload = function() {
+            fetchPrayerTimes();
+            fetchSpreadsheetData();
+            
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                if(!document.documentElement.classList.contains('dark')) toggleTheme();
+            }
+        };
+    </script>
+</body>
+</html>
