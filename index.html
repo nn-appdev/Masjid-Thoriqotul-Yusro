@@ -649,6 +649,54 @@
                 <!-- ===== QURAN MODULE: END ===== -->
 
             </div>
+            <!-- Modul Hadis Arba'in -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 mb-8 relative">
+                <div class="flex items-center gap-3 mb-4 border-b dark:border-gray-700 pb-3">
+                    <div class="w-10 h-10 rounded-lg bg-primary-light text-primary flex items-center justify-center text-xl shadow-inner">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg dark:text-white">Hadis Arba'in Nawawi</h3>
+                        <p class="text-xs text-gray-500">Kumpulan 42 Hadis Pokok Ajaran Islam</p>
+                    </div>
+                </div>
+                
+                <button id="load-arbain" class="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-sm mb-4 flex items-center gap-2">
+                    <i class="fas fa-sync-alt"></i> Muat Hadis
+                </button>
+                
+                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border dark:border-gray-700 overflow-y-auto max-h-64 hide-scrollbar shadow-inner">
+                    <pre id="arbain-result" class="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-wrap font-mono leading-relaxed">Tekan tombol di atas untuk memuat data API.</pre>
+                </div>
+                
+                <script>
+                    document.getElementById("load-arbain").addEventListener("click", async () => {
+                        const output = document.getElementById("arbain-result");
+                        const btn = document.getElementById("load-arbain");
+                        const icon = btn.querySelector('i');
+                        
+                        output.textContent = "Menghubungkan ke API Hadis...";
+                        icon.classList.add('fa-spin'); // Tambahkan animasi loading
+
+                        try {
+                            const response = await fetch("https://cdn.idnbogor.id/api/hadits");
+                            if (!response.ok) throw new Error("HTTP " + response.status);
+                            
+                            const result = await response.json();
+                            output.textContent = JSON.stringify(result, null, 2);
+                        } catch (error) {
+                            output.textContent = "Gagal mengambil data: " + error.message + "\nPeriksa koneksi internet atau ketersediaan API.";
+                        } finally {
+                            icon.classList.remove('fa-spin'); // Matikan animasi loading
+                        }
+                    });
+                </script>
+            </div>
+
+            <!-- Jadwal Shalat Kemenag Card -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 relative group">
+>>>>
+```eof
 
             <!-- Jadwal Shalat Kemenag Card -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 relative group">
