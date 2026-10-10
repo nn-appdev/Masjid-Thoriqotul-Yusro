@@ -2,7 +2,6 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <!-- Meta tag untuk Responsivitas Mobile & iPad -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>Sistem Manajemen Masjid - Thoriqotul Yusro</title>
@@ -14,7 +13,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Masjid T. Yusro">
     
-    <!-- Link Manifest PWA (Akan diisi otomatis oleh JavaScript) -->
     <link rel="manifest" id="pwa-manifest-link">
     
     <!-- Tailwind CSS (via CDN) -->
@@ -402,253 +400,14 @@
                 </button>
             </div>
 
-            <!-- Kontainer Utama Al-Quran (Un-cropped, fully expansive) -->
+            <!-- Kontainer Utama Al-Quran -->
             <div id="quranContainerBeranda" class="hidden mb-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 p-4 md:p-6 transition-all duration-500 ease-in-out origin-top">
                 <div class="flex justify-end items-center mb-2 pb-2">
-                    <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900">
+                    <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900 bg-white dark:bg-gray-800">
                         <i class="fas fa-times"></i> Tutup Al-Qur'an
                     </button>
                 </div>
 
-                <<<<
-                <!-- ===== QURAN MODULE: BEGIN ===== -->
-                <section id="mushafPageApp">
-                  <style>
-                    #mushafPageApp {
-                      --mp-green: #0d9488;
-                      --mp-cream: #fbf8ef;
-                      font-family: system-ui, Arial, sans-serif;
-                      color: #24352c;
-                      margin: 0 auto;
-                      width: 100%;
-                    }
-                    #mushafPageApp * { box-sizing: border-box; }
-                    #mushafPageApp .mp-panel { background: var(--mp-cream); border: 1px solid #e7e1d1; border-radius: 18px; padding: 18px; }
-                    #mushafPageApp .mp-heading { color: var(--mp-green); font-size: 1.35rem; font-weight: 750; margin: 0 0 6px; }
-                    #mushafPageApp .mp-muted { color: #6b776e; font-size: .9rem; }
-                    #mushafPageApp .mp-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0; }
-                    #mushafPageApp select, #mushafPageApp button { border: 1px solid #d8ded7; border-radius: 10px; padding: 10px 12px; font: inherit; background: white; color: #24352c; }
-                    #mushafPageApp button { cursor: pointer; font-weight: 650; }
-                    #mushafPageApp button.mp-primary { background: var(--mp-green); color: white; border-color: var(--mp-green); }
-                    #mushafPageApp button:disabled { opacity: .45; cursor: not-allowed; }
-                    #mushafPageApp .mp-status { margin: 10px 0; font-size: .9rem; min-height: 1.4em; }
-                    #mushafPageApp .mp-paper { background: #fffdf7; border: 1px solid #e5dcc8; border-radius: 12px; padding: clamp(18px, 4vw, 36px); box-shadow: 0 5px 20px #24352c0b; }
-                    #mushafPageApp .mp-page-title { text-align: center; border-bottom: 1px solid #e5dcc8; padding-bottom: 14px; margin-bottom: 20px; }
-                    #mushafPageApp .mp-ayah { padding: 14px 0; border-bottom: 1px solid #eee9de; transition: background .2s; }
-                    #mushafPageApp .mp-ayah.mp-playing { background: #ccfbf1; border-radius: 8px; padding-left: 10px; padding-right: 10px; }
-                    #mushafPageApp .mp-arabic { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: clamp(1.65rem, 4.5vw, 2.25rem); line-height: 2.1; text-align: right; direction: rtl; margin-bottom: 8px; overflow-wrap: anywhere; }
-                    #mushafPageApp .mp-translation { color: #4d5a50; line-height: 1.8; font-size: .96rem; }
-                    #mushafPageApp .mp-ref { color: var(--mp-green); font-size: .78rem; font-weight: 700; margin-bottom: 4px; }
-                    #mushafPageApp .mp-audio-box { background: white; border: 1px solid #e7e1d1; border-radius: 12px; padding: 14px; margin-top: 14px; }
-                    #mushafPageApp audio { width: 100%; margin-top: 10px; }
-                    #mushafPageApp .mp-progress { height: 6px; border-radius: 8px; background: #e3e9e3; overflow: hidden; margin-top: 10px; }
-                    #mushafPageApp .mp-progress-bar { width: 0; height: 100%; background: var(--mp-green); transition: width .2s; }
-                    @media (max-width: 520px) { #mushafPageApp .mp-controls > * { flex: 1 1 40%; } #mushafPageApp .mp-panel { padding: 12px; } }
-                  </style>
-
-                  <div class="mp-panel">
-                    <h2 class="mp-heading">Al-Qur’an — Mushaf per Halaman</h2>
-                    <div class="mp-muted">Pilih halaman 1–604, baca teks Arab dan terjemahan, lalu dengarkan tilawah berurutan.</div>
-
-                    <div class="mp-controls">
-                      <button type="button" id="mpPrev">← Sebelumnya</button>
-                      <label>
-                        <span class="mp-muted">Halaman</span><br>
-                        <select id="mpPage" aria-label="Pilih halaman mushaf"></select>
-                      </label>
-                      <button type="button" id="mpNext">Berikutnya →</button>
-                    </div>
-
-                    <div class="mp-controls">
-                      <label>
-                        <span class="mp-muted">Qari</span><br>
-                        <select id="mpReciter">
-                          <option value="ar.alafasy">Mishary Rashid Alafasy</option>
-                          <option value="ar.husary">Mahmoud Khalil Al-Husary</option>
-                          <option value="ar.minshawi">Mohamed Siddiq Al-Minshawi</option>
-                          <option value="ar.abdulbasit">Abdul Basit</option>
-                          <option value="ar.sudais">Abdurrahman As-Sudais</option>
-                        </select>
-                      </label>
-                      <button type="button" class="mp-primary" id="mpPlay">▶ Putar halaman</button>
-                      <button type="button" id="mpPause">Ⅱ Jeda</button>
-                      <button type="button" id="mpStop">■ Berhenti</button>
-                    </div>
-
-                    <div id="mpStatus" class="mp-status" role="status" aria-live="polite">Memuat daftar halaman...</div>
-
-                    <div class="mp-audio-box">
-                      <strong id="mpAudioTitle">Audio halaman</strong>
-                      <div class="mp-muted" id="mpAudioInfo">Audio diputar ayat demi ayat hingga halaman selesai.</div>
-                      <audio id="mpAudio" controls preload="none"></audio>
-                      <div class="mp-progress">
-                        <div id="mpProgressBar" class="mp-progress-bar"></div>
-                      </div>
-                    </div>
-
-                    <div class="mp-paper" style="margin-top:16px">
-                      <div class="mp-page-title">
-                        <div style="font-weight:750;color:#0d9488" id="mpPageHeading">Mushaf</div>
-                        <div class="mp-muted" id="mpPageSubheading"></div>
-                      </div>
-                      <div id="mpAyahs"></div>
-                    </div>
-                  </div>
-
-                  <script>
-                  (() => {
-                    "use strict";
-                    const root = document.getElementById("mushafPageApp");
-                    if (!root || root.dataset.initialized === "true") return;
-                    root.dataset.initialized = "true";
-
-                    const API = "https://api.alquran.cloud/v1";
-                    const CDN = "https://cdn.islamic.network/quran/audio/128";
-                    const $ = id => document.getElementById(id);
-
-                    const pageSelect = $("mpPage");
-                    const reciterSelect = $("mpReciter");
-                    const audio = $("mpAudio");
-
-                    let currentPage = 1;
-                    let ayahs = [];
-                    let playIndex = -1;
-                    let queueActive = false;
-                    let requestId = 0;
-
-                    for (let p = 1; p <= 604; p++) {
-                      const option = document.createElement("option");
-                      option.value = String(p); option.textContent = `Halaman ${p}`;
-                      pageSelect.appendChild(option);
-                    }
-
-                    window._stopMushafAudio = () => { stopPlayback(true); };
-
-                    function status(message) { $("mpStatus").textContent = message; }
-
-                    async function fetchJSON(url) {
-                      const response = await fetch(url);
-                      if (!response.ok) throw new Error(`Permintaan API gagal (${response.status}).`);
-                      const json = await response.json();
-                      if (json.code !== 200 || !json.data) throw new Error("Data tidak tersedia dari API.");
-                      return json.data;
-                    }
-
-                    function clearPlayingHighlight() {
-                      root.querySelectorAll(".mp-ayah.mp-playing").forEach(el => { el.classList.remove("mp-playing"); });
-                    }
-
-                    function highlightAyah(index) {
-                      clearPlayingHighlight();
-                      const item = ayahs[index];
-                      if (!item) return;
-                      const el = root.querySelector(`[data-global-ayah="${item.number}"]`);
-                      if (el) { el.classList.add("mp-playing"); el.scrollIntoView({ behavior: "smooth", block: "center" }); }
-                      $("mpAudioTitle").textContent = `Halaman ${currentPage} · ${item.surah.englishName}`;
-                      $("mpAudioInfo").textContent = `Ayat ${item.numberInSurah} · ${index + 1} dari ${ayahs.length}`;
-                      $("mpProgressBar").style.width = `${((index + 1) / Math.max(ayahs.length, 1)) * 100}%`;
-                    }
-
-                    function renderPage() {
-                      const container = $("mpAyahs");
-                      container.replaceChildren();
-                      $("mpPageHeading").textContent = `Halaman ${currentPage}`;
-                      const first = ayahs[0]; const last = ayahs[ayahs.length - 1];
-                      $("mpPageSubheading").textContent = first && last ? `${first.surah.englishName} ${first.numberInSurah} – ${last.surah.englishName} ${last.numberInSurah}` : "";
-
-                      ayahs.forEach((ayah, index) => {
-                        const article = document.createElement("article");
-                        article.className = "mp-ayah"; article.dataset.globalAyah = String(ayah.number);
-
-                        const ref = document.createElement("div"); ref.className = "mp-ref"; ref.textContent = `${ayah.surah.englishName} · Ayat ${ayah.numberInSurah}`;
-                        const arabic = document.createElement("div"); arabic.className = "mp-arabic"; arabic.lang = "ar"; arabic.dir = "rtl"; arabic.textContent = ayah.text;
-                        const translation = document.createElement("div"); translation.className = "mp-translation"; translation.textContent = ayah.translation || "Terjemahan belum tersedia.";
-
-                        article.append(ref, arabic, translation);
-                        container.appendChild(article);
-                      });
-                      $("mpProgressBar").style.width = "0%";
-                    }
-
-                    async function loadPage(page) {
-                      const thisRequest = ++requestId;
-                      stopPlayback(false);
-                      currentPage = Math.max(1, Math.min(604, Number(page) || 1));
-                      pageSelect.value = String(currentPage);
-                      $("mpPrev").disabled = currentPage === 1; $("mpNext").disabled = currentPage === 604;
-                      $("mpAyahs").replaceChildren();
-                      status(`Memuat halaman ${currentPage}...`);
-
-                      try {
-                        const [arabicData, translationData] = await Promise.all([
-                          fetchJSON(`${API}/page/${currentPage}/quran-uthmani`),
-                          fetchJSON(`${API}/page/${currentPage}/id.indonesian`)
-                        ]);
-
-                        if (thisRequest !== requestId) return;
-
-                        const arabicAyahs = arabicData.ayahs || [];
-                        const translatedAyahs = translationData.ayahs || [];
-                        if (!arabicAyahs.length) throw new Error("Tidak ada ayat untuk halaman ini.");
-
-                        const translationMap = new Map(translatedAyahs.map(a => [a.number, a.text]));
-                        ayahs = arabicAyahs.map(a => ({ ...a, translation: translationMap.get(a.number) || "" }));
-
-                        renderPage();
-                        status(`Halaman ${currentPage} berhasil dimuat · ${ayahs.length} ayat.`);
-                      } catch (error) {
-                        if (thisRequest !== requestId) return;
-                        ayahs = [];
-                        status(`${error.message} Periksa koneksi internet lalu coba lagi.`);
-                      }
-                    }
-
-                    function stopPlayback(resetAudio = true) {
-                      queueActive = false; playIndex = -1;
-                      if (resetAudio) { audio.pause(); audio.removeAttribute("src"); audio.load(); }
-                      clearPlayingHighlight();
-                      $("mpProgressBar").style.width = "0%";
-                      $("mpAudioTitle").textContent = `Audio halaman ${currentPage}`;
-                      $("mpAudioInfo").textContent = "Pilih Putar halaman untuk memulai tilawah.";
-                    }
-
-                    async function playAt(index) {
-                      if (!queueActive || index < 0 || index >= ayahs.length) {
-                        queueActive = false; clearPlayingHighlight();
-                        status(`Tilawah halaman ${currentPage} selesai.`);
-                        $("mpAudioInfo").textContent = "Halaman selesai diputar."; return;
-                      }
-
-                      playIndex = index; const ayah = ayahs[index]; highlightAyah(index);
-                      audio.src = `${CDN}/${encodeURIComponent(reciterSelect.value)}/${ayah.number}.mp3`;
-                      status(`Memutar halaman ${currentPage} · ayat ${ayah.numberInSurah} (${index + 1}/${ayahs.length}).`);
-
-                      try { await audio.play(); } catch (error) {
-                        queueActive = false; status("Audio tidak dapat diputar. Tekan tombol putar atau coba pilih qari lain.");
-                      }
-                    }
-
-                    $("mpPlay").addEventListener("click", () => {
-                      if (!ayahs.length) { status("Muat halaman yang berisi ayat terlebih dahulu."); return; }
-                      queueActive = true; const startIndex = playIndex >= 0 ? playIndex : 0; playAt(startIndex);
-                    });
-
-                    $("mpPause").addEventListener("click", () => { audio.pause(); status("Audio dijeda."); });
-                    $("mpStop").addEventListener("click", () => { stopPlayback(true); status("Pemutaran dihentikan."); });
-                    audio.addEventListener("ended", () => { if (queueActive) playAt(playIndex + 1); });
-                    audio.addEventListener("error", () => { if (queueActive) { queueActive = false; status("Audio ayat ini gagal dimuat."); } });
-
-                    pageSelect.addEventListener("change", () => { loadPage(pageSelect.value); });
-                    $("mpPrev").addEventListener("click", () => { if (currentPage > 1) loadPage(currentPage - 1); });
-                    $("mpNext").addEventListener("click", () => { if (currentPage < 604) loadPage(currentPage + 1); });
-                    reciterSelect.addEventListener("change", () => { if (queueActive && playIndex >= 0) playAt(playIndex); });
-
-                    loadPage(1);
-                  })();
-                  </script>
-                </section>
-                <!-- ===== QURAN MODULE: END ===== -->
-====
                 <!-- ===== QURAN MODULE: BEGIN ===== -->
                 <section id="quranModule">
                   <style>
@@ -1001,7 +760,7 @@
                         surahSelect,
                         filtered,
                         s => s.number,
-                        s => `${s.number}. ${s.englishName} — ${s.name}`
+                        s => `${s.number}. ${s.englishName} —${s.name}`
                       );
 
                       if (filtered.some(s => String(s.number) === previous)) {
@@ -1066,7 +825,7 @@
                       versesBox.replaceChildren();
 
                       infoBox.replaceChildren(
-                        node("h3", "", `${arabic.englishName} · ${arabic.name}`),
+                        node("h3", "", `${arabic.englishName} ·${arabic.name}`),
                         node("p", "q-info",
                           `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`)
                       );
@@ -1279,170 +1038,162 @@
                   </script>
                 </section>
                 <!-- ===== QURAN MODULE: END ===== -->
->>>>
-```eof
-
-### 2. Tambahkan Modul Hadis Arba'in di Beranda
-Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan UI Hadis Arba'in secara responsif.
-
-```html:index.html
-<<<<
             </div>
 
-            <!-- Jadwal Shalat Kemenag Card -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 relative group">
-====
+            <!-- Banner Hadis Arba'in (Trigger) -->
+            <div class="bg-gradient-to-r from-emerald-800 to-green-600 text-white rounded-xl shadow-lg p-6 mb-8 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
+                    <i class="fas fa-book-open text-9xl"></i>
+                </div>
+                <div class="z-10 text-center md:text-left mb-4 md:mb-0">
+                    <h3 class="text-2xl font-bold mb-1"><i class="fas fa-book-reader mr-2"></i> Hadis Arba'in Nawawi</h3>
+                    <p class="text-green-100 text-sm">Kumpulan 42 hadis pokok ajaran Islam beserta terjemahannya.</p>
+                </div>
+                <button onclick="bukaHadisDiBeranda()" class="z-10 w-full md:w-auto bg-white text-green-700 px-8 py-3 rounded-xl font-bold hover:bg-gray-100 hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2">
+                    Buka Hadis <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
-            
-            <!-- ===== HADIS MODULE: BEGIN ===== -->
-            <section id="arbainApp" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 mb-8 overflow-hidden">
-              <style>
-                #arbainApp {
-                  width: 100%;
-                  color: #24352c;
-                  font-family: system-ui, Arial, sans-serif;
-                }
-                .dark #arbainApp { color: #e5e7eb; }
-                #arbainApp * { box-sizing: border-box; }
-                #arbainApp .arb-header {
-                  background: linear-gradient(135deg,#0f766e,#0d9488);
-                  color: white;
-                  padding: 24px;
-                }
-                #arbainApp .arb-header h2 { margin: 0 0 8px; font-size: 1.45rem; font-weight: bold;}
-                #arbainApp .arb-tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 24px 0; }
-                #arbainApp input, #arbainApp select, #arbainApp button {
-                  padding: 11px 13px; border: 1px solid #d8e1da; border-radius: 10px; font: inherit; background: white; color: #374151;
-                }
-                .dark #arbainApp input, .dark #arbainApp select, .dark #arbainApp button { background: #374151; border-color: #4b5563; color: #f3f4f6;}
-                #arbainApp input { flex: 1 1 220px; min-width: 0; }
-                #arbainApp button { background: #0d9488; color: white; cursor: pointer; border-color: #0d9488; font-weight: bold;}
-                #arbainApp .arb-status { padding: 12px 24px; color: #637267; font-size: .92rem; }
-                .dark #arbainApp .arb-status { color: #9ca3af; }
-                #arbainApp .arb-card { border: 1px solid #e1e8e2; border-radius: 14px; padding: 18px; margin: 0 24px 14px; background: #f8fafc; }
-                .dark #arbainApp .arb-card { background: #1f2937; border-color: #374151; }
-                #arbainApp .arb-title { color: #0d9488; font-weight: 750; margin-bottom: 14px; font-size: 1.1rem;}
-                .dark #arbainApp .arb-title { color: #2dd4bf; }
-                #arbainApp .arb-arab {
-                  font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: clamp(1.65rem, 4vw, 2.1rem);
-                  line-height: 2.1; text-align: right; direction: rtl; margin-bottom: 16px; overflow-wrap: anywhere;
-                }
-                #arbainApp .arb-translation { line-height: 1.9; white-space: pre-line; font-size: 0.95rem;}
-                #arbainApp .arb-empty { text-align: center; padding: 28px 12px; color: #637267; }
-                .dark #arbainApp .arb-empty { color: #9ca3af; }
-                #arbainApp .arb-count { color: #637267; font-size: .9rem; margin-bottom: 12px; padding: 0 24px; }
-                .dark #arbainApp .arb-count { color: #9ca3af; }
-              </style>
 
-              <div class="arb-header">
-                <h2>الأربعون النووية</h2>
-                <div>Kitab Arba'in Nawawi</div>
-                <p style="margin-bottom:0; font-size: 0.85rem; opacity: 0.9;">42 hadis pilihan · Teks Arab dan terjemahan Indonesia</p>
-              </div>
+            <!-- Kontainer Utama Hadis -->
+            <div id="hadisContainerBeranda" class="hidden mb-12 transition-all duration-500 ease-in-out origin-top">
+                <div class="flex justify-end items-center mb-2 pb-2">
+                    <button onclick="tutupHadisDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900 bg-white dark:bg-gray-800">
+                        <i class="fas fa-times"></i> Tutup Hadis
+                    </button>
+                </div>
 
-              <div class="arb-tools">
-                <input id="arbSearch" type="search" placeholder="Cari judul atau terjemahan hadis..." aria-label="Cari hadis">
-                <select id="arbNumber" aria-label="Pilih nomor hadis">
-                  <option value="all">Semua hadis</option>
-                </select>
-                <button type="button" id="arbReload"><i class="fas fa-sync-alt mr-2"></i>Muat ulang</button>
-              </div>
+                <!-- ===== HADIS MODULE: BEGIN ===== -->
+                <section id="arbainApp" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 mb-8 overflow-hidden">
+                  <style>
+                    #arbainApp { width: 100%; color: #24352c; font-family: system-ui, Arial, sans-serif; }
+                    .dark #arbainApp { color: #e5e7eb; }
+                    #arbainApp * { box-sizing: border-box; }
+                    #arbainApp .arb-header { background: linear-gradient(135deg,#0f766e,#0d9488); color: white; padding: 24px; }
+                    #arbainApp .arb-header h2 { margin: 0 0 8px; font-size: 1.45rem; font-weight: bold;}
+                    #arbainApp .arb-tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 24px 0; }
+                    #arbainApp input, #arbainApp select, #arbainApp button { padding: 11px 13px; border: 1px solid #d8e1da; border-radius: 10px; font: inherit; background: white; color: #374151; }
+                    .dark #arbainApp input, .dark #arbainApp select, .dark #arbainApp button { background: #374151; border-color: #4b5563; color: #f3f4f6;}
+                    #arbainApp input { flex: 1 1 220px; min-width: 0; }
+                    #arbainApp button { background: #0d9488; color: white; cursor: pointer; border-color: #0d9488; font-weight: bold;}
+                    #arbainApp .arb-status { padding: 12px 24px; color: #637267; font-size: .92rem; }
+                    .dark #arbainApp .arb-status { color: #9ca3af; }
+                    #arbainApp .arb-card { border: 1px solid #e1e8e2; border-radius: 14px; padding: 18px; margin: 0 24px 14px; background: #f8fafc; }
+                    .dark #arbainApp .arb-card { background: #1f2937; border-color: #374151; }
+                    #arbainApp .arb-title { color: #0d9488; font-weight: 750; margin-bottom: 14px; font-size: 1.1rem;}
+                    .dark #arbainApp .arb-title { color: #2dd4bf; }
+                    #arbainApp .arb-arab { font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: clamp(1.65rem, 4vw, 2.1rem); line-height: 2.1; text-align: right; direction: rtl; margin-bottom: 16px; overflow-wrap: anywhere; }
+                    #arbainApp .arb-translation { line-height: 1.9; white-space: pre-line; font-size: 0.95rem;}
+                    #arbainApp .arb-empty { text-align: center; padding: 28px 12px; color: #637267; }
+                    .dark #arbainApp .arb-empty { color: #9ca3af; }
+                    #arbainApp .arb-count { color: #637267; font-size: .9rem; margin-bottom: 12px; padding: 0 24px; }
+                    .dark #arbainApp .arb-count { color: #9ca3af; }
+                  </style>
 
-              <div id="arbStatus" class="arb-status" role="status" aria-live="polite">Menghubungkan ke API hadis...</div>
-              <div id="arbCount" class="arb-count"></div>
-              <div id="arbResults"></div>
+                  <div class="arb-header">
+                    <h2>الأربعون النووية</h2>
+                    <div>Kitab Arba'in Nawawi</div>
+                    <p style="margin-bottom:0; font-size: 0.85rem; opacity: 0.9;">42 hadis pilihan · Teks Arab dan terjemahan Indonesia</p>
+                  </div>
 
-              <script>
-              (() => {
-                const root = document.getElementById("arbainApp");
-                if (root.dataset.ready === "1") return;
-                root.dataset.ready = "1";
+                  <div class="arb-tools">
+                    <input id="arbSearch" type="search" placeholder="Cari judul atau terjemahan hadis..." aria-label="Cari hadis">
+                    <select id="arbNumber" aria-label="Pilih nomor hadis"><option value="all">Semua hadis</option></select>
+                    <button type="button" id="arbReload"><i class="fas fa-sync-alt mr-2"></i>Muat ulang</button>
+                  </div>
 
-                const API = "https://ournoor.com/api/v1/hadits";
-                const $ = id => document.getElementById(id);
+                  <div id="arbStatus" class="arb-status" role="status" aria-live="polite">Menghubungkan ke API hadis...</div>
+                  <div id="arbCount" class="arb-count"></div>
+                  <div id="arbResults"></div>
 
-                let hadits = [];
+                  <script>
+                  (() => {
+                    const root = document.getElementById("arbainApp");
+                    if (root.dataset.ready === "1") return;
+                    root.dataset.ready = "1";
 
-                function setStatus(message) { $("arbStatus").textContent = message; }
+                    const API = "https://ournoor.com/api/v1/hadits";
+                    const $ = id => document.getElementById(id);
+                    let hadits = [];
 
-                async function loadHadits() {
-                  setStatus("Mengambil data hadis...");
-                  $("arbResults").replaceChildren();
+                    function setStatus(message) { $("arbStatus").textContent = message; }
 
-                  try {
-                    const response = await fetch(API, { method: "GET", headers: { "Accept": "application/json" } });
-                    if (!response.ok) throw new Error("Server merespons HTTP " + response.status);
+                    async function loadHadits() {
+                      setStatus("Mengambil data hadis...");
+                      $("arbResults").replaceChildren();
 
-                    const result = await response.json();
+                      try {
+                        const response = await fetch(API, { method: "GET", headers: { "Accept": "application/json" } });
+                        if (!response.ok) throw new Error("Server merespons HTTP " + response.status);
+                        const result = await response.json();
+                        if (result.status !== 200 || !Array.isArray(result.data)) throw new Error("Format respons API tidak sesuai.");
 
-                    if (result.status !== 200 || !Array.isArray(result.data)) throw new Error("Format respons API tidak sesuai.");
+                        hadits = result.data.filter(item => item && item.no != null && item.arab && item.indo);
+                        if (hadits.length === 0) throw new Error("Data hadis tidak ditemukan.");
 
-                    hadits = result.data.filter(item => item && item.no != null && item.arab && item.indo);
-                    if (hadits.length === 0) throw new Error("Data hadis tidak ditemukan.");
+                        const select = $("arbNumber");
+                        select.replaceChildren();
+                        const allOption = document.createElement("option");
+                        allOption.value = "all"; allOption.textContent = "Semua hadis";
+                        select.appendChild(allOption);
 
-                    const select = $("arbNumber");
-                    select.replaceChildren();
-                    const allOption = document.createElement("option");
-                    allOption.value = "all"; allOption.textContent = "Semua hadis";
-                    select.appendChild(allOption);
+                        hadits.forEach(item => {
+                          const option = document.createElement("option");
+                          option.value = String(item.no); option.textContent = "Hadis " + item.no;
+                          select.appendChild(option);
+                        });
 
-                    hadits.forEach(item => {
-                      const option = document.createElement("option");
-                      option.value = String(item.no); option.textContent = "Hadis " + item.no;
-                      select.appendChild(option);
-                    });
+                        setStatus("Data hadis berhasil dimuat.");
+                        renderHadits();
+                      } catch (error) {
+                        setStatus("Gagal memuat API: " + error.message + ".");
+                        $("arbResults").replaceChildren();
+                        const help = document.createElement("div"); help.className = "arb-card arb-empty";
+                        help.innerHTML = '<i class="fas fa-exclamation-triangle text-3xl text-yellow-500 mb-2 block"></i>Server mungkin membatasi akses lintas domain (CORS).';
+                        $("arbResults").appendChild(help);
+                      }
+                    }
 
-                    setStatus("Data hadis berhasil dimuat.");
-                    renderHadits();
-                  } catch (error) {
-                    setStatus("Gagal memuat API: " + error.message + ". Periksa koneksi atau kebijakan CORS server.");
-                    $("arbResults").replaceChildren();
-                    const help = document.createElement("div");
-                    help.className = "arb-card arb-empty";
-                    help.innerHTML = '<i class="fas fa-exclamation-triangle text-3xl text-yellow-500 mb-2 block"></i>Jika API gagal diakses di aplikasi, server mungkin membatasi akses lintas domain (CORS).';
-                    $("arbResults").appendChild(help);
-                  }
-                }
+                    function renderHadits() {
+                      const query = $("arbSearch").value.trim().toLowerCase();
+                      const selected = $("arbNumber").value;
 
-                function renderHadits() {
-                  const query = $("arbSearch").value.trim().toLowerCase();
-                  const selected = $("arbNumber").value;
+                      const filtered = hadits.filter(item => {
+                        const matchesNumber = selected === "all" || String(item.no) === selected;
+                        const text = [item.judul || "", item.indo || "", item.arab || ""].join(" ").toLowerCase();
+                        return matchesNumber && text.includes(query);
+                      });
 
-                  const filtered = hadits.filter(item => {
-                    const matchesNumber = selected === "all" || String(item.no) === selected;
-                    const text = [item.judul || "", item.indo || "", item.arab || ""].join(" ").toLowerCase();
-                    return matchesNumber && text.includes(query);
-                  });
+                      const results = $("arbResults");
+                      results.replaceChildren();
+                      $("arbCount").textContent = `${filtered.length} hadis ditampilkan`;
 
-                  const results = $("arbResults");
-                  results.replaceChildren();
-                  $("arbCount").textContent = `${filtered.length} hadis ditampilkan`;
+                      if (!filtered.length) {
+                        const empty = document.createElement("div"); empty.className = "arb-card arb-empty"; empty.textContent = "Hadis tidak ditemukan.";
+                        results.appendChild(empty); return;
+                      }
 
-                  if (!filtered.length) {
-                    const empty = document.createElement("div"); empty.className = "arb-card arb-empty"; empty.textContent = "Hadis tidak ditemukan.";
-                    results.appendChild(empty); return;
-                  }
+                      filtered.forEach(item => {
+                        const card = document.createElement("article"); card.className = "arb-card";
+                        const title = document.createElement("div"); title.className = "arb-title"; title.textContent = `Hadis ${item.no} —${item.judul || "Arba'in Nawawi"}`;
+                        const arab = document.createElement("div"); arab.className = "arb-arab"; arab.lang = "ar"; arab.dir = "rtl"; arab.textContent = item.arab;
+                        const translationTitle = document.createElement("strong"); translationTitle.className = "block mb-2 text-sm text-gray-700 dark:text-gray-300"; translationTitle.textContent = "Terjemahan Indonesia:";
+                        const translation = document.createElement("div"); translation.className = "arb-translation"; translation.textContent = item.indo;
+                        card.append(title, arab, translationTitle, translation);
+                        results.appendChild(card);
+                      });
+                    }
 
-                  filtered.forEach(item => {
-                    const card = document.createElement("article"); card.className = "arb-card";
-                    const title = document.createElement("div"); title.className = "arb-title"; title.textContent = `Hadis ${item.no} — ${item.judul || "Arba'in Nawawi"}`;
-                    const arab = document.createElement("div"); arab.className = "arb-arab"; arab.lang = "ar"; arab.dir = "rtl"; arab.textContent = item.arab;
-                    const translationTitle = document.createElement("strong"); translationTitle.className = "block mb-2 text-sm text-gray-700 dark:text-gray-300"; translationTitle.textContent = "Terjemahan Indonesia:";
-                    const translation = document.createElement("div"); translation.className = "arb-translation"; translation.textContent = item.indo;
-                    card.append(title, arab, translationTitle, translation);
-                    results.appendChild(card);
-                  });
-                }
+                    $("arbSearch").addEventListener("input", renderHadits);
+                    $("arbNumber").addEventListener("change", renderHadits);
+                    $("arbReload").addEventListener("click", loadHadits);
 
-                $("arbSearch").addEventListener("input", renderHadits);
-                $("arbNumber").addEventListener("change", renderHadits);
-                $("arbReload").addEventListener("click", loadHadits);
+                    window._initHadis = () => { if (hadits.length === 0) loadHadits(); };
+                  })();
+                  </script>
+                </section>
+                <!-- ===== HADIS MODULE: END ===== -->
+            </div>
 
-                loadHadits();
-              })();
-              </script>
-            </section>
-            <!-- ===== HADIS MODULE: END ===== -->
             <!-- Jadwal Shalat Kemenag Card -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 relative group">
                 <button onclick="openAdminModal('Pengaturan', 'update', {id: 'lokasi_masjid'})" class="admin-edit-btn" title="Edit Pengaturan Lokasi API"><i class="fas fa-map-marker-alt"></i></button>
@@ -1531,14 +1282,11 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                     <button onclick="openAdminModal('Kegiatan', 'insert')" class="admin-action-btn hidden text-sm bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition shadow-sm"><i class="fas fa-bullhorn mr-1"></i> Buat Agenda Baru</button>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5" id="gridPengajian">
-                    <!-- Kartu di-generate via JS -->
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5" id="gridPengajian"></div>
             </div>
             
             <!-- Tab 3: PHBI & Ramadhan -->
             <div id="tab-phbi-ramadhan" class="imarah-content hidden space-y-6">
-                <!-- Grid Kepanitiaan PHBI -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 relative group">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-calendar-star text-primary"></i> Kepanitiaan Hari Besar Islam</h3>
@@ -1549,7 +1297,6 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                     </div>
                 </div>
 
-                <!-- Tabel Jadwal Amaliyah Ramadhan -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 relative group overflow-hidden">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-moon text-primary"></i> Jadwal Amaliyah Ramadhan</h3>
@@ -1657,9 +1404,7 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                         </div>
                         <div class="org-connector"></div>
                         <div class="org-horizontal-line w-[80%] md:w-[60%]"></div>
-                        <div class="flex justify-around w-[90%] md:w-[80%] mt-0 pt-4 gap-4" id="node-bidang-container">
-                            <!-- Node Bidang di-inject JS -->
-                        </div>
+                        <div class="flex justify-around w-[90%] md:w-[80%] mt-0 pt-4 gap-4" id="node-bidang-container"></div>
                     </div>
                 </div>
             </div>
@@ -1698,26 +1443,23 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                     <h2 class="text-2xl font-bold mb-1 dark:text-white">Laporan Keuangan Masjid</h2>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Transparansi Arus Kas, ZISWAF, dan Pengeluaran Operasional</p>
                 </div>
-                <!-- Tombol Cetak PDF Laporan (Hanya tampil untuk Admin) -->
                 <button onclick="cetakLaporanBulanan()" class="admin-col hidden bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md items-center gap-2 whitespace-nowrap w-fit">
                     <i class="fas fa-print"></i> Cetak PDF Laporan Bulan Ini
                 </button>
             </div>
 
-            <!-- Laporan Summary (Kartu Metrik) -->
+            <!-- Laporan Summary -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                 <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 border border-green-200 dark:border-green-800 p-5 rounded-2xl relative overflow-hidden shadow-sm">
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-hand-holding-usd text-8xl text-green-600"></i></div>
                     <p class="text-sm font-semibold text-green-700 dark:text-green-400">Total Pemasukan (Bulan Ini)</p>
                     <p class="text-3xl font-bold text-green-800 dark:text-green-300 mt-2" id="sumPemasukan">Rp 0</p>
                 </div>
-                
                 <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border border-red-200 dark:border-red-800 p-5 rounded-2xl relative overflow-hidden shadow-sm">
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-receipt text-8xl text-red-600"></i></div>
                     <p class="text-sm font-semibold text-red-700 dark:text-red-400">Total Pengeluaran (Bulan Ini)</p>
                     <p class="text-3xl font-bold text-red-800 dark:text-red-300 mt-2" id="sumPengeluaran">Rp 0</p>
                 </div>
-                
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-800 p-5 rounded-2xl relative overflow-hidden shadow-sm group">
                     <button onclick="openAdminModal('Keuangan', 'insert')" class="admin-action-btn absolute top-3 right-3 bg-white/50 p-2 rounded-lg text-blue-800 hover:bg-white hidden shadow"><i class="fas fa-edit"></i></button>
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-vault text-8xl text-blue-600"></i></div>
@@ -1886,7 +1628,7 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
             let icon = type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle';
             let color = type === 'success' ? 'text-green-500' : type === 'error' ? 'text-red-500' : type === 'warning' ? 'text-yellow-500' : 'text-blue-500';
             
-            toast.innerHTML = `<i class="fas fa-${icon} text-xl ${color}"></i> <span class="text-sm font-semibold text-gray-700">${message}</span>`;
+            toast.innerHTML = `<i class="fas fa-${icon} text-xl${color}"></i> <span class="text-sm font-semibold text-gray-700">${message}</span>`;
             container.appendChild(toast);
             
             setTimeout(() => toast.classList.add('show'), 10);
@@ -2118,8 +1860,7 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                 tr.className = `hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${isCurrent ? 'bg-primary-light/30 dark:bg-primary-dark/20' : ''}`;
                 tr.innerHTML = `
                     <td class="px-4 py-3 font-bold text-primary dark:text-primary-light whitespace-nowrap">
-                        Jumat ${pasaran} 
-                        ${isCurrent ? '<span class="ml-2 bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm">Minggu Ini</span>' : ''}
+                        Jumat ${pasaran}${isCurrent ? '<span class="ml-2 bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm">Minggu Ini</span>' : ''}
                     </td>
                     <td class="px-4 py-3">${row.khatib || '-'}</td>
                     <td class="px-4 py-3">${row.imam || '-'}</td>
@@ -2212,9 +1953,7 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                         </div>
                         
                         <h4 class="font-bold text-lg mb-1 leading-tight text-gray-800 dark:text-white z-10">${row.nama_kegiatan}</h4>
-                        <p class="text-sm font-medium text-primary mb-3 flex items-center gap-1.5 z-10"><i class="fas fa-user-circle"></i> ${row.pemateri}</p>
-                        
-                        ${row.deskripsi ? `<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 z-10">${row.deskripsi}</p>` : ''}
+                        <p class="text-sm font-medium text-primary mb-3 flex items-center gap-1.5 z-10"><i class="fas fa-user-circle"></i> ${row.pemateri}</p>${row.deskripsi ? `<p class="text-xs text-gray-500 dark:text-gray-400 mb-4 line-clamp-2 z-10">${row.deskripsi}</p>` : ''}
                         
                         <div class="mt-auto pt-4 border-t dark:border-gray-700 flex justify-between items-center z-10">
                             <div class="flex items-center text-xs font-semibold text-gray-600 dark:text-gray-300">
@@ -2389,10 +2128,10 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                     tbody.innerHTML += `
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                             <td class="px-4 py-3 font-medium whitespace-nowrap text-gray-600 dark:text-gray-300">${formatDate(row.tanggal)}</td>
-                            <td class="px-4 py-3"><span class="${textColor} ${bgColor} border px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${row.tipe}</span></td>
+                            <td class="px-4 py-3"><span class="${textColor}${bgColor} border px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider">${row.tipe}</span></td>
                             <td class="px-4 py-3 font-medium dark:text-gray-200">${row.kategori}</td>
                             <td class="px-4 py-3 text-gray-500 dark:text-gray-400 max-w-[200px] truncate" title="${row.keterangan}">${row.keterangan}</td>
-                            <td class="px-4 py-3 text-right font-bold ${textColor} whitespace-nowrap">${iconSign} ${formatRupiah(nom)}</td>
+                            <td class="px-4 py-3 text-right font-bold ${textColor} whitespace-nowrap">${iconSign}${formatRupiah(nom)}</td>
                             <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
                                 <button onclick='openAdminModal("Keuangan", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1" title="Edit Transaksi"><i class="fas fa-edit"></i></button>
                                 <button onclick='deleteData("Keuangan", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition" title="Hapus Transaksi"><i class="fas fa-trash"></i></button>
@@ -2545,8 +2284,7 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
 
             nodeKetua.innerHTML = `
                 <div class="text-[10px] bg-primary-light text-primary px-2 py-0.5 rounded font-bold uppercase tracking-widest mb-2 inline-block">${ketua.jabatan || 'Pimpinan'}</div>
-                <div class="font-bold text-gray-800 dark:text-white text-lg">${ketua.nama}</div>
-                ${ketua.kontak ? `<div class="text-xs text-gray-500 mt-1"><i class="fas fa-phone-alt mr-1"></i>${ketua.kontak}</div>` : ''}
+                <div class="font-bold text-gray-800 dark:text-white text-lg">${ketua.nama}</div>${ketua.kontak ? `<div class="text-xs text-gray-500 mt-1"><i class="fas fa-phone-alt mr-1"></i>${ketua.kontak}</div>` : ''}
                 
                 <button class="admin-col ${isAdmin ? 'absolute -top-3 -right-3 w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-md text-blue-500 hover:bg-blue-50 transition' : 'hidden'}" onclick='openAdminModal("Pengurus", "update", ${JSON.stringify(ketua).replace(/'/g, "&#39;")})' title="Edit Posisi">
                     <i class="fas fa-edit text-xs"></i>
@@ -2559,7 +2297,7 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                     <div class="flex flex-col items-center flex-1 relative min-w-[120px]">
                         <div class="org-connector h-[20px]"></div>
                         <div class="org-node text-sm border-t-2 border-t-blue-400 bg-white dark:bg-gray-800 shadow-sm relative group w-full">
-                             <div class="text-[10px] text-gray-500 dark:text-gray-400 mb-1 font-bold uppercase tracking-wider">${b.jabatan || 'Pengurus'} ${b.bidang ? `(${b.bidang})` : ''}</div>
+                             <div class="text-[10px] text-gray-500 dark:text-gray-400 mb-1 font-bold uppercase tracking-wider">${b.jabatan \vert{}\vert{} 'Pengurus'}${b.bidang ? `(${b.bidang})` : ''}</div>
                              <div class="font-bold text-gray-800 dark:text-white leading-tight">${b.nama}</div>
                              
                              <div class="admin-col ${isAdmin ? 'absolute -top-3 -right-3 flex flex-col gap-1' : 'hidden'}">
@@ -2591,410 +2329,4 @@ Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan
                 tbody.innerHTML += `
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                         <td class="px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">${row.nomor || '-'}</td>
-                        <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">${formatDate(row.tanggal)}</td>
-                        <td class="px-4 py-3"><span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${jenisClass}">${row.jenis || '-'}</span></td>
-                        <td class="px-4 py-3 max-w-[200px] truncate text-gray-700 dark:text-gray-200" title="${row.perihal}">${row.perihal || '-'}</td>
-                        <td class="px-4 py-3 text-right admin-col ${isAdmin ? 'whitespace-nowrap' : 'hidden'}">
-                            ${row.file_url ? `<a href="${row.file_url}" target="_blank" class="text-blue-500 hover:bg-blue-50 p-1.5 rounded inline-block mr-1" title="Buka Lampiran"><i class="fas fa-external-link-alt text-xs"></i></a>` : ''}
-                            <button onclick='openAdminModal("Surat", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-50 p-1.5 rounded mr-1"><i class="fas fa-edit text-xs"></i></button>
-                            <button onclick='deleteData("Surat", "${row.id}")' class="text-red-500 hover:bg-red-50 p-1.5 rounded"><i class="fas fa-trash text-xs"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        function renderJamaah() {
-            const tbody = document.getElementById('tableBodyJamaah');
-            if(!tbody) return;
-            tbody.innerHTML = '';
-            
-            const data = appData.jamaah || [];
-            if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-gray-500 italic">Database jamaah masih kosong.</td></tr>`;
-                return;
-            }
-
-            data.forEach(row => {
-                let badgeKat = 'bg-gray-700 text-gray-300';
-                const kat = (row.kategori_zakat || '').toLowerCase();
-                if(kat.includes('muzakki')) badgeKat = 'bg-green-900/50 text-green-400 border border-green-800';
-                if(kat.includes('mustahiq')) badgeKat = 'bg-yellow-900/50 text-yellow-400 border border-yellow-800';
-
-                tbody.innerHTML += `
-                    <tr class="hover:bg-gray-700/50 transition-colors">
-                        <td class="p-3">
-                            <p class="font-bold text-gray-200">${row.nama}</p>
-                            <p class="text-[10px] text-gray-400"><i class="fas fa-phone-alt mr-1"></i>${row.no_hp || '-'}</p>
-                        </td>
-                        <td class="p-3"><span class="${badgeKat} px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider">${row.kategori_zakat || 'Umum'}</span></td>
-                        <td class="p-3"><span class="text-green-400 text-xs flex items-center gap-1.5 font-medium"><span class="w-1.5 h-1.5 rounded-full bg-green-500 inline-block animate-pulse"></span> Aktif</span></td>
-                        <td class="p-3 text-right">
-                             <button onclick='openAdminModal("Jamaah", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-400 hover:text-blue-300 mr-2"><i class="fas fa-edit"></i></button>
-                             <button onclick='deleteData("Jamaah", "${row.id}")' class="text-red-400 hover:text-red-300"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        function applyDynamicSettings() {
-            const data = appData.pengaturan || [];
-            data.forEach(setting => {
-                const key = setting.kunci;
-                const val = setting.nilai;
-                
-                if(key === 'running_text') {
-                    const el = document.getElementById('runningTextBeranda');
-                    if(el && val) el.innerText = val;
-                }
-                
-                if(key === 'hero_text') {
-                    const titleEl = document.getElementById('heroTitleText');
-                    if(titleEl && val) titleEl.innerText = val;
-                }
-            });
-        }
-
-        function updateDynamicBeranda() {
-            const rawatibCont = document.getElementById('beranda-info-rawatib');
-            if (rawatibCont) {
-                const nextPrayerNameEl = document.getElementById('nextPrayerName');
-                let targetWaktu = 'Dzuhur';
-                if (nextPrayerNameEl && nextPrayerNameEl.innerText.includes('Waktu')) {
-                    targetWaktu = nextPrayerNameEl.innerText.replace('Waktu ', '').trim();
-                }
-                const rawatibData = appData.imam_harian || [];
-                const imamObj = rawatibData.find(x => x.waktu && x.waktu.toLowerCase().includes(targetWaktu.toLowerCase()));
-                if(imamObj) {
-                    rawatibCont.innerHTML = `
-                        <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Shalat ${targetWaktu}</p>
-                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: <span class="text-primary-dark dark:text-primary-light">${imamObj.imam_utama || '-'}</span></p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-microphone text-gray-400 w-4 mr-1"></i> Muadzin: ${imamObj.muadzin || '-'}</p>
-                    `;
-                } else {
-                    rawatibCont.innerHTML = `<p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Shalat ${targetWaktu}</p><p class="text-sm text-gray-500">Petugas belum dijadwalkan.</p>`;
-                }
-            }
-
-            const jumatCont = document.getElementById('beranda-info-jumat');
-            if (jumatCont) {
-                const jumatData = appData.jumat || [];
-                if(jumatData.length > 0) {
-                    const j = jumatData[0];
-                    jumatCont.innerHTML = `
-                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || 'Ini'}</p>
-                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
-                    `;
-                } else {
-                    jumatCont.innerHTML = `<p class="text-sm text-gray-500">Jadwal Jumat belum tersedia.</p>`;
-                }
-            }
-
-            const kajianCont = document.getElementById('beranda-info-kajian');
-            if (kajianCont) {
-                const kegiatanData = appData.kegiatan || [];
-                if(kegiatanData.length > 0) {
-                    const k = kegiatanData[0];
-                    kajianCont.innerHTML = `
-                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
-                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
-                    `;
-                } else {
-                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
-                }
-            }
-        }
-
-        // ====================================================================
-        // 7. SISTEM FORMULIR ADMIN UNIVERSAL (OPERASI CRUD KE SPREADSHEET)
-        // ====================================================================
-        function openAdminModal(sheetName, action = 'insert', existingData = null) {
-            const modal = document.getElementById('adminModal');
-            const title = document.getElementById('modalTitle');
-            const fieldsContainer = document.getElementById('modalFields');
-            
-            currentSubmitParams = { sheet: sheetName, action: action, id: existingData ? existingData.id : null };
-            
-            title.innerText = action === 'insert' ? `Input Data Baru (${sheetName})` : `Edit Data (${sheetName})`;
-            fieldsContainer.innerHTML = ''; 
-
-            const schema = {
-                'Jumat': ['pasaran|select:Legi,Pahing,Pon,Wage,Kliwon', 'khatib|text', 'imam|text', 'muadzin|text'],
-                'Imam_Harian': ['waktu|select:Subuh,Dzuhur,Ashar,Maghrib,Isya', 'imam_utama|text', 'imam_pengganti|text', 'muadzin|text'],
-                'Kegiatan': ['nama_kegiatan|text', 'kategori|select:Umum,Ibu-ibu,Remaja', 'waktu|text', 'pemateri|text', 'deskripsi|textarea'],
-                'Program': ['nama_program|text', 'bidang|select:PHBI,Ramadhan,Idul Qurban,Zakat Fitrah', 'target|text', 'status|select:Perencanaan,Berjalan,Selesai', 'pic|text'],
-                'Ramadhan': ['kegiatan|select:Shalat Tarawih,Kuliah Subuh,Pengajian Ifthar', 'waktu|text', 'penceramah|text', 'pic|text'],
-                'Laporan_Riayah': ['tanggal|date', 'fasilitas|text', 'pelapor|text', 'deskripsi_kerusakan|textarea', 'status|select:Pending,Proses,Selesai'],
-                'Pengurus': ['nama|text', 'jabatan|text', 'bidang|text', 'kontak|text'],
-                'Surat': ['nomor|text', 'tanggal|date', 'jenis|select:Surat Masuk,Surat Keluar', 'perihal|text', 'file_url|url'],
-                'Keuangan': ['tanggal|date', 'tipe|select:Pemasukan,Pengeluaran', 'kategori|text', 'nominal|number', 'keterangan|textarea'],
-                'Jamaah': ['nama|text', 'no_hp|text', 'alamat|textarea', 'kategori_zakat|select:Muzakki,Mustahiq,Donatur Tetap'],
-                'Pengaturan': ['nilai|textarea'] 
-            };
-
-            const columns = schema[sheetName] || [];
-            
-            columns.forEach(colConfig => {
-                const [colName, colTypeInfo] = colConfig.split('|');
-                const [inputType, optionsStr] = colTypeInfo.split(':');
-                
-                const wrapper = document.createElement('div');
-                const label = document.createElement('label');
-                label.className = 'block text-sm font-semibold text-gray-700 dark:text-gray-300 capitalize mb-1';
-                label.innerText = colName.replace(/_/g, ' '); 
-
-                let inputEl;
-                if (inputType === 'select') {
-                    inputEl = document.createElement('select');
-                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
-                    const options = optionsStr.split(',');
-                    options.forEach(opt => {
-                        const option = document.createElement('option');
-                        option.value = opt;
-                        option.innerText = opt;
-                        inputEl.appendChild(option);
-                    });
-                } else if (inputType === 'textarea') {
-                    inputEl = document.createElement('textarea');
-                    inputEl.rows = 3;
-                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
-                } else {
-                    inputEl = document.createElement('input');
-                    inputEl.type = inputType;
-                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
-                }
-                
-                inputEl.id = `input_${colName}`;
-                inputEl.name = colName;
-                inputEl.required = true;
-                
-                if (existingData && existingData[colName]) {
-                    if(inputType === 'date') {
-                        try { 
-                            const d = new Date(existingData[colName]);
-                            if(!isNaN(d.getTime())) {
-                                inputEl.value = d.toISOString().split('T')[0]; 
-                            }
-                        } catch(e) {}
-                    } else {
-                        inputEl.value = existingData[colName];
-                    }
-                }
-
-                wrapper.appendChild(label);
-                wrapper.appendChild(inputEl);
-                fieldsContainer.appendChild(wrapper);
-            });
-
-            document.getElementById('adminModal').classList.add('active');
-        }
-
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.remove('active');
-        }
-
-        async function handleAdminFormSubmit(e) {
-            e.preventDefault(); 
-            
-            const btnText = document.getElementById('btnSubmitText');
-            const btnLoader = document.getElementById('btnSubmitLoader');
-            btnText.classList.add('hidden');
-            btnLoader.classList.remove('hidden');
-            document.getElementById('btnSubmitForm').disabled = true;
-
-            const formData = new FormData(e.target);
-            const dataObj = {};
-            formData.forEach((value, key) => { dataObj[key] = value; });
-
-            const payload = {
-                sheet: currentSubmitParams.sheet,
-                action: currentSubmitParams.action,
-                id: currentSubmitParams.id, 
-                data: dataObj
-            };
-
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' }, 
-                    body: JSON.stringify(payload)
-                });
-                
-                const result = await response.json();
-                
-                if(result.status === 'success') {
-                    showToast('Operasi database berhasil!', 'success');
-                    closeAdminModal();
-                    await fetchSpreadsheetData(); 
-                } else {
-                    showToast('Gagal memproses data: ' + result.message, 'error');
-                }
-            } catch(err) {
-                console.error("Submit Error:", err);
-                showToast('Gagal terhubung ke Server Database.', 'error');
-            } finally {
-                btnText.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                document.getElementById('btnSubmitForm').disabled = false;
-            }
-        }
-
-        async function deleteData(sheetName, id) {
-            if(!confirm(`PERINGATAN: Apakah Anda yakin ingin menghapus data ini dari Database (${sheetName}) secara permanen?`)) return;
-            showToast('Sedang menghapus baris data...', 'info');
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify({ sheet: sheetName, action: 'delete', id: id }) 
-                });
-                
-                const result = await response.json();
-                
-                if(result.status === 'success') {
-                    showToast('Data berhasil dibasmi dari sistem!', 'success');
-                    await fetchSpreadsheetData();
-                } else {
-                    showToast('Gagal menghapus: ' + result.message, 'error');
-                }
-            } catch(e) {
-                showToast('Koneksi terputus saat proses penghapusan.', 'error');
-            }
-        }
-
-        // ====================================================================
-        // 8. PENGENDALI MODUL AL-QURAN DIGITAL OFFLINE
-        // ====================================================================
-        function bukaQuranDiBeranda() {
-            const container = document.getElementById('quranContainerBeranda');
-            container.classList.remove('hidden');
-            setTimeout(() => {
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-
-        function tutupQuranDiBeranda() {
-            document.getElementById('quranContainerBeranda').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if(window._stopMushafAudio) window._stopMushafAudio();
-        }
-
-        // ====================================================================
-        // 9. API JADWAL WAKTU SHALAT (KEMENAG) & SISTEM JAM DIGITAL REALTIME
-        // ====================================================================
-        async function fetchPrayerTimes() {
-            const grid = document.getElementById('prayerTimesGrid');
-            const nextEl = document.getElementById('nextPrayerTime');
-            const nameEl = document.getElementById('nextPrayerName');
-            
-            try {
-                const d = new Date();
-                const yyyy = d.getFullYear();
-                const mm = String(d.getMonth() + 1).padStart(2, '0');
-                const dd = String(d.getDate()).padStart(2, '0');
-                
-                const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/1628/${yyyy}/${mm}/${dd}`);
-                const data = await res.json();
-                const jadwal = data.data.jadwal;
-
-                const times = [
-                    { name: 'Imsak', time: jadwal.imsak, icon: 'fa-cloud-moon' },
-                    { name: 'Subuh', time: jadwal.subuh, icon: 'fa-moon' },
-                    { name: 'Terbit', time: jadwal.terbit, icon: 'fa-sun text-yellow-500' },
-                    { name: 'Dzuhur', time: jadwal.dzuhur, icon: 'fa-sun text-yellow-600' },
-                    { name: 'Ashar', time: jadwal.ashar, icon: 'fa-cloud-sun text-orange-500' },
-                    { name: 'Maghrib', time: jadwal.maghrib, icon: 'fa-sunset text-red-500' },
-                    { name: 'Isya', time: jadwal.isya, icon: 'fa-star text-indigo-500' }
-                ];
-
-                const now = new Date();
-                const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
-                let nextPrayer = null;
-                const obligatory = ['Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
-                
-                for (let t of times) {
-                    if(!obligatory.includes(t.name)) continue;
-                    const [h, m] = t.time.split(':').map(Number);
-                    const prayerMinutes = h * 60 + m;
-                    if (prayerMinutes > currentTotalMinutes) {
-                        nextPrayer = t;
-                        break;
-                    }
-                }
-                
-                if (!nextPrayer) {
-                    nextPrayer = times.find(t => t.name === 'Subuh');
-                    nameEl.innerText = "Waktu " + nextPrayer.name + " (Besok)";
-                } else {
-                    nameEl.innerText = "Waktu " + nextPrayer.name;
-                }
-                nextEl.innerText = nextPrayer.time + " WIB";
-
-                // Render Grid Jadwal
-                grid.innerHTML = '';
-                times.forEach(t => {
-                    const isNext = (t.name === nextPrayer.name);
-                    const highlightClass = isNext ? 'border-primary shadow-md bg-primary-light/20 dark:bg-primary-dark/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-800 scale-105 z-10' : 'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shadow-sm hover:shadow-md';
-                    const textHighlight = isNext ? 'text-primary dark:text-primary-light' : 'text-gray-500 dark:text-gray-400';
-                    const iconHighlight = isNext ? 'text-primary drop-shadow-md' : t.icon.split(' ')[1] || '';
-
-                    grid.innerHTML += `
-                        <div class="text-center p-3.5 rounded-xl border transition-all duration-300 ${highlightClass}">
-                            <i class="fas ${t.icon.split(' ')[0]} text-xl mb-2.5 block ${iconHighlight}"></i>
-                            <p class="text-[11px] uppercase tracking-wider font-bold ${textHighlight}">${t.name}</p>
-                            <p class="text-base font-bold text-gray-800 dark:text-gray-200 mt-1">${t.time}</p>
-                        </div>
-                    `;
-                });
-
-                setTimeout(() => updateDynamicBeranda(), 500); 
-                
-            } catch(e) {
-                console.error("Gagal muat jadwal shalat:", e);
-                grid.innerHTML = '<div class="col-span-full text-red-500 text-sm py-4 bg-red-50 rounded text-center"><i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke Server Jadwal Kemenag.</div>';
-            }
-        }
-        
-        function injectMockData() {
-            appData = {
-                jumat: [{ id: '1', pasaran: 'Wage', khatib: 'Ust. H. Mahmud', imam: 'Ust. H. Mahmud', muadzin: 'Sdr. Fauzan' }],
-                imam_harian: [{ id: '1', waktu: 'Maghrib', imam_utama: 'KH. Abdullah', imam_pengganti: 'Ust. Zaid', muadzin: 'Bpk. Sholeh' }],
-                kegiatan: [], 
-                program: [{ id: '1', nama_program: 'Kepanitiaan Idul Adha 2026', bidang: 'Idul Qurban', target: 'Penyembelihan 5 Ekor Sapi', status: 'Perencanaan', pic: 'H. Sudirman' }],
-                ramadhan: [], 
-                laporan_riayah: [{ id: '1', tanggal: '2026-10-01', fasilitas: 'AC Utama Shift Kanan', pelapor: 'Budi (Jamaah)', deskripsi_kerusakan: 'Bocor netes air deras', status: 'Pending' }],
-                keuangan: [{ id: '1', tanggal: '2026-10-02', tipe: 'Pemasukan', kategori: 'Kotak Jumat', keterangan: 'Kotak Amal Jumat Minggu ke-1', nominal: 2500000 }],
-                pengurus: [
-                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir DKM', kontak: '0812-xxxx-xxxx' },
-                    { id: '2', nama: 'Ust. Rasyid', jabatan: 'Koordinator', bidang: 'Imarah (Peribadatan)' },
-                    { id: '3', nama: 'Bpk. Wahyu', jabatan: 'Koordinator', bidang: 'Riayah (Fasilitas)' }
-                ],
-                surat: [{ id: '1', nomor: '001/DKM/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
-                pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }]
-            };
-        }
-
-        // ====================================================================
-        // 10. SYSTEM BOOTSTRAP
-        // ====================================================================
-        setInterval(() => {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('id-ID', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            const el = document.getElementById('clockDisplay');
-            if(el) el.innerText = timeString;
-        }, 1000);
-
-        window.onload = function() {
-            fetchPrayerTimes();
-            fetchSpreadsheetData();
-            
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                if(!document.documentElement.classList.contains('dark')) toggleTheme();
-            }
-        };
-    </script>
-</body>
-</html>
+                        <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">${formatDate
