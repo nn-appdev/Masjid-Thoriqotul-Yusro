@@ -236,10 +236,10 @@
                 <i class="fas fa-pray w-5 text-center"></i> Imarah (Kegiatan)
             </a>
             <a href="#" onclick="showModule('modul-riayah', this)" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                <i class="fas fa-tools w-5 text-center"></i> Riayah (Fasilitas)
+                <i class="fas fa-tools w-5 text-center"></i> Riayah (Pemeliharaan)
             </a>
             <a href="#" onclick="showModule('modul-idarah', this)" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                <i class="fas fa-folder-open w-5 text-center"></i> Idarah (Organisasi)
+                <i class="fas fa-folder-open w-5 text-center"></i> Idarah (Sekretariat, Perencanaan, dan Usaha)
             </a>
             <a href="#" onclick="showModule('modul-keuangan', this)" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                 <i class="fas fa-wallet w-5 text-center"></i> Keuangan Masjid
@@ -1034,12 +1034,12 @@
         <!-- ========================================== -->
         <section id="modul-idarah" class="w-full p-4 lg:p-8 hidden fade-in">
             <h2 class="text-2xl font-bold mb-1 dark:text-white">Idarah & Administrasi</h2>
-            <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Struktur Organisasi DKM, Pengarsipan Surat, dan Rapat</p>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Struktur Organisasi Takmir Masjid, Pengarsipan Surat, dan Rapat</p>
 
             <!-- Struktur Organisasi -->
             <div class="mb-8 bg-white dark:bg-gray-800 p-5 rounded-xl border dark:border-gray-700 shadow-sm relative group overflow-hidden">
                 <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-3">
-                    <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-sitemap text-primary"></i> Bagan Struktur Kepengurusan DKM</h3>
+                    <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-sitemap text-primary"></i> Bagan Struktur Kepengurusan Takmir Masjid</h3>
                     <button onclick="openAdminModal('Pengurus', 'insert')" class="admin-action-btn hidden text-sm bg-primary text-white px-3 py-1.5 rounded-lg shadow-sm hover:bg-primary-dark transition"><i class="fas fa-user-plus mr-1"></i> Tambah Posisi</button>
                 </div>
                 
@@ -1538,7 +1538,7 @@
             
             const data = appData.imam_harian || [];
             if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500 italic">Data belum diatur oleh DKM.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500 italic">Data belum diatur oleh Takmir Masjid.</td></tr>`;
                 return;
             }
 
@@ -1670,7 +1670,7 @@
                  data = [
                      { id: 'r1', kegiatan: 'Shalat Tarawih & Witir', waktu: 'Ba\'da Isya (Setiap Hari)', penceramah: 'Ust. H. Yasin, Lc (Imam Tetap)', pic: 'Seksi Ibadah' },
                      { id: 'r2', kegiatan: 'Kuliah Subuh', waktu: 'Ba\'da Subuh (Sabtu & Ahad)', penceramah: 'Jadwal Bergilir', pic: 'Seksi Dakwah' },
-                     { id: 'r3', kegiatan: 'Pengajian Ifthar (Buka Puasa)', waktu: 'Pukul 17:00 WIB', penceramah: 'Tadarus & Kajian Ringkas', pic: 'Ibu-ibu DKM' }
+                     { id: 'r3', kegiatan: 'Pengajian Ifthar (Buka Puasa)', waktu: 'Pukul 17:00 WIB', penceramah: 'Tadarus & Kajian Ringkas', pic: 'Ibu-ibu' }
                  ];
             }
 
@@ -1906,7 +1906,7 @@
                     </table>
                     <div class="footer">
                         <p>Mengetahui,</p>
-                        <p><strong>Bendahara DKM</strong></p>
+                        <p><strong>Bendahara Takmir</strong></p>
                     </div>
                 </body>
                 </html>
@@ -2375,11 +2375,11 @@
                 laporan_riayah: [{ id: '1', tanggal: '2026-10-01', fasilitas: 'AC Utama Shift Kanan', pelapor: 'Budi (Jamaah)', deskripsi_kerusakan: 'Bocor netes air deras', status: 'Pending' }],
                 keuangan: [{ id: '1', tanggal: '2026-10-02', tipe: 'Pemasukan', kategori: 'Kotak Jumat', keterangan: 'Kotak Amal Jumat Minggu ke-1', nominal: 2500000 }],
                 pengurus: [
-                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir DKM', kontak: '0812-xxxx-xxxx' },
+                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir Masjid', kontak: '0812-xxxx-xxxx' },
                     { id: '2', nama: 'Ust. Rasyid', jabatan: 'Koordinator', bidang: 'Imarah (Peribadatan)' },
                     { id: '3', nama: 'Bpk. Wahyu', jabatan: 'Koordinator', bidang: 'Riayah (Fasilitas)' }
                 ],
-                surat: [{ id: '1', nomor: '001/DKM/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
+                surat: [{ id: '1', nomor: '001/Takmir Masjid/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
                 pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }]
             };
         }
