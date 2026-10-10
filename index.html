@@ -2,6 +2,7 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+    <!-- Meta tag untuk Responsivitas Mobile & iPad -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>Sistem Manajemen Masjid - Thoriqotul Yusro</title>
@@ -13,6 +14,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Masjid T. Yusro">
     
+    <!-- Link Manifest PWA (Akan diisi otomatis oleh JavaScript) -->
     <link rel="manifest" id="pwa-manifest-link">
     
     <!-- Tailwind CSS (via CDN) -->
@@ -338,7 +340,7 @@
                 </div>
                 <!-- Laporan Kerusakan -->
                 <div onclick="showModule('modul-riayah', document.querySelector('a[onclick*=\'modul-riayah\']'))" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-red-500/50">
-                     <button onclick="event.stopPropagation(); openAdminModal('Laporan_Riayah', 'insert')" class="admin-action-btn hidden absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary text-xs"><i class="fas fa-exclamation"></i></button>
+                     <button onclick="event.stopPropagation(); openAdminModal('Laporan_Riayah', 'insert')" class="admin-action-btn admin-only absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-exclamation"></i></button>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xl shrink-0"><i class="fas fa-tools"></i></div>
                         <div>
@@ -400,7 +402,7 @@
                 </button>
             </div>
 
-            <!-- Kontainer Utama Al-Quran -->
+            <!-- Kontainer Utama Al-Quran (Un-cropped, fully expansive) -->
             <div id="quranContainerBeranda" class="hidden mb-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 p-4 md:p-6 transition-all duration-500 ease-in-out origin-top">
                 <div class="flex justify-end items-center mb-2 pb-2">
                     <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900">
@@ -412,7 +414,7 @@
                 <section id="mushafPageApp">
                   <style>
                     #mushafPageApp {
-                      --mp-green: #0d9488; /* Disesuaikan dengan tema aplikasi */
+                      --mp-green: #0d9488;
                       --mp-cream: #fbf8ef;
                       font-family: system-ui, Arial, sans-serif;
                       color: #24352c;
@@ -519,7 +521,6 @@
                       pageSelect.appendChild(option);
                     }
 
-                    // FUNGSI INI DITAMBAHKAN UNTUK SINKRONISASI TOMBOL TUTUP
                     window._stopMushafAudio = () => { stopPlayback(true); };
 
                     function status(message) { $("mpStatus").textContent = message; }
@@ -789,7 +790,7 @@
             <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Manajemen Aset, Pelaporan Kerusakan, dan Peminjaman Inventaris Masjid</p>
 
             <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                <!-- Form Booking Fasilitas (2 Kolom) -->
+                <!-- Form Booking Fasilitas -->
                 <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-5 rounded-xl border dark:border-gray-700 shadow-sm relative group">
                     <h3 class="font-bold mb-4 border-b dark:border-gray-700 pb-2 flex items-center gap-2 dark:text-white"><i class="fas fa-handshake text-primary"></i> Reservasi Fasilitas</h3>
                     <form onsubmit="handleBooking(event)" class="space-y-4">
@@ -823,11 +824,11 @@
                     </form>
                 </div>
 
-                <!-- Laporan Kerusakan List (3 Kolom) -->
+                <!-- Laporan Kerusakan List -->
                 <div class="lg:col-span-3 bg-white dark:bg-gray-800 p-5 rounded-xl border dark:border-gray-700 shadow-sm relative">
                     <div class="flex justify-between items-center border-b dark:border-gray-700 pb-3 mb-4">
                         <h3 class="font-bold text-red-600 dark:text-red-400 flex items-center gap-2"><i class="fas fa-exclamation-triangle"></i> Laporan Kendala & Kerusakan Aktif</h3>
-                        <button onclick="openAdminModal('Laporan_Riayah', 'insert')" class="text-xs bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 border border-red-200 dark:border-red-800 px-3 py-1.5 rounded-lg font-medium transition shadow-sm">
+                        <button onclick="openAdminModal('Laporan_Riayah', 'insert')" class="admin-action-btn hidden text-xs bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-300 border border-red-200 dark:border-red-800 px-3 py-1.5 rounded-lg font-medium transition shadow-sm">
                             <i class="fas fa-plus mr-1"></i> Buat Laporan Baru
                         </button>
                     </div>
@@ -849,7 +850,7 @@
             <h2 class="text-2xl font-bold mb-1 dark:text-white">Idarah & Administrasi</h2>
             <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Struktur Organisasi DKM, Pengarsipan Surat, dan Rapat</p>
 
-            <!-- Struktur Organisasi (Hierarchical Org-Chart) -->
+            <!-- Struktur Organisasi -->
             <div class="mb-8 bg-white dark:bg-gray-800 p-5 rounded-xl border dark:border-gray-700 shadow-sm relative group overflow-hidden">
                 <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-3">
                     <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-sitemap text-primary"></i> Bagan Struktur Kepengurusan DKM</h3>
@@ -861,10 +862,8 @@
                         <div class="org-node border-2 border-primary bg-white dark:bg-gray-800 shadow-md" id="node-ketua">
                             <p class="text-sm text-gray-400">Memuat Struktur...</p>
                         </div>
-                        
                         <div class="org-connector"></div>
                         <div class="org-horizontal-line w-[80%] md:w-[60%]"></div>
-                        
                         <div class="flex justify-around w-[90%] md:w-[80%] mt-0 pt-4 gap-4" id="node-bidang-container">
                             <!-- Node Bidang di-inject JS -->
                         </div>
@@ -934,7 +933,7 @@
                 </div>
             </div>
 
-            <!-- Buku Kas Utama (Tabel Transaksi) -->
+            <!-- Buku Kas Utama -->
             <div class="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-5 shadow-sm relative group">
                 <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-3">
                     <h3 class="font-bold dark:text-white text-lg flex items-center gap-2"><i class="fas fa-book text-primary"></i> Buku Jurnal Umum (Kas)</h3>
@@ -964,7 +963,6 @@
         <!-- 6. MODUL ADMIN DASHBOARD (C-PANEL) -->
         <!-- ========================================== -->
         <section id="modul-admin" class="w-full p-4 lg:p-8 hidden bg-gray-900 text-white rounded-2xl mx-2 my-2 lg:mx-8 lg:my-8 relative overflow-hidden shadow-2xl border border-gray-700 fade-in">
-            <!-- Hiasan Background Glow -->
             <div class="absolute -right-20 -top-20 w-96 h-96 bg-primary rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
             <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-blue-600 rounded-full blur-[80px] opacity-20 pointer-events-none"></div>
             
@@ -979,7 +977,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-                <!-- Database Jamaah & Muzakki -->
                 <div class="bg-gray-800/80 backdrop-blur p-6 rounded-xl border border-gray-700 shadow-inner">
                     <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-2">
                         <h3 class="font-bold text-lg text-gray-200"><i class="fas fa-address-book text-blue-400 mr-2"></i> Database Jamaah (Muzakki/Mustahiq)</h3>
@@ -997,10 +994,8 @@
                     </div>
                 </div>
 
-                <!-- Status Konfigurasi & Integrasi Sistem -->
                 <div class="bg-gray-800/80 backdrop-blur p-6 rounded-xl border border-gray-700 shadow-inner">
                     <h3 class="font-bold text-lg mb-6 text-gray-200 border-b border-gray-700 pb-2"><i class="fas fa-network-wired text-green-400 mr-2"></i> Status Integrasi API & Database</h3>
-                    
                     <ul class="space-y-4 text-sm font-medium">
                         <li class="flex flex-col sm:flex-row justify-between sm:items-center p-4 bg-gray-900/50 rounded-lg border border-gray-700/50">
                             <div class="flex items-center gap-3 mb-2 sm:mb-0">
@@ -1113,14 +1108,10 @@
         }
 
         function showModule(moduleId, btnElement = null) {
-            // Sembunyikan semua section
             document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
-            
-            // Tampilkan section yang dituju
             const target = document.getElementById(moduleId);
             if (target) target.classList.remove('hidden');
 
-            // Atur class tombol navigasi
             if (btnElement) {
                 document.querySelectorAll('.nav-item').forEach(el => {
                     el.classList.remove('text-primary', 'bg-primary-light', 'font-medium', 'text-red-500', 'bg-red-50');
@@ -1162,6 +1153,20 @@
             document.documentElement.classList.toggle('dark');
             const icon = document.getElementById('themeIcon');
             icon.className = document.documentElement.classList.contains('dark') ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function togglePasswordVisibility() {
+            const pwd = document.getElementById('loginPassword');
+            const icon = document.getElementById('eyeIcon');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwd.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
 
         // ====================================================================
@@ -1301,7 +1306,6 @@
         // ====================================================================
         // 6. FUNGSI RENDER (MENYUNTIKKAN DATA KE HTML)
         // ====================================================================
-        
         function renderJadwalJumat() {
             const tbody = document.getElementById('tableBodyJumat');
             if(!tbody) return;
@@ -1327,9 +1331,9 @@
                     <td class="px-4 py-3">${row.khatib || '-'}</td>
                     <td class="px-4 py-3">${row.imam || '-'}</td>
                     <td class="px-4 py-3">${row.muadzin || '-'}</td>
-                    <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'}">
-                        <button onclick='openAdminModal("Jumat", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition"><i class="fas fa-edit"></i></button>
-                        <button onclick='deleteData("Jumat", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded ml-1 transition"><i class="fas fa-trash"></i></button>
+                    <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
+                        <button onclick='openAdminModal("Jumat", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1"><i class="fas fa-edit"></i></button>
+                        <button onclick='deleteData("Jumat", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1363,8 +1367,9 @@
                     <td class="px-4 py-3 font-medium">${row.imam_utama || '-'}</td>
                     <td class="px-4 py-3 text-gray-500 dark:text-gray-400">${row.imam_pengganti || '-'}</td>
                     <td class="px-4 py-3">${row.muadzin || '-'}</td>
-                    <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'}">
-                        <button onclick='openAdminModal("Imam_Harian", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition"><i class="fas fa-edit"></i></button>
+                    <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
+                        <button onclick='openAdminModal("Imam_Harian", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1"><i class="fas fa-edit"></i></button>
+                        <button onclick='deleteData("Imam_Harian", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1437,7 +1442,7 @@
             if(!container) return;
             container.innerHTML = '';
             
-            const data = (appData.program || []).filter(r => (r.bidang||'').toLowerCase().includes('phbi'));
+            const data = (appData.program || []).filter(r => (r.bidang||'').toLowerCase().includes('phbi') || (r.bidang||'').toLowerCase().includes('ramadhan'));
 
             if(data.length === 0) {
                 container.innerHTML = `<div class="col-span-full text-center py-6 text-gray-400 text-xs italic">Belum ada kepanitiaan hari besar yang dibentuk.</div>`;
@@ -1491,8 +1496,9 @@
                     <td class="px-4 py-4 text-gray-600 dark:text-gray-400">${row.waktu || '-'}</td>
                     <td class="px-4 py-4 text-primary font-medium">${row.penceramah || '-'}</td>
                     <td class="px-4 py-4 text-gray-500"><span class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-xs">${row.pic || '-'}</span></td>
-                    <td class="px-4 py-4 text-right admin-col ${isAdmin ? '' : 'hidden'}">
-                        <button onclick='openAdminModal("Ramadhan", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition"><i class="fas fa-edit"></i></button>
+                    <td class="px-4 py-4 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
+                        <button onclick='openAdminModal("Ramadhan", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1"><i class="fas fa-edit"></i></button>
+                        <button onclick='deleteData("Ramadhan", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition"><i class="fas fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1551,8 +1557,9 @@
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">"${row.deskripsi_kerusakan}"</p>
                         <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200 dark:border-gray-600">
                             <span class="text-xs text-gray-500 dark:text-gray-400"><i class="fas fa-user mr-1"></i> Pelapor: ${row.pelapor}</span>
-                            <div class="admin-col ${isAdmin ? 'block' : 'hidden'}">
+                            <div class="admin-col ${isAdmin ? 'flex gap-2' : 'hidden'}">
                                 <button onclick='openAdminModal("Laporan_Riayah", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-xs font-semibold bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 px-3 py-1.5 rounded transition hover:bg-blue-200">Ubah Status</button>
+                                <button onclick='deleteData("Laporan_Riayah", "${row.id}")' class="text-xs font-semibold bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 px-3 py-1.5 rounded transition hover:bg-red-200"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
@@ -1593,7 +1600,8 @@
                             <td class="px-4 py-3 font-medium dark:text-gray-200">${row.kategori}</td>
                             <td class="px-4 py-3 text-gray-500 dark:text-gray-400 max-w-[200px] truncate" title="${row.keterangan}">${row.keterangan}</td>
                             <td class="px-4 py-3 text-right font-bold ${textColor} whitespace-nowrap">${iconSign} ${formatRupiah(nom)}</td>
-                            <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'}">
+                            <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
+                                <button onclick='openAdminModal("Keuangan", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1" title="Edit Transaksi"><i class="fas fa-edit"></i></button>
                                 <button onclick='deleteData("Keuangan", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition" title="Hapus Transaksi"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
@@ -1795,6 +1803,7 @@
                         <td class="px-4 py-3 max-w-[200px] truncate text-gray-700 dark:text-gray-200" title="${row.perihal}">${row.perihal || '-'}</td>
                         <td class="px-4 py-3 text-right admin-col ${isAdmin ? 'whitespace-nowrap' : 'hidden'}">
                             ${row.file_url ? `<a href="${row.file_url}" target="_blank" class="text-blue-500 hover:bg-blue-50 p-1.5 rounded inline-block mr-1" title="Buka Lampiran"><i class="fas fa-external-link-alt text-xs"></i></a>` : ''}
+                            <button onclick='openAdminModal("Surat", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-50 p-1.5 rounded mr-1"><i class="fas fa-edit text-xs"></i></button>
                             <button onclick='deleteData("Surat", "${row.id}")' class="text-red-500 hover:bg-red-50 p-1.5 rounded"><i class="fas fa-trash text-xs"></i></button>
                         </td>
                     </tr>
@@ -1909,7 +1918,6 @@
         // ====================================================================
         // 7. SISTEM FORMULIR ADMIN UNIVERSAL (OPERASI CRUD KE SPREADSHEET)
         // ====================================================================
-
         function openAdminModal(sheetName, action = 'insert', existingData = null) {
             const modal = document.getElementById('adminModal');
             const title = document.getElementById('modalTitle');
@@ -2078,7 +2086,6 @@
         function tutupQuranDiBeranda() {
             document.getElementById('quranContainerBeranda').classList.add('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            // Menghentikan audio Murottal jika user menutup Al-Quran
             if(window._stopMushafAudio) window._stopMushafAudio();
         }
 
@@ -2098,7 +2105,6 @@
                 
                 const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/1628/${yyyy}/${mm}/${dd}`);
                 const data = await res.json();
-                
                 const jadwal = data.data.jadwal;
 
                 const times = [
@@ -2111,18 +2117,6 @@
                     { name: 'Isya', time: jadwal.isya, icon: 'fa-star text-indigo-500' }
                 ];
 
-                grid.innerHTML = '';
-                times.forEach(t => {
-                    grid.innerHTML += `
-                        <div class="text-center p-3.5 rounded-xl border border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shadow-sm hover:shadow-md transition">
-                            <i class="fas ${t.icon} text-xl mb-2.5 block"></i>
-                            <p class="text-[11px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold">${t.name}</p>
-                            <p class="text-base font-bold text-gray-800 dark:text-gray-200 mt-1">${t.time}</p>
-                        </div>
-                    `;
-                });
-
-                // LOGIKA: Waktu Shalat Selanjutnya
                 const now = new Date();
                 const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
                 let nextPrayer = null;
@@ -2145,7 +2139,24 @@
                     nameEl.innerText = "Waktu " + nextPrayer.name;
                 }
                 nextEl.innerText = nextPrayer.time + " WIB";
-                
+
+                // Render Grid Jadwal
+                grid.innerHTML = '';
+                times.forEach(t => {
+                    const isNext = (t.name === nextPrayer.name);
+                    const highlightClass = isNext ? 'border-primary shadow-md bg-primary-light/20 dark:bg-primary-dark/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-800 scale-105 z-10' : 'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shadow-sm hover:shadow-md';
+                    const textHighlight = isNext ? 'text-primary dark:text-primary-light' : 'text-gray-500 dark:text-gray-400';
+                    const iconHighlight = isNext ? 'text-primary drop-shadow-md' : t.icon.split(' ')[1] || '';
+
+                    grid.innerHTML += `
+                        <div class="text-center p-3.5 rounded-xl border transition-all duration-300 ${highlightClass}">
+                            <i class="fas ${t.icon.split(' ')[0]} text-xl mb-2.5 block ${iconHighlight}"></i>
+                            <p class="text-[11px] uppercase tracking-wider font-bold ${textHighlight}">${t.name}</p>
+                            <p class="text-base font-bold text-gray-800 dark:text-gray-200 mt-1">${t.time}</p>
+                        </div>
+                    `;
+                });
+
                 setTimeout(() => updateDynamicBeranda(), 500); 
                 
             } catch(e) {
