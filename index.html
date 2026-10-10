@@ -13,6 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Masjid T. Yusro">
     
+    <!-- Link Manifest PWA -->
     <link rel="manifest" id="pwa-manifest-link">
     
     <!-- Tailwind CSS (via CDN) -->
@@ -34,7 +35,7 @@
                         arabic: ['Amiri', 'serif'],
                     },
                     colors: {
-                        'primary': '#0d9488', // Teal 600
+                        'primary': '#0d9488',
                         'primary-dark': '#0f766e',
                         'primary-light': '#ccfbf1',
                     }
@@ -66,7 +67,7 @@
         .toast.error { border-left-color: #ef4444; }
         .toast.warning { border-left-color: #f59e0b; }
 
-        /* SECURITY: Sistem Proteksi Tombol Admin (Pasti Tersembunyi Jika Tidak Login) */
+        /* SECURITY: Sistem Proteksi Tombol Admin */
         body:not(.show-admin-tools) .admin-only,
         body:not(.show-admin-tools) .admin-col,
         body:not(.show-admin-tools) .admin-edit-btn,
@@ -198,7 +199,6 @@
 
     <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b dark:border-gray-700 z-40 flex items-center justify-between px-4 lg:px-8 shadow-sm transition-colors duration-200">
-        <!-- Tombol Menu Mobile -->
         <button onclick="toggleMobileSidebar()" class="lg:hidden text-gray-500 hover:text-primary p-2">
             <i class="fas fa-bars text-xl"></i>
         </button>
@@ -214,12 +214,10 @@
         </div>
 
         <div class="flex items-center gap-3 lg:gap-4">
-            <!-- Theme Toggle -->
             <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
                 <i id="themeIcon" class="fas fa-moon"></i>
             </button>
             
-            <!-- Profil / Toggle Admin -->
             <div id="userProfile" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold cursor-pointer shadow transition-colors" onclick="toggleAdminLogin()" title="Klik untuk Login/Logout Admin">
                 U
             </div>
@@ -301,7 +299,7 @@
                 </div>
             </div>
 
-            <!-- Quick Stats (Clickable Shortcuts) -->
+            <!-- Quick Stats -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <!-- Saldo Kas -->
                 <div onclick="showModule('modul-keuangan', document.querySelector('a[onclick*=\'modul-keuangan\']'))" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-green-500/50">
@@ -349,7 +347,7 @@
                 </div>
             </div>
 
-            <!-- INFO DINAMIS BERANDA (Imam, Jumat, Pengajian, Donasi) -->
+            <!-- INFO DINAMIS BERANDA -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
                 <!-- Petugas Shalat Rawatib Saat Ini -->
                 <div onclick="showModule('modul-imarah', document.querySelector('a[onclick*=\'modul-imarah\']')); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-primary/50 group">
@@ -403,7 +401,7 @@
             <!-- Kontainer Utama Al-Quran -->
             <div id="quranContainerBeranda" class="hidden mb-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 p-4 md:p-6 transition-all duration-500 ease-in-out origin-top">
                 <div class="flex justify-end items-center mb-2 pb-2">
-                    <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900">
+                    <button onclick="tutupQuranDiBeranda()" class="text-red-500 text-sm hover:bg-red-50 dark:hover:bg-red-900/30 px-3 py-1.5 rounded-lg transition font-bold flex items-center gap-2 shadow-sm border border-red-100 dark:border-red-900 bg-white dark:bg-gray-800">
                         <i class="fas fa-times"></i> Tutup Al-Qur'an
                     </button>
                 </div>
@@ -441,9 +439,7 @@
                     #quranModule .q-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
                     #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; }
                     #quranModule .q-info { padding: 18px; text-align: center; color: #65746a; }
-                    #quranModule .q-ayah {
-                      background: white; border: 1px solid #e5e9e2; border-radius: 14px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px #193c2510;
-                    }
+                    #quranModule .q-ayah { background: white; border: 1px solid #e5e9e2; border-radius: 14px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px #193c2510; }
                     #quranModule .q-ayah-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #edf0eb; padding-bottom: 12px; margin-bottom: 16px; }
                     #quranModule .q-number { color: var(--q-green); font-size: 13px; font-weight: 700; }
                     #quranModule .q-arabic {
@@ -1093,6 +1089,7 @@
                     <h2 class="text-2xl font-bold mb-1 dark:text-white">Laporan Keuangan Masjid</h2>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Transparansi Arus Kas, ZISWAF, dan Pengeluaran Operasional</p>
                 </div>
+                <!-- Tombol Cetak PDF Laporan (Hanya tampil untuk Admin) -->
                 <button onclick="cetakLaporanBulanan()" class="admin-col hidden bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md items-center gap-2 whitespace-nowrap w-fit">
                     <i class="fas fa-print"></i> Cetak PDF Laporan Bulan Ini
                 </button>
@@ -1105,11 +1102,13 @@
                     <p class="text-sm font-semibold text-green-700 dark:text-green-400">Total Pemasukan (Bulan Ini)</p>
                     <p class="text-3xl font-bold text-green-800 dark:text-green-300 mt-2" id="sumPemasukan">Rp 0</p>
                 </div>
+                
                 <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border border-red-200 dark:border-red-800 p-5 rounded-2xl relative overflow-hidden shadow-sm">
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-receipt text-8xl text-red-600"></i></div>
                     <p class="text-sm font-semibold text-red-700 dark:text-red-400">Total Pengeluaran (Bulan Ini)</p>
                     <p class="text-3xl font-bold text-red-800 dark:text-red-300 mt-2" id="sumPengeluaran">Rp 0</p>
                 </div>
+                
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-800 p-5 rounded-2xl relative overflow-hidden shadow-sm group">
                     <button onclick="openAdminModal('Keuangan', 'insert')" class="admin-action-btn absolute top-3 right-3 bg-white/50 p-2 rounded-lg text-blue-800 hover:bg-white hidden shadow"><i class="fas fa-edit"></i></button>
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-vault text-8xl text-blue-600"></i></div>
@@ -1394,11 +1393,12 @@
             statusText.innerText = "Sesi Admin Aktif";
             statusText.classList.add('text-red-500');
             
-            document.querySelectorAll('.admin-col').forEach(el => {
+            // PERBAIKAN: Menghapus class hidden dari tombol Admin
+            document.querySelectorAll('.admin-col, .admin-action-btn, .admin-edit-btn').forEach(el => {
                 el.classList.remove('hidden');
-                if(el.tagName === 'BUTTON') el.style.display = 'flex';
+                el.style.display = ''; 
             });
-            showToast('Login berhasil. Mode Admin / C-Panel diaktifkan.', 'success');
+            showToast('Login berhasil. Akses Tambah/Edit Data diaktifkan.', 'success');
         }
         
         function executeAdminLogout() {
@@ -1415,9 +1415,10 @@
             statusText.innerText = "Masuk sebagai Admin";
             statusText.classList.remove('text-red-500');
             
-            document.querySelectorAll('.admin-col').forEach(el => {
+            // Mengunci kembali tombol Admin
+            document.querySelectorAll('.admin-col, .admin-action-btn, .admin-edit-btn').forEach(el => {
                 el.classList.add('hidden');
-                if(el.tagName === 'BUTTON') el.style.display = 'none';
+                el.style.display = ''; 
             });
             showToast('Anda telah keluar dari Mode Admin.', 'info');
             
