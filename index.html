@@ -410,6 +410,7 @@
                     </button>
                 </div>
 
+                <<<<
                 <!-- ===== QURAN MODULE: BEGIN ===== -->
                 <section id="mushafPageApp">
                   <style>
@@ -647,57 +648,801 @@
                   </script>
                 </section>
                 <!-- ===== QURAN MODULE: END ===== -->
+====
+                <!-- ===== QURAN MODULE: BEGIN ===== -->
+                <section id="quranModule">
+                  <style>
+                    #quranModule {
+                      --q-green: #164e3b;
+                      --q-gold: #c5a15a;
+                      --q-paper: #fbfaf5;
+                      color: #24372e;
+                      font-family: system-ui, sans-serif;
+                      width: 100%;
+                    }
+                    #quranModule * { box-sizing: border-box; }
+                    #quranModule .q-head {
+                      background: linear-gradient(135deg,#164e3b,#24674c);
+                      color: white;
+                      padding: 24px;
+                      border-radius: 18px;
+                      margin-bottom: 16px;
+                    }
+                    #quranModule .q-head h2 {
+                      margin: 0 0 6px;
+                      font-size: 25px;
+                    }
+                    #quranModule .q-head p {
+                      margin: 0;
+                      opacity: .85;
+                      font-size: 14px;
+                    }
+                    #quranModule .q-controls {
+                      display: grid;
+                      grid-template-columns: 1fr 1fr;
+                      gap: 10px;
+                      margin-bottom: 12px;
+                    }
+                    #quranModule input,
+                    #quranModule select,
+                    #quranModule button {
+                      font: inherit;
+                    }
+                    #quranModule .q-input,
+                    #quranModule .q-select {
+                      width: 100%;
+                      min-width: 0;
+                      padding: 12px;
+                      border: 1px solid #d9e1da;
+                      border-radius: 10px;
+                      background: white;
+                      color: #24372e;
+                    }
+                    #quranModule .q-btn {
+                      padding: 10px 13px;
+                      border: 1px solid #d7e1d9;
+                      border-radius: 10px;
+                      background: white;
+                      color: var(--q-green);
+                      cursor: pointer;
+                      font-weight: 600;
+                    }
+                    #quranModule .q-btn-primary {
+                      background: var(--q-green);
+                      color: white;
+                      border-color: var(--q-green);
+                    }
+                    #quranModule .q-toolbar {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin: 12px 0;
+                    }
+                    #quranModule .q-status {
+                      padding: 10px 12px;
+                      background: #eef4ed;
+                      border-radius: 10px;
+                      font-size: 13px;
+                      margin: 12px 0;
+                    }
+                    #quranModule .q-info {
+                      padding: 18px;
+                      text-align: center;
+                      color: #65746a;
+                    }
+                    #quranModule .q-ayah {
+                      background: white;
+                      border: 1px solid #e5e9e2;
+                      border-radius: 14px;
+                      padding: 20px;
+                      margin: 12px 0;
+                      box-shadow: 0 2px 8px #193c2510;
+                    }
+                    #quranModule .q-ayah-top {
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      gap: 8px;
+                      border-bottom: 1px solid #edf0eb;
+                      padding-bottom: 12px;
+                      margin-bottom: 16px;
+                    }
+                    #quranModule .q-number {
+                      color: var(--q-green);
+                      font-size: 13px;
+                      font-weight: 700;
+                    }
+                    #quranModule .q-arabic {
+                      font-family: "Noto Naskh Arabic", "Amiri", serif;
+                      font-size: 30px;
+                      line-height: 2.05;
+                      text-align: right;
+                      direction: rtl;
+                      margin: 12px 0 18px;
+                      overflow-wrap: anywhere;
+                    }
+                    #quranModule .q-translation {
+                      font-size: 15px;
+                      line-height: 1.9;
+                      color: #425248;
+                      margin-bottom: 15px;
+                    }
+                    #quranModule .q-ayah-actions {
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                    }
+                    #quranModule .q-tafsir {
+                      background: #f7f7f0;
+                      border-left: 3px solid var(--q-gold);
+                      border-radius: 6px;
+                      padding: 12px;
+                      margin-top: 12px;
+                      font-size: 14px;
+                      line-height: 1.8;
+                      white-space: pre-wrap;
+                    }
+                    #quranModule .q-hidden { display: none; }
+                    #quranModule .q-footer {
+                      color: #788279;
+                      font-size: 12px;
+                      line-height: 1.7;
+                      margin-top: 16px;
+                    }
+                    @media (max-width: 520px) {
+                      #quranModule .q-controls { grid-template-columns: 1fr; }
+                      #quranModule .q-head { padding: 19px; }
+                      #quranModule .q-arabic { font-size: 27px; }
+                      #quranModule .q-ayah { padding: 15px; }
+                    }
+                  </style>
 
-            </div>
-            <!-- Modul Hadis Arba'in -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 mb-8 relative">
-                <div class="flex items-center gap-3 mb-4 border-b dark:border-gray-700 pb-3">
-                    <div class="w-10 h-10 rounded-lg bg-primary-light text-primary flex items-center justify-center text-xl shadow-inner">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg dark:text-white">Hadis Arba'in Nawawi</h3>
-                        <p class="text-xs text-gray-500">Kumpulan 42 Hadis Pokok Ajaran Islam</p>
-                    </div>
-                </div>
-                
-                <button id="load-arbain" class="bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-sm mb-4 flex items-center gap-2">
-                    <i class="fas fa-sync-alt"></i> Muat Hadis
-                </button>
-                
-                <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border dark:border-gray-700 overflow-y-auto max-h-64 hide-scrollbar shadow-inner">
-                    <pre id="arbain-result" class="text-xs text-gray-600 dark:text-gray-400 whitespace-pre-wrap font-mono leading-relaxed">Tekan tombol di atas untuk memuat data API.</pre>
-                </div>
-                
-                <script>
-                    document.getElementById("load-arbain").addEventListener("click", async () => {
-                        const output = document.getElementById("arbain-result");
-                        const btn = document.getElementById("load-arbain");
-                        const icon = btn.querySelector('i');
-                        
-                        output.textContent = "Menghubungkan ke API Hadis...";
-                        icon.classList.add('fa-spin'); // Tambahkan animasi loading
+                  <header class="q-head">
+                    <h2>القرآن الكريم</h2>
+                    <p>Pembaca Al-Qur'an · Terjemahan · Murottal</p>
+                  </header>
 
-                        try {
-                            const response = await fetch("https://cdn.idnbogor.id/api/hadits");
-                            if (!response.ok) throw new Error("HTTP " + response.status);
-                            
-                            const result = await response.json();
-                            output.textContent = JSON.stringify(result, null, 2);
-                        } catch (error) {
-                            output.textContent = "Gagal mengambil data: " + error.message + "\nPeriksa koneksi internet atau ketersediaan API.";
-                        } finally {
-                            icon.classList.remove('fa-spin'); // Matikan animasi loading
+                  <div class="q-controls">
+                    <input id="qSearch" class="q-input"
+                      type="search" placeholder="Cari nama surah..."
+                      aria-label="Cari surah">
+
+                    <select id="qSurah" class="q-select"
+                      aria-label="Pilih surah">
+                      <option value="">Memuat surah...</option>
+                    </select>
+
+                    <select id="qEdition" class="q-select"
+                      aria-label="Pilih terjemahan">
+                      <option value="">Memuat terjemahan...</option>
+                    </select>
+
+                    <select id="qReciter" class="q-select"
+                      aria-label="Pilih qari">
+                      <option value="ar.alafasy">Mishary Alafasy</option>
+                      <option value="ar.husary">Mahmoud Al-Husary</option>
+                      <option value="ar.minshawi">Al-Minshawi</option>
+                      <option value="ar.abdulbasit">Abdul Basit</option>
+                      <option value="ar.sudais">Abdurrahman As-Sudais</option>
+                    </select>
+                  </div>
+
+                  <div class="q-toolbar">
+                    <button class="q-btn q-btn-primary" id="qLoad">
+                      Baca surah
+                    </button>
+                    <button class="q-btn" id="qSave">
+                      Simpan teks offline
+                    </button>
+                  </div>
+
+                  <div id="qStatus" class="q-status" role="status">
+                    Menyiapkan pembaca Al-Qur'an...
+                  </div>
+
+                  <div id="qSurahInfo"></div>
+                  <div id="qVerses"></div>
+
+                  <div class="q-footer">
+                    Sumber teks dan terjemahan: AlQuran Cloud API.
+                    Audio diputar melalui CDN. Ketersediaan offline bergantung
+                    pada data yang telah disimpan di perangkat.
+                  </div>
+
+                  <script>
+                  (() => {
+                    "use strict";
+
+                    const root = document.getElementById("quranModule");
+                    if (!root || root.dataset.initialized === "1") return;
+                    root.dataset.initialized = "1";
+
+                    const API = "https://api.alquran.cloud/v1";
+                    const AUDIO = "https://cdn.islamic.network/quran/audio/128";
+                    const DB_NAME = "quran-module-cache-v1";
+
+                    const $ = id => root.querySelector("#" + id);
+                    const status = $("qStatus");
+                    const surahSelect = $("qSurah");
+                    const editionSelect = $("qEdition");
+                    const versesBox = $("qVerses");
+                    const infoBox = $("qSurahInfo");
+
+                    let db;
+                    let surahs = [];
+                    let editions = [];
+                    let currentData = null;
+                    let currentSurahNumber = 1;
+                    let currentAudio = null;
+                    let tafsirEdition = null;
+                    
+                    window._stopQuranAudio = () => { if(currentAudio) currentAudio.pause(); };
+
+                    function setStatus(message) {
+                      status.textContent = message;
+                    }
+
+                    function node(tag, className, text) {
+                      const el = document.createElement(tag);
+                      if (className) el.className = className;
+                      if (text !== undefined) el.textContent = text;
+                      return el;
+                    }
+
+                    function openDB() {
+                      return new Promise((resolve, reject) => {
+                        if (!("indexedDB" in window)) {
+                          reject(new Error("Browser tidak mendukung IndexedDB."));
+                          return;
                         }
+
+                        const request = indexedDB.open(DB_NAME, 1);
+
+                        request.onupgradeneeded = () => {
+                          const database = request.result;
+                          database.createObjectStore("data", { keyPath: "key" });
+                        };
+
+                        request.onsuccess = () => resolve(request.result);
+                        request.onerror = () => reject(request.error);
+                      });
+                    }
+
+                    function dbGet(key) {
+                      return new Promise((resolve, reject) => {
+                        const request = db.transaction("data", "readonly")
+                          .objectStore("data").get(key);
+
+                        request.onsuccess = () => resolve(request.result || null);
+                        request.onerror = () => reject(request.error);
+                      });
+                    }
+
+                    function dbPut(key, value) {
+                      return new Promise((resolve, reject) => {
+                        const tx = db.transaction("data", "readwrite");
+                        tx.objectStore("data").put({
+                          key,
+                          value,
+                          savedAt: Date.now()
+                        });
+                        tx.oncomplete = () => resolve();
+                        tx.onerror = () => reject(tx.error);
+                        tx.onabort = () => reject(tx.error);
+                      });
+                    }
+
+                    async function apiGet(url) {
+                      const response = await fetch(url);
+                      if (!response.ok) {
+                        throw new Error("Server API merespons HTTP " + response.status);
+                      }
+
+                      const json = await response.json();
+
+                      if (json.code !== 200 || json.data == null) {
+                        throw new Error("Data API tidak valid.");
+                      }
+
+                      return json.data;
+                    }
+
+                    async function cachedGet(key, url) {
+                      const cached = await dbGet(key);
+
+                      if (!navigator.onLine) {
+                        if (cached) return cached.value;
+                        throw new Error("Data belum disimpan untuk akses offline.");
+                      }
+
+                      try {
+                        const value = await apiGet(url);
+                        await dbPut(key, value);
+                        return value;
+                      } catch (error) {
+                        if (cached) return cached.value;
+                        throw error;
+                      }
+                    }
+
+                    function setOptions(select, items, getValue, getLabel) {
+                      select.replaceChildren();
+
+                      items.forEach(item => {
+                        const option = document.createElement("option");
+                        option.value = getValue(item);
+                        option.textContent = getLabel(item);
+                        select.appendChild(option);
+                      });
+                    }
+
+                    async function loadSurahList() {
+                      surahs = await cachedGet(
+                        "surah-list",
+                        API + "/surah"
+                      );
+
+                      renderSurahOptions();
+                    }
+
+                    function renderSurahOptions() {
+                      const query = $("qSearch").value.trim().toLowerCase();
+
+                      const filtered = surahs.filter(s =>
+                        String(s.number).includes(query) ||
+                        s.name.toLowerCase().includes(query) ||
+                        s.englishName.toLowerCase().includes(query) ||
+                        s.englishNameTranslation.toLowerCase().includes(query)
+                      );
+
+                      const previous = surahSelect.value;
+
+                      setOptions(
+                        surahSelect,
+                        filtered,
+                        s => s.number,
+                        s => `${s.number}. ${s.englishName} — ${s.name}`
+                      );
+
+                      if (filtered.some(s => String(s.number) === previous)) {
+                        surahSelect.value = previous;
+                      }
+                    }
+
+                    async function loadEditions() {
+                      editions = await cachedGet(
+                        "translation-editions-id",
+                        API + "/edition/language/id"
+                      );
+
+                      const usable = editions.filter(e =>
+                        e.format === "text" &&
+                        e.type === "translation"
+                      );
+
+                      if (!usable.length) {
+                        throw new Error("Edisi terjemahan Indonesia tidak ditemukan.");
+                      }
+
+                      setOptions(
+                        editionSelect,
+                        usable,
+                        e => e.identifier,
+                        e => e.name || e.englishName || e.identifier
+                      );
+
+                      const preferred = usable.find(e =>
+                        e.identifier === "id.indonesian"
+                      ) || usable[0];
+
+                      editionSelect.value = preferred.identifier;
+                    }
+
+                    async function getSurahData(number, edition) {
+                      const key = `surah:${number}:edition:${edition}`;
+
+                      return cachedGet(
+                        key,
+                        `${API}/surah/${number}/editions/quran-uthmani,${encodeURIComponent(edition)}`
+                      );
+                    }
+
+                    function renderSurah(data) {
+                      if (!Array.isArray(data) || data.length < 2) {
+                        throw new Error("Format data surah tidak sesuai.");
+                      }
+
+                      const arabic = data[0];
+                      const translation = data[1];
+
+                      if (!arabic.ayahs ||
+                          !translation.ayahs ||
+                          arabic.ayahs.length !== translation.ayahs.length) {
+                        throw new Error("Data ayat tidak lengkap.");
+                      }
+
+                      currentData = data;
+                      currentSurahNumber = arabic.number;
+                      versesBox.replaceChildren();
+
+                      infoBox.replaceChildren(
+                        node("h3", "", `${arabic.englishName} · ${arabic.name}`),
+                        node("p", "q-info",
+                          `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`)
+                      );
+
+                      arabic.ayahs.forEach((ayah, index) => {
+                        const translated = translation.ayahs[index];
+                        const card = node("article", "q-ayah");
+                        const top = node("div", "q-ayah-top");
+                        const number = node("span", "q-number",
+                          `Ayat ${ayah.numberInSurah}`);
+                        const actions = node("div", "q-ayah-actions");
+
+                        top.append(number);
+
+                        const arabicText = node("div", "q-arabic", ayah.text);
+                        arabicText.lang = "ar";
+                        arabicText.dir = "rtl";
+
+                        const translationText = node(
+                          "div",
+                          "q-translation",
+                          translated.text
+                        );
+
+                        const playButton = node("button", "q-btn", "▶ Putar");
+                        playButton.type = "button";
+                        playButton.addEventListener("click", () => {
+                          playAyah(ayah.number, playButton);
+                        });
+
+                        const tafsirButton = node("button", "q-btn", "Baca tafsir");
+                        tafsirButton.type = "button";
+
+                        const tafsirPanel = node("div", "q-tafsir q-hidden");
+                        tafsirPanel.setAttribute("aria-live", "polite");
+
+                        tafsirButton.addEventListener("click", async () => {
+                          if (!tafsirPanel.classList.contains("q-hidden")) {
+                            tafsirPanel.classList.add("q-hidden");
+                            return;
+                          }
+
+                          tafsirPanel.classList.remove("q-hidden");
+                          tafsirPanel.textContent = "Memeriksa sumber tafsir...";
+
+                          try {
+                            if (!tafsirEdition) {
+                              const available = await cachedGet(
+                                "tafsir-editions-id",
+                                API + "/edition/type/tafsir"
+                              );
+
+                              tafsirEdition = available.find(e =>
+                                e.format === "text" &&
+                                e.language === "id"
+                              ) || null;
+                            }
+
+                            if (!tafsirEdition) {
+                              tafsirPanel.textContent =
+                                "Tafsir Indonesia belum tersedia dari edisi API yang terdeteksi. " +
+                                "Untuk Tafsir Kemenag, tambahkan integrasi setelah memperoleh " +
+                                "token dan endpoint resmi.";
+                              return;
+                            }
+
+                            const tafsirData = await cachedGet(
+                              `tafsir:${arabic.number}:${ayah.numberInSurah}:${tafsirEdition.identifier}`,
+                              `${API}/ayah/${arabic.number}:${ayah.numberInSurah}/${encodeURIComponent(tafsirEdition.identifier)}`
+                            );
+
+                            tafsirPanel.textContent =
+                              (tafsirEdition.name || tafsirEdition.englishName) +
+                              "\n\n" + tafsirData.text;
+                          } catch (error) {
+                            tafsirPanel.textContent =
+                              "Tafsir belum dapat dimuat. Periksa koneksi atau " +
+                              "konfigurasi sumber tafsir. " + error.message;
+                          }
+                        });
+
+                        actions.append(playButton, tafsirButton);
+                        card.append(top, arabicText, translationText, actions, tafsirPanel);
+                        versesBox.appendChild(card);
+                      });
+                    }
+
+                    async function playAyah(globalNumber, button) {
+                      if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                      }
+
+                      const reciter = $("qReciter").value;
+                      const url = `${AUDIO}/${encodeURIComponent(reciter)}/${globalNumber}.mp3`;
+
+                      const audio = new Audio(url);
+                      currentAudio = audio;
+                      button.textContent = "Memuat audio...";
+
+                      audio.onended = () => {
+                        button.textContent = "▶ Putar";
+                      };
+
+                      audio.onerror = () => {
+                        button.textContent = "▶ Putar";
+                        setStatus("Audio gagal dimuat. Periksa koneksi internet.");
+                      };
+
+                      try {
+                        await audio.play();
+                        button.textContent = "❚❚ Diputar";
+                        setStatus("Murottal sedang diputar.");
+                      } catch {
+                        button.textContent = "▶ Putar";
+                        setStatus("Audio belum dapat diputar. Periksa koneksi atau izin browser.");
+                      }
+                    }
+
+                    async function loadSelectedSurah() {
+                      const number = Number(surahSelect.value);
+                      const edition = editionSelect.value;
+
+                      if (!number || !edition) {
+                        setStatus("Pilih surah dan terjemahan terlebih dahulu.");
+                        return;
+                      }
+
+                      setStatus("Memuat teks Arab dan terjemahan...");
+                      versesBox.replaceChildren();
+                      infoBox.replaceChildren();
+
+                      try {
+                        const data = await getSurahData(number, edition);
+                        renderSurah(data);
+                        setStatus(
+                          navigator.onLine
+                            ? "Surah berhasil dimuat."
+                            : "Mode offline: data tersimpan digunakan."
+                        );
+                      } catch (error) {
+                        setStatus("Gagal memuat surah: " + error.message);
+                      }
+                    }
+
+                    async function saveSelectedSurah() {
+                      if (!navigator.onLine) {
+                        setStatus("Hubungkan internet untuk menyimpan surah baru.");
+                        return;
+                      }
+
+                      try {
+                        const number = Number(surahSelect.value);
+                        const edition = editionSelect.value;
+
+                        setStatus("Menyimpan teks Arab dan terjemahan...");
+                        await getSurahData(number, edition);
+
+                        setStatus(
+                          "Teks Arab dan terjemahan surah tersimpan di perangkat."
+                        );
+                      } catch (error) {
+                        setStatus("Penyimpanan gagal: " + error.message);
+                      }
+                    }
+
+                    async function init() {
+                      try {
+                        db = await openDB();
+
+                        await Promise.all([
+                          loadSurahList(),
+                          loadEditions()
+                        ]);
+
+                        $("qSearch").addEventListener("input", renderSurahOptions);
+                        $("qLoad").addEventListener("click", loadSelectedSurah);
+                        $("qSave").addEventListener("click", saveSelectedSurah);
+
+                        surahSelect.addEventListener("change", loadSelectedSurah);
+                        editionSelect.addEventListener("change", loadSelectedSurah);
+
+                        setStatus(
+                          navigator.onLine
+                            ? "Siap digunakan."
+                            : "Offline: hanya data yang sebelumnya disimpan tersedia."
+                        );
+
+                        if (surahSelect.options.length) {
+                          await loadSelectedSurah();
+                        }
+                      } catch (error) {
+                        setStatus(
+                          "Inisialisasi gagal: " + error.message +
+                          " Buka aplikasi saat online untuk memuat data awal."
+                        );
+                      }
+                    }
+
+                    window.addEventListener("online", () => {
+                      setStatus("Koneksi kembali tersedia.");
                     });
-                </script>
+
+                    window.addEventListener("offline", () => {
+                      setStatus("Offline: gunakan surah yang sudah tersimpan.");
+                    });
+
+                    init();
+                  })();
+                  </script>
+                </section>
+                <!-- ===== QURAN MODULE: END ===== -->
+>>>>
+```eof
+
+### 2. Tambahkan Modul Hadis Arba'in di Beranda
+Kode ini diletakkan tepat di bawah penutup modul Al-Qur'an. Ini mengintegrasikan UI Hadis Arba'in secara responsif.
+
+```html:index.html
+<<<<
             </div>
 
             <!-- Jadwal Shalat Kemenag Card -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 relative group">
->>>>
-```eof
+====
+            </div>
+            
+            <!-- ===== HADIS MODULE: BEGIN ===== -->
+            <section id="arbainApp" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border dark:border-gray-700 mb-8 overflow-hidden">
+              <style>
+                #arbainApp {
+                  width: 100%;
+                  color: #24352c;
+                  font-family: system-ui, Arial, sans-serif;
+                }
+                .dark #arbainApp { color: #e5e7eb; }
+                #arbainApp * { box-sizing: border-box; }
+                #arbainApp .arb-header {
+                  background: linear-gradient(135deg,#0f766e,#0d9488);
+                  color: white;
+                  padding: 24px;
+                }
+                #arbainApp .arb-header h2 { margin: 0 0 8px; font-size: 1.45rem; font-weight: bold;}
+                #arbainApp .arb-tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 24px 0; }
+                #arbainApp input, #arbainApp select, #arbainApp button {
+                  padding: 11px 13px; border: 1px solid #d8e1da; border-radius: 10px; font: inherit; background: white; color: #374151;
+                }
+                .dark #arbainApp input, .dark #arbainApp select, .dark #arbainApp button { background: #374151; border-color: #4b5563; color: #f3f4f6;}
+                #arbainApp input { flex: 1 1 220px; min-width: 0; }
+                #arbainApp button { background: #0d9488; color: white; cursor: pointer; border-color: #0d9488; font-weight: bold;}
+                #arbainApp .arb-status { padding: 12px 24px; color: #637267; font-size: .92rem; }
+                .dark #arbainApp .arb-status { color: #9ca3af; }
+                #arbainApp .arb-card { border: 1px solid #e1e8e2; border-radius: 14px; padding: 18px; margin: 0 24px 14px; background: #f8fafc; }
+                .dark #arbainApp .arb-card { background: #1f2937; border-color: #374151; }
+                #arbainApp .arb-title { color: #0d9488; font-weight: 750; margin-bottom: 14px; font-size: 1.1rem;}
+                .dark #arbainApp .arb-title { color: #2dd4bf; }
+                #arbainApp .arb-arab {
+                  font-family: "Amiri", "Noto Naskh Arabic", serif; font-size: clamp(1.65rem, 4vw, 2.1rem);
+                  line-height: 2.1; text-align: right; direction: rtl; margin-bottom: 16px; overflow-wrap: anywhere;
+                }
+                #arbainApp .arb-translation { line-height: 1.9; white-space: pre-line; font-size: 0.95rem;}
+                #arbainApp .arb-empty { text-align: center; padding: 28px 12px; color: #637267; }
+                .dark #arbainApp .arb-empty { color: #9ca3af; }
+                #arbainApp .arb-count { color: #637267; font-size: .9rem; margin-bottom: 12px; padding: 0 24px; }
+                .dark #arbainApp .arb-count { color: #9ca3af; }
+              </style>
 
+              <div class="arb-header">
+                <h2>الأربعون النووية</h2>
+                <div>Kitab Arba'in Nawawi</div>
+                <p style="margin-bottom:0; font-size: 0.85rem; opacity: 0.9;">42 hadis pilihan · Teks Arab dan terjemahan Indonesia</p>
+              </div>
+
+              <div class="arb-tools">
+                <input id="arbSearch" type="search" placeholder="Cari judul atau terjemahan hadis..." aria-label="Cari hadis">
+                <select id="arbNumber" aria-label="Pilih nomor hadis">
+                  <option value="all">Semua hadis</option>
+                </select>
+                <button type="button" id="arbReload"><i class="fas fa-sync-alt mr-2"></i>Muat ulang</button>
+              </div>
+
+              <div id="arbStatus" class="arb-status" role="status" aria-live="polite">Menghubungkan ke API hadis...</div>
+              <div id="arbCount" class="arb-count"></div>
+              <div id="arbResults"></div>
+
+              <script>
+              (() => {
+                const root = document.getElementById("arbainApp");
+                if (root.dataset.ready === "1") return;
+                root.dataset.ready = "1";
+
+                const API = "https://ournoor.com/api/v1/hadits";
+                const $ = id => document.getElementById(id);
+
+                let hadits = [];
+
+                function setStatus(message) { $("arbStatus").textContent = message; }
+
+                async function loadHadits() {
+                  setStatus("Mengambil data hadis...");
+                  $("arbResults").replaceChildren();
+
+                  try {
+                    const response = await fetch(API, { method: "GET", headers: { "Accept": "application/json" } });
+                    if (!response.ok) throw new Error("Server merespons HTTP " + response.status);
+
+                    const result = await response.json();
+
+                    if (result.status !== 200 || !Array.isArray(result.data)) throw new Error("Format respons API tidak sesuai.");
+
+                    hadits = result.data.filter(item => item && item.no != null && item.arab && item.indo);
+                    if (hadits.length === 0) throw new Error("Data hadis tidak ditemukan.");
+
+                    const select = $("arbNumber");
+                    select.replaceChildren();
+                    const allOption = document.createElement("option");
+                    allOption.value = "all"; allOption.textContent = "Semua hadis";
+                    select.appendChild(allOption);
+
+                    hadits.forEach(item => {
+                      const option = document.createElement("option");
+                      option.value = String(item.no); option.textContent = "Hadis " + item.no;
+                      select.appendChild(option);
+                    });
+
+                    setStatus("Data hadis berhasil dimuat.");
+                    renderHadits();
+                  } catch (error) {
+                    setStatus("Gagal memuat API: " + error.message + ". Periksa koneksi atau kebijakan CORS server.");
+                    $("arbResults").replaceChildren();
+                    const help = document.createElement("div");
+                    help.className = "arb-card arb-empty";
+                    help.innerHTML = '<i class="fas fa-exclamation-triangle text-3xl text-yellow-500 mb-2 block"></i>Jika API gagal diakses di aplikasi, server mungkin membatasi akses lintas domain (CORS).';
+                    $("arbResults").appendChild(help);
+                  }
+                }
+
+                function renderHadits() {
+                  const query = $("arbSearch").value.trim().toLowerCase();
+                  const selected = $("arbNumber").value;
+
+                  const filtered = hadits.filter(item => {
+                    const matchesNumber = selected === "all" || String(item.no) === selected;
+                    const text = [item.judul || "", item.indo || "", item.arab || ""].join(" ").toLowerCase();
+                    return matchesNumber && text.includes(query);
+                  });
+
+                  const results = $("arbResults");
+                  results.replaceChildren();
+                  $("arbCount").textContent = `${filtered.length} hadis ditampilkan`;
+
+                  if (!filtered.length) {
+                    const empty = document.createElement("div"); empty.className = "arb-card arb-empty"; empty.textContent = "Hadis tidak ditemukan.";
+                    results.appendChild(empty); return;
+                  }
+
+                  filtered.forEach(item => {
+                    const card = document.createElement("article"); card.className = "arb-card";
+                    const title = document.createElement("div"); title.className = "arb-title"; title.textContent = `Hadis ${item.no} — ${item.judul || "Arba'in Nawawi"}`;
+                    const arab = document.createElement("div"); arab.className = "arb-arab"; arab.lang = "ar"; arab.dir = "rtl"; arab.textContent = item.arab;
+                    const translationTitle = document.createElement("strong"); translationTitle.className = "block mb-2 text-sm text-gray-700 dark:text-gray-300"; translationTitle.textContent = "Terjemahan Indonesia:";
+                    const translation = document.createElement("div"); translation.className = "arb-translation"; translation.textContent = item.indo;
+                    card.append(title, arab, translationTitle, translation);
+                    results.appendChild(card);
+                  });
+                }
+
+                $("arbSearch").addEventListener("input", renderHadits);
+                $("arbNumber").addEventListener("change", renderHadits);
+                $("arbReload").addEventListener("click", loadHadits);
+
+                loadHadits();
+              })();
+              </script>
+            </section>
+            <!-- ===== HADIS MODULE: END ===== -->
             <!-- Jadwal Shalat Kemenag Card -->
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-4 lg:p-6 relative group">
                 <button onclick="openAdminModal('Pengaturan', 'update', {id: 'lokasi_masjid'})" class="admin-edit-btn" title="Edit Pengaturan Lokasi API"><i class="fas fa-map-marker-alt"></i></button>
