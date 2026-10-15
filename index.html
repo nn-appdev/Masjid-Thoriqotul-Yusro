@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>Sistem Manajemen Masjid - Thoriqotul Yusro</title>
-            <!-- Favicon & Apple Touch Icon (Ikon Masjid) -->
-    <link rel="icon" type="image/png" sizes="512x512" href="https://img.icons8.com/color/512/mosque.png?v=2">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/color/512/mosque.png?v=2">
-    <link rel="shortcut icon" href="https://img.icons8.com/color/512/mosque.png?v=2">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#0d9488">
@@ -19,6 +15,11 @@
     
     <!-- Link Manifest PWA -->
     <link rel="manifest" id="pwa-manifest-link">
+    
+    <!-- Favicon & Apple Touch Icon -->
+    <link rel="icon" type="image/png" sizes="512x512" href="https://img.icons8.com/color/512/mosque.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://img.icons8.com/color/512/mosque.png?v=2">
+    <link rel="shortcut icon" href="https://img.icons8.com/color/512/mosque.png?v=2">
     
     <!-- Tailwind CSS (via CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,7 +40,7 @@
                         arabic: ['Amiri', 'serif'],
                     },
                     colors: {
-                        'primary': '#0d9488',
+                        'primary': '#0d9488', // Teal 600
                         'primary-dark': '#0f766e',
                         'primary-light': '#ccfbf1',
                     }
@@ -71,7 +72,7 @@
         .toast.error { border-left-color: #ef4444; }
         .toast.warning { border-left-color: #f59e0b; }
 
-        /* SECURITY: Sistem Proteksi Tombol Admin */
+        /* SECURITY: Sistem Proteksi Tombol Admin (Pasti Tersembunyi Jika Tidak Login) */
         body:not(.show-admin-tools) .admin-only,
         body:not(.show-admin-tools) .admin-col,
         body:not(.show-admin-tools) .admin-edit-btn,
@@ -135,12 +136,12 @@
             <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-user mr-1"></i> Username</label>
-                    <input type="text" id="loginUsername" required placeholder="username" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="text" id="loginUsername" required placeholder="Contoh: admin" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-lock mr-1"></i> Password</label>
                     <div class="relative">
-                        <input type="password" id="loginPassword" required placeholder="password" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
+                        <input type="password" id="loginPassword" required placeholder="Contoh: admin123" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
                         <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-primary transition">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
@@ -203,6 +204,7 @@
 
     <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b dark:border-gray-700 z-40 flex items-center justify-between px-4 lg:px-8 shadow-sm transition-colors duration-200">
+        <!-- Tombol Menu Mobile -->
         <button onclick="toggleMobileSidebar()" class="lg:hidden text-gray-500 hover:text-primary p-2">
             <i class="fas fa-bars text-xl"></i>
         </button>
@@ -213,15 +215,17 @@
             </div>
             <div>
                 <h1 class="font-bold text-lg leading-tight hidden sm:block">Thoriqotul Yusro</h1>
-                <p class="text-xs text-gray-500 hidden sm:block dark:text-gray-400">Bugangan - Wonosobo</p>
+                <p class="text-xs text-gray-500 hidden sm:block dark:text-gray-400">Bugangan - Semarang</p>
             </div>
         </div>
 
         <div class="flex items-center gap-3 lg:gap-4">
+            <!-- Theme Toggle -->
             <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
                 <i id="themeIcon" class="fas fa-moon"></i>
             </button>
             
+            <!-- Profil / Toggle Admin -->
             <div id="userProfile" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold cursor-pointer shadow transition-colors" onclick="toggleAdminLogin()" title="Klik untuk Login/Logout Admin">
                 U
             </div>
@@ -240,10 +244,10 @@
                 <i class="fas fa-pray w-5 text-center"></i> Imarah (Kegiatan)
             </a>
             <a href="#" onclick="showModule('modul-riayah', this)" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                <i class="fas fa-tools w-5 text-center"></i> Riayah (Pemeliharaan)
+                <i class="fas fa-tools w-5 text-center"></i> Riayah (Fasilitas)
             </a>
             <a href="#" onclick="showModule('modul-idarah', this)" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                <i class="fas fa-folder-open w-5 text-center"></i> Idarah (Sekretariat, Perencanaan, dan Usaha)
+                <i class="fas fa-folder-open w-5 text-center"></i> Idarah (Organisasi)
             </a>
             <a href="#" onclick="showModule('modul-keuangan', this)" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                 <i class="fas fa-wallet w-5 text-center"></i> Keuangan Masjid
@@ -305,8 +309,7 @@
 
             <!-- Quick Stats -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <!-- Saldo Kas -->
-                <div onclick="showModule('modul-keuangan', document.querySelector('a[onclick*=\'modul-keuangan\']'))" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-green-500/50">
+                <div onclick="showModule('modul-keuangan', document.querySelectorAll('.nav-item')[4])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-green-500/50">
                     <button onclick="event.stopPropagation(); openAdminModal('Keuangan', 'insert')" class="admin-action-btn absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-plus"></i></button>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xl shrink-0"><i class="fas fa-wallet"></i></div>
@@ -316,8 +319,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Info Jumat -->
-                <div onclick="showModule('modul-imarah', document.querySelector('a[onclick*=\'modul-imarah\']')); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-blue-500/50">
+                <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-blue-500/50">
                     <button onclick="event.stopPropagation(); openAdminModal('Jumat', 'insert')" class="admin-action-btn absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-calendar-plus"></i></button>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl shrink-0"><i class="fas fa-mosque"></i></div>
@@ -327,8 +329,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Kegiatan -->
-                <div onclick="showModule('modul-imarah', document.querySelector('a[onclick*=\'modul-imarah\']')); switchImarahTab('kegiatan-rutin', document.querySelectorAll('.imarah-tab')[1])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-purple-500/50">
+                <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('kegiatan-rutin', document.querySelectorAll('.imarah-tab')[1])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-purple-500/50">
                      <button onclick="event.stopPropagation(); openAdminModal('Kegiatan', 'insert')" class="admin-action-btn absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-plus"></i></button>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xl shrink-0"><i class="fas fa-users"></i></div>
@@ -338,8 +339,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Laporan Kerusakan -->
-                <div onclick="showModule('modul-riayah', document.querySelector('a[onclick*=\'modul-riayah\']'))" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-red-500/50">
+                <div onclick="showModule('modul-riayah', document.querySelectorAll('.nav-item')[2])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-red-500/50">
                      <button onclick="event.stopPropagation(); openAdminModal('Laporan_Riayah', 'insert')" class="admin-action-btn admin-only absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-exclamation"></i></button>
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xl shrink-0"><i class="fas fa-tools"></i></div>
@@ -354,7 +354,7 @@
             <!-- INFO DINAMIS BERANDA -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
                 <!-- Petugas Shalat Rawatib Saat Ini -->
-                <div onclick="showModule('modul-imarah', document.querySelector('a[onclick*=\'modul-imarah\']')); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-primary/50 group">
+                <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-primary/50 group">
                     <div class="flex justify-between items-center mb-3 border-b dark:border-gray-700 pb-2">
                         <h3 class="font-bold text-gray-800 dark:text-white flex items-center gap-2 text-sm group-hover:text-primary transition-colors"><i class="fas fa-clock text-primary"></i> Imam Shalat</h3>
                     </div>
@@ -363,7 +363,7 @@
                     </div>
                 </div>
                 <!-- Petugas Jumat -->
-                <div onclick="showModule('modul-imarah', document.querySelector('a[onclick*=\'modul-imarah\']')); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-green-500/50 group">
+                <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-green-500/50 group">
                     <div class="flex justify-between items-center mb-3 border-b dark:border-gray-700 pb-2">
                         <h3 class="font-bold text-gray-800 dark:text-white flex items-center gap-2 text-sm group-hover:text-green-500 transition-colors"><i class="fas fa-mosque text-green-500"></i> Petugas Jumat</h3>
                     </div>
@@ -372,7 +372,7 @@
                     </div>
                 </div>
                 <!-- Pengajian Terdekat -->
-                <div onclick="showModule('modul-imarah', document.querySelector('a[onclick*=\'modul-imarah\']')); switchImarahTab('kegiatan-rutin', document.querySelectorAll('.imarah-tab')[1])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-purple-500/50 group">
+                <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('kegiatan-rutin', document.querySelectorAll('.imarah-tab')[1])" class="cursor-pointer bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border dark:border-gray-700 relative transition-all hover:shadow-md hover:border-purple-500/50 group">
                     <div class="flex justify-between items-center mb-3 border-b dark:border-gray-700 pb-2">
                         <h3 class="font-bold text-gray-800 dark:text-white flex items-center gap-2 text-sm group-hover:text-purple-500 transition-colors"><i class="fas fa-users text-purple-500"></i> Pengajian</h3>
                     </div>
@@ -410,63 +410,37 @@
                     </button>
                 </div>
 
-                <!-- ===== QURAN MODULE: BEGIN ===== -->
                 <section id="quranModule">
                   <style>
-                    #quranModule {
-                      --q-green: #164e3b;
-                      --q-gold: #c5a15a;
-                      --q-paper: #fbfaf5;
-                      color: #24372e;
-                      font-family: system-ui, sans-serif;
-                      width: 100%;
-                    }
+                    #quranModule { --q-green: #0d9488; --q-gold: #c5a15a; --q-paper: #fbfaf5; color: #24372e; font-family: system-ui, sans-serif; width: 100%; }
                     #quranModule * { box-sizing: border-box; }
-                    #quranModule .q-head {
-                      background: linear-gradient(135deg,#164e3b,#24674c);
-                      color: white;
-                      padding: 24px;
-                      border-radius: 18px;
-                      margin-bottom: 16px;
-                    }
+                    #quranModule .q-head { background: linear-gradient(135deg,#0f766e,#0d9488); color: white; padding: 24px; border-radius: 18px; margin-bottom: 16px; }
                     #quranModule .q-head h2 { margin: 0 0 6px; font-size: 25px; }
                     #quranModule .q-head p { margin: 0; opacity: .85; font-size: 14px; }
                     #quranModule .q-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
                     #quranModule input, #quranModule select, #quranModule button { font: inherit; }
-                    #quranModule .q-input, #quranModule .q-select {
-                      width: 100%; min-width: 0; padding: 12px; border: 1px solid #d9e1da; border-radius: 10px; background: white; color: #24372e;
-                    }
-                    #quranModule .q-btn {
-                      padding: 10px 13px; border: 1px solid #d7e1d9; border-radius: 10px; background: white; color: var(--q-green); cursor: pointer; font-weight: 600;
-                    }
+                    #quranModule .q-input, #quranModule .q-select { width: 100%; min-width: 0; padding: 12px; border: 1px solid #d9e1da; border-radius: 10px; background: white; color: #24372e; }
+                    #quranModule .q-btn { padding: 10px 13px; border: 1px solid #d7e1d9; border-radius: 10px; background: white; color: var(--q-green); cursor: pointer; font-weight: 600; }
                     #quranModule .q-btn-primary { background: var(--q-green); color: white; border-color: var(--q-green); }
                     #quranModule .q-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-                    #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; }
+                    #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; color: #24372e; }
                     #quranModule .q-info { padding: 18px; text-align: center; color: #65746a; }
                     #quranModule .q-ayah { background: white; border: 1px solid #e5e9e2; border-radius: 14px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px #193c2510; }
                     #quranModule .q-ayah-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #edf0eb; padding-bottom: 12px; margin-bottom: 16px; }
                     #quranModule .q-number { color: var(--q-green); font-size: 13px; font-weight: 700; }
-                    #quranModule .q-arabic {
-                      font-family: "Noto Naskh Arabic", "Amiri", serif; font-size: 30px; line-height: 2.05; text-align: right; direction: rtl; margin: 12px 0 18px; overflow-wrap: anywhere;
-                    }
+                    #quranModule .q-arabic { font-family: "Noto Naskh Arabic", "Amiri", serif; font-size: 30px; line-height: 2.05; text-align: right; direction: rtl; margin: 12px 0 18px; overflow-wrap: anywhere; }
                     #quranModule .q-translation { font-size: 15px; line-height: 1.9; color: #425248; margin-bottom: 15px; }
                     #quranModule .q-ayah-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-                    #quranModule .q-tafsir { background: #f7f7f0; border-left: 3px solid var(--q-gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
+                    #quranModule .q-tafsir { background: #f7f7f0; border-left: 3px solid var(--q-gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; color: #24372e; }
                     #quranModule .q-hidden { display: none; }
                     #quranModule .q-footer { color: #788279; font-size: 12px; line-height: 1.7; margin-top: 16px; }
-                    @media (max-width: 520px) {
-                      #quranModule .q-controls { grid-template-columns: 1fr; }
-                      #quranModule .q-head { padding: 19px; }
-                      #quranModule .q-arabic { font-size: 27px; }
-                      #quranModule .q-ayah { padding: 15px; }
-                    }
+                    @media (max-width: 520px) { #quranModule .q-controls { grid-template-columns: 1fr; } #quranModule .q-head { padding: 19px; } #quranModule .q-arabic { font-size: 27px; } #quranModule .q-ayah { padding: 15px; } }
                   </style>
 
                   <header class="q-head">
                     <h2>القرآن الكريم</h2>
                     <p>Pembaca Al-Qur'an · Terjemahan · Murottal</p>
                   </header>
-
                   <div class="q-controls">
                     <input id="qSearch" class="q-input" type="search" placeholder="Cari nama surah..." aria-label="Cari surah">
                     <select id="qSurah" class="q-select" aria-label="Pilih surah"><option value="">Memuat surah...</option></select>
@@ -479,20 +453,14 @@
                       <option value="ar.sudais">Abdurrahman As-Sudais</option>
                     </select>
                   </div>
-
                   <div class="q-toolbar">
                     <button class="q-btn q-btn-primary" id="qLoad">Baca surah</button>
                     <button class="q-btn" id="qSave">Simpan teks offline</button>
                   </div>
-
                   <div id="qStatus" class="q-status" role="status">Menyiapkan pembaca Al-Qur'an...</div>
                   <div id="qSurahInfo"></div>
                   <div id="qVerses"></div>
-
-                  <div class="q-footer">
-                    Sumber teks dan terjemahan: AlQuran Cloud API.
-                    Audio diputar melalui CDN. Ketersediaan offline bergantung pada data yang telah disimpan di perangkat.
-                  </div>
+                  <div class="q-footer">Sumber teks dan terjemahan: AlQuran Cloud API.</div>
 
                   <script>
                   (() => {
@@ -504,19 +472,16 @@
                     const API = "https://api.alquran.cloud/v1";
                     const AUDIO = "https://cdn.islamic.network/quran/audio/128";
                     const DB_NAME = "quran-module-cache-v1";
+                    const $ = id => document.getElementById(id);
 
-                    const $ = id => root.querySelector("#" + id);
-                    const status = $("qStatus");
                     const surahSelect = $("qSurah");
                     const editionSelect = $("qEdition");
                     const versesBox = $("qVerses");
                     const infoBox = $("qSurahInfo");
-
-                    let db; let surahs = []; let editions = []; let currentData = null; let currentSurahNumber = 1; let currentAudio = null; let tafsirEdition = null;
+                    let db; let surahs = []; let editions = []; let currentSurahNumber = 1; let currentAudio = null; let tafsirEdition = null;
                     
                     window._stopQuranAudio = () => { if(currentAudio) currentAudio.pause(); };
-
-                    function setStatus(message) { status.textContent = message; }
+                    function setStatus(message) { $("qStatus").textContent = message; }
                     function node(tag, className, text) { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; }
 
                     function openDB() {
@@ -547,15 +512,15 @@
 
                     async function apiGet(url) {
                       const response = await fetch(url);
-                      if (!response.ok) throw new Error("Server API merespons HTTP " + response.status);
+                      if (!response.ok) throw new Error("HTTP " + response.status);
                       const json = await response.json();
-                      if (json.code !== 200 || json.data == null) throw new Error("Data API tidak valid.");
+                      if (json.code !== 200 || json.data == null) throw new Error("Data tidak valid.");
                       return json.data;
                     }
 
                     async function cachedGet(key, url) {
                       const cached = await dbGet(key);
-                      if (!navigator.onLine) { if (cached) return cached.value; throw new Error("Data belum disimpan untuk akses offline."); }
+                      if (!navigator.onLine) { if (cached) return cached.value; throw new Error("Data belum disimpan (offline)."); }
                       try { const value = await apiGet(url); await dbPut(key, value); return value; } 
                       catch (error) { if (cached) return cached.value; throw error; }
                     }
@@ -581,24 +546,21 @@
                     async function loadEditions() {
                       editions = await cachedGet("translation-editions-id", API + "/edition/language/id");
                       const usable = editions.filter(e => e.format === "text" && e.type === "translation");
-                      if (!usable.length) throw new Error("Edisi terjemahan Indonesia tidak ditemukan.");
+                      if (!usable.length) throw new Error("Terjemahan Indonesia tidak ditemukan.");
                       setOptions(editionSelect, usable, e => e.identifier, e => e.name || e.englishName || e.identifier);
                       const preferred = usable.find(e => e.identifier === "id.indonesian") || usable[0];
                       editionSelect.value = preferred.identifier;
                     }
 
                     async function getSurahData(number, edition) {
-                      const key = `surah:${number}:edition:${edition}`;
-                      return cachedGet(key, `${API}/surah/${number}/editions/quran-uthmani,${encodeURIComponent(edition)}`);
+                      return cachedGet(`surah:${number}:edition:${edition}`, `${API}/surah/${number}/editions/quran-uthmani,${encodeURIComponent(edition)}`);
                     }
 
                     function renderSurah(data) {
-                      if (!Array.isArray(data) || data.length < 2) throw new Error("Format data surah tidak sesuai.");
+                      if (!Array.isArray(data) || data.length < 2) throw new Error("Format surah salah.");
                       const arabic = data[0]; const translation = data[1];
-                      if (!arabic.ayahs || !translation.ayahs || arabic.ayahs.length !== translation.ayahs.length) throw new Error("Data ayat tidak lengkap.");
-
-                      currentData = data; currentSurahNumber = arabic.number; versesBox.replaceChildren();
-                      infoBox.replaceChildren(node("h3", "", `${arabic.englishName} · ${arabic.name}`), node("p", "q-info", `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`));
+                      currentSurahNumber = arabic.number; versesBox.replaceChildren();
+                      infoBox.replaceChildren( node("h3", "", `${arabic.englishName} · ${arabic.name}`), node("p", "q-info", `${arabic.numberOfAyahs} ayat · ${arabic.revelationType}`) );
 
                       arabic.ayahs.forEach((ayah, index) => {
                         const translated = translation.ayahs[index];
@@ -687,7 +649,6 @@
                   })();
                   </script>
                 </section>
-                <!-- ===== QURAN MODULE: END ===== -->
             </div>
 
             <!-- Banner Hadis Arba'in (Trigger) -->
@@ -1031,6 +992,42 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Data Inventaris / Kekayaan Masjid -->
+            <div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-sm border dark:border-gray-700 p-5 relative group">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b dark:border-gray-700 pb-3 gap-4">
+                    <div>
+                        <h3 class="font-bold dark:text-white text-lg flex items-center gap-2"><i class="fas fa-boxes text-primary"></i> Data Inventaris & Kekayaan Masjid</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Daftar aset, fasilitas, dan barang inventaris untuk transparansi jamaah.</p>
+                    </div>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <button onclick="cetakLaporanInventaris()" class="flex-1 sm:flex-none bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center justify-center gap-2">
+                            <i class="fas fa-print"></i> Cetak Laporan
+                        </button>
+                        <button onclick="openAdminModal('Inventaris', 'insert')" class="admin-action-btn hidden flex-1 sm:flex-none bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition shadow-sm items-center justify-center gap-2">
+                            <i class="fas fa-plus"></i> Tambah Aset
+                        </button>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left dark:text-gray-300">
+                        <thead class="text-xs text-gray-500 bg-gray-50 dark:bg-gray-900 uppercase tracking-wider">
+                            <tr>
+                                <th class="px-4 py-3 rounded-tl-lg">Tgl Masuk</th>
+                                <th class="px-4 py-3">Nama Barang</th>
+                                <th class="px-4 py-3">Kategori</th>
+                                <th class="px-4 py-3 text-center">Jumlah</th>
+                                <th class="px-4 py-3">Kondisi</th>
+                                <th class="px-4 py-3">Sumber/Keterangan</th>
+                                <th class="px-4 py-3 text-right admin-col hidden rounded-tr-lg">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBodyInventaris" class="divide-y dark:divide-gray-700">
+                             <tr><td colspan="7" class="text-center py-8 text-gray-400 text-sm">Sedang menyinkronkan data inventaris...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
 
         <!-- ========================================== -->
@@ -1038,12 +1035,12 @@
         <!-- ========================================== -->
         <section id="modul-idarah" class="w-full p-4 lg:p-8 hidden fade-in">
             <h2 class="text-2xl font-bold mb-1 dark:text-white">Idarah & Administrasi</h2>
-            <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Struktur Organisasi Takmir Masjid, Pengarsipan Surat, dan Rapat</p>
+            <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Struktur Organisasi DKM, Pengarsipan Surat, dan Rapat</p>
 
             <!-- Struktur Organisasi -->
             <div class="mb-8 bg-white dark:bg-gray-800 p-5 rounded-xl border dark:border-gray-700 shadow-sm relative group overflow-hidden">
                 <div class="flex justify-between items-center mb-6 border-b dark:border-gray-700 pb-3">
-                    <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-sitemap text-primary"></i> Bagan Struktur Kepengurusan Takmir Masjid</h3>
+                    <h3 class="font-bold dark:text-white flex items-center gap-2"><i class="fas fa-sitemap text-primary"></i> Bagan Struktur Kepengurusan DKM</h3>
                     <button onclick="openAdminModal('Pengurus', 'insert')" class="admin-action-btn hidden text-sm bg-primary text-white px-3 py-1.5 rounded-lg shadow-sm hover:bg-primary-dark transition"><i class="fas fa-user-plus mr-1"></i> Tambah Posisi</button>
                 </div>
                 
@@ -1093,8 +1090,7 @@
                     <h2 class="text-2xl font-bold mb-1 dark:text-white">Laporan Keuangan Masjid</h2>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Transparansi Arus Kas, ZISWAF, dan Pengeluaran Operasional</p>
                 </div>
-                <!-- Tombol Cetak PDF Laporan (Hanya tampil untuk Admin) -->
-                <button onclick="cetakLaporanBulanan()" class="admin-col hidden bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md items-center gap-2 whitespace-nowrap w-fit">
+                <button onclick="cetakLaporanBulanan()" class="bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md flex items-center gap-2 whitespace-nowrap w-fit">
                     <i class="fas fa-print"></i> Cetak PDF Laporan Bulan Ini
                 </button>
             </div>
@@ -1106,15 +1102,13 @@
                     <p class="text-sm font-semibold text-green-700 dark:text-green-400">Total Pemasukan (Bulan Ini)</p>
                     <p class="text-3xl font-bold text-green-800 dark:text-green-300 mt-2" id="sumPemasukan">Rp 0</p>
                 </div>
-                
                 <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border border-red-200 dark:border-red-800 p-5 rounded-2xl relative overflow-hidden shadow-sm">
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-receipt text-8xl text-red-600"></i></div>
                     <p class="text-sm font-semibold text-red-700 dark:text-red-400">Total Pengeluaran (Bulan Ini)</p>
                     <p class="text-3xl font-bold text-red-800 dark:text-red-300 mt-2" id="sumPengeluaran">Rp 0</p>
                 </div>
-                
                 <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border border-blue-200 dark:border-blue-800 p-5 rounded-2xl relative overflow-hidden shadow-sm group">
-                    <button onclick="openAdminModal('Keuangan', 'insert')" class="admin-action-btn absolute top-3 right-3 bg-white/50 p-2 rounded-lg text-blue-800 hover:bg-white hidden shadow"><i class="fas fa-edit"></i></button>
+                    <button onclick="openAdminModal('Keuangan', 'insert')" class="admin-action-btn hidden absolute top-3 right-3 bg-white/50 p-2 rounded-lg text-blue-800 hover:bg-white shadow"><i class="fas fa-edit"></i></button>
                     <div class="absolute right-[-10px] bottom-[-20px] opacity-10"><i class="fas fa-vault text-8xl text-blue-600"></i></div>
                     <p class="text-sm font-semibold text-blue-700 dark:text-blue-400">Saldo Akhir Kumulatif</p>
                     <p class="text-3xl font-bold text-blue-800 dark:text-blue-300 mt-2" id="sumSaldoAkhir">Rp 0</p>
@@ -1232,17 +1226,16 @@
         function setupPWA() {
             const manifestJSON = {
                 "name": "Sistem Manajemen Masjid Thoriqotul Yusro",
-                "short_name": "Masid Thoriqotul Yusro",
+                "short_name": "T. Yusro",
                 "start_url": ".",
                 "display": "standalone",
                 "background_color": "#ffffff",
                 "theme_color": "#0d9488",
                 "orientation": "portrait",
-                                                "icons": [
+                "icons": [
                     { "src": "https://img.icons8.com/color/192/mosque.png?v=2", "sizes": "192x192", "type": "image/png" },
                     { "src": "https://img.icons8.com/color/512/mosque.png?v=2", "sizes": "512x512", "type": "image/png" }
                 ]
-
             };
             const manifestBlob = new Blob([JSON.stringify(manifestJSON)], {type: 'application/manifest+json'});
             document.getElementById('pwa-manifest-link').setAttribute('href', URL.createObjectURL(manifestBlob));
@@ -1398,10 +1391,8 @@
             statusText.innerText = "Sesi Admin Aktif";
             statusText.classList.add('text-red-500');
             
-            // PERBAIKAN: Menghapus class hidden dari tombol Admin
-            document.querySelectorAll('.admin-col, .admin-action-btn, .admin-edit-btn').forEach(el => {
+            document.querySelectorAll('.admin-col, .admin-action-btn, .admin-edit-btn, .admin-only').forEach(el => {
                 el.classList.remove('hidden');
-                el.style.display = ''; 
             });
             showToast('Login berhasil. Akses Tambah/Edit Data diaktifkan.', 'success');
         }
@@ -1420,10 +1411,8 @@
             statusText.innerText = "Masuk sebagai Admin";
             statusText.classList.remove('text-red-500');
             
-            // Mengunci kembali tombol Admin
-            document.querySelectorAll('.admin-col, .admin-action-btn, .admin-edit-btn').forEach(el => {
+            document.querySelectorAll('.admin-col, .admin-action-btn, .admin-edit-btn, .admin-only').forEach(el => {
                 el.classList.add('hidden');
-                el.style.display = ''; 
             });
             showToast('Anda telah keluar dari Mode Admin.', 'info');
             
@@ -1451,6 +1440,7 @@
                     renderProgramPHBI();
                     renderRamadhan(); 
                     renderLaporanRiayah();
+                    renderInventaris();
                     renderKeuangan();
                     renderOrgChart();
                     renderJamaah();
@@ -1469,6 +1459,7 @@
                 renderProgramPHBI();
                 renderRamadhan(); 
                 renderLaporanRiayah();
+                renderInventaris();
                 renderKeuangan();
                 renderOrgChart();
                 renderJamaah();
@@ -1543,7 +1534,7 @@
             
             const data = appData.imam_harian || [];
             if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500 italic">Data belum diatur oleh Takmir Masjid.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500 italic">Data belum diatur oleh DKM.</td></tr>`;
                 return;
             }
 
@@ -1675,7 +1666,7 @@
                  data = [
                      { id: 'r1', kegiatan: 'Shalat Tarawih & Witir', waktu: 'Ba\'da Isya (Setiap Hari)', penceramah: 'Ust. H. Yasin, Lc (Imam Tetap)', pic: 'Seksi Ibadah' },
                      { id: 'r2', kegiatan: 'Kuliah Subuh', waktu: 'Ba\'da Subuh (Sabtu & Ahad)', penceramah: 'Jadwal Bergilir', pic: 'Seksi Dakwah' },
-                     { id: 'r3', kegiatan: 'Pengajian Ifthar (Buka Puasa)', waktu: 'Pukul 17:00 WIB', penceramah: 'Tadarus & Kajian Ringkas', pic: 'Ibu-ibu' }
+                     { id: 'r3', kegiatan: 'Pengajian Ifthar (Buka Puasa)', waktu: 'Pukul 17:00 WIB', penceramah: 'Tadarus & Kajian Ringkas', pic: 'Ibu-ibu DKM' }
                  ];
             }
 
@@ -1756,6 +1747,127 @@
                     </div>
                 `;
             });
+        }
+
+        function renderInventaris() {
+            const tbody = document.getElementById('tableBodyInventaris');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            const data = appData.inventaris || [];
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-gray-500 italic">Data inventaris belum tersedia.</td></tr>`;
+                return;
+            }
+
+            data.sort((a, b) => new Date(b.tanggal_masuk) - new Date(a.tanggal_masuk)).forEach(row => {
+                let kondisiClass = 'text-green-600 bg-green-50 border border-green-200';
+                const kond = (row.kondisi || '').toLowerCase();
+                if(kond.includes('ringan')) kondisiClass = 'text-yellow-600 bg-yellow-50 border border-yellow-200';
+                if(kond.includes('berat') || kond.includes('rusak')) kondisiClass = 'text-red-600 bg-red-50 border border-red-200';
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                        <td class="px-4 py-3 font-medium whitespace-nowrap text-gray-600 dark:text-gray-300">${formatDate(row.tanggal_masuk)}</td>
+                        <td class="px-4 py-3 font-bold dark:text-gray-200">${row.nama_barang}</td>
+                        <td class="px-4 py-3 text-gray-500 dark:text-gray-400">${row.kategori}</td>
+                        <td class="px-4 py-3 font-bold text-center dark:text-gray-200">${row.jumlah}</td>
+                        <td class="px-4 py-3"><span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${kondisiClass}">${row.kondisi}</span></td>
+                        <td class="px-4 py-3 text-gray-500 dark:text-gray-400">${row.sumber || '-'}</td>
+                        <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
+                            <button onclick='openAdminModal("Inventaris", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1" title="Edit Aset"><i class="fas fa-edit"></i></button>
+                            <button onclick='deleteData("Inventaris", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition" title="Hapus Aset"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function cetakLaporanInventaris() {
+            const data = appData.inventaris || [];
+            if(data.length === 0) {
+                showToast('Data inventaris kosong, tidak ada yang dicetak.', 'warning');
+                return;
+            }
+            
+            const now = new Date();
+            const tglCetak = now.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            let rowsHtml = '';
+            let totalAset = 0;
+            data.sort((a,b) => new Date(a.tanggal_masuk) - new Date(b.tanggal_masuk)).forEach((r, idx) => {
+                totalAset += Number(r.jumlah) || 0;
+                rowsHtml += `<tr>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align:center;">${idx + 1}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">${formatDate(r.tanggal_masuk)}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd; font-weight:bold;">${r.nama_barang}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">${r.kategori}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align:center;">${r.jumlah}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">${r.kondisi}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #ddd;">${r.sumber}</td>
+                </tr>`;
+            });
+
+            const printWindow = window.open('', '_blank');
+            const html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Laporan Inventaris Masjid</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; color: #333; }
+                        .header { text-align: center; border-bottom: 2px solid #0d9488; padding-bottom: 20px; margin-bottom: 30px; }
+                        .header h1 { margin: 0; color: #0d9488; font-size: 24px; text-transform: uppercase; }
+                        .header p { margin: 5px 0 0 0; color: #666; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th { background-color: #f3f4f6; padding: 12px 10px; text-align: left; border-bottom: 2px solid #d1d5db; font-size: 14px; }
+                        td { font-size: 14px; color: #4b5563; vertical-align: top; }
+                        .footer { margin-top: 60px; display: flex; justify-content: space-between; }
+                        .footer-box { text-align: center; width: 200px; }
+                        .footer-box p.name { margin-top: 70px; font-weight: bold; border-bottom: 1px solid #333; padding-bottom: 5px;}
+                        @media print { body { padding: 0; } @page { margin: 1.5cm; } }
+                    </style>
+                </head>
+                <body onload="window.print()">
+                    <div class="header">
+                        <h1>Masjid Thoriqotul Yusro</h1>
+                        <p>Laporan Data Kekayaan & Inventaris Masjid</p>
+                        <p><strong>Dicetak per tanggal: ${tglCetak}</strong></p>
+                    </div>
+                    <div style="margin-bottom: 15px; font-size: 14px;">
+                        <strong>Total Keseluruhan Barang/Aset:</strong> ${totalAset} Unit
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align:center;">No</th>
+                                <th>Tanggal Masuk</th>
+                                <th>Nama Barang/Fasilitas</th>
+                                <th>Kategori</th>
+                                <th style="text-align:center;">Jumlah</th>
+                                <th>Kondisi</th>
+                                <th>Sumber/Ket</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml}</tbody>
+                    </table>
+                    <div class="footer">
+                        <div class="footer-box">
+                            <p>Mengetahui,</p>
+                            <p><strong>Ketua DKM</strong></p>
+                            <p class="name"></p>
+                        </div>
+                        <div class="footer-box">
+                            <p>Semarang, ${tglCetak}</p>
+                            <p><strong>Bagian Riayah</strong></p>
+                            <p class="name"></p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            printWindow.document.write(html);
+            printWindow.document.close();
         }
 
         function renderKeuangan() {
@@ -1911,7 +2023,7 @@
                     </table>
                     <div class="footer">
                         <p>Mengetahui,</p>
-                        <p><strong>Bendahara Takmir</strong></p>
+                        <p><strong>Bendahara DKM</strong></p>
                     </div>
                 </body>
                 </html>
@@ -2126,6 +2238,7 @@
                 'Program': ['nama_program|text', 'bidang|select:PHBI,Ramadhan,Idul Qurban,Zakat Fitrah', 'target|text', 'status|select:Perencanaan,Berjalan,Selesai', 'pic|text'],
                 'Ramadhan': ['kegiatan|select:Shalat Tarawih,Kuliah Subuh,Pengajian Ifthar', 'waktu|text', 'penceramah|text', 'pic|text'],
                 'Laporan_Riayah': ['tanggal|date', 'fasilitas|text', 'pelapor|text', 'deskripsi_kerusakan|textarea', 'status|select:Pending,Proses,Selesai'],
+                'Inventaris': ['tanggal_masuk|date', 'nama_barang|text', 'kategori|select:Elektronik,Mebel,Kendaraan,Peralatan,Lainnya', 'jumlah|number', 'kondisi|select:Baik,Rusak Ringan,Rusak Berat', 'sumber|text'],
                 'Pengurus': ['nama|text', 'jabatan|text', 'bidang|text', 'kontak|text'],
                 'Surat': ['nomor|text', 'tanggal|date', 'jenis|select:Surat Masuk,Surat Keluar', 'perihal|text', 'file_url|url'],
                 'Keuangan': ['tanggal|date', 'tipe|select:Pemasukan,Pengeluaran', 'kategori|text', 'nominal|number', 'keterangan|textarea'],
@@ -2378,13 +2491,17 @@
                 program: [{ id: '1', nama_program: 'Kepanitiaan Idul Adha 2026', bidang: 'Idul Qurban', target: 'Penyembelihan 5 Ekor Sapi', status: 'Perencanaan', pic: 'H. Sudirman' }],
                 ramadhan: [], 
                 laporan_riayah: [{ id: '1', tanggal: '2026-10-01', fasilitas: 'AC Utama Shift Kanan', pelapor: 'Budi (Jamaah)', deskripsi_kerusakan: 'Bocor netes air deras', status: 'Pending' }],
+                inventaris: [
+                    { id: '1', tanggal_masuk: '2025-01-15', nama_barang: 'Karpet Shaf Utama', kategori: 'Mebel', jumlah: 10, kondisi: 'Baik', sumber: 'Wakaf H. Ahmad' },
+                    { id: '2', tanggal_masuk: '2026-05-10', nama_barang: 'AC Daikin 2 PK', kategori: 'Elektronik', jumlah: 4, kondisi: 'Baik', sumber: 'Kas Masjid' }
+                ],
                 keuangan: [{ id: '1', tanggal: '2026-10-02', tipe: 'Pemasukan', kategori: 'Kotak Jumat', keterangan: 'Kotak Amal Jumat Minggu ke-1', nominal: 2500000 }],
                 pengurus: [
-                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir Masjid', kontak: '0812-xxxx-xxxx' },
+                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir DKM', kontak: '0812-xxxx-xxxx' },
                     { id: '2', nama: 'Ust. Rasyid', jabatan: 'Koordinator', bidang: 'Imarah (Peribadatan)' },
                     { id: '3', nama: 'Bpk. Wahyu', jabatan: 'Koordinator', bidang: 'Riayah (Fasilitas)' }
                 ],
-                surat: [{ id: '1', nomor: '001/Takmir Masjid/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
+                surat: [{ id: '1', nomor: '001/DKM/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
                 pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }]
             };
         }
