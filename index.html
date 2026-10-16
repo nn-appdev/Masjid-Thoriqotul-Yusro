@@ -72,7 +72,7 @@
         .toast.error { border-left-color: #ef4444; }
         .toast.warning { border-left-color: #f59e0b; }
 
-        /* SECURITY: Sistem Proteksi Tombol Admin (Pasti Tersembunyi Jika Tidak Login) */
+        /* SECURITY: Sistem Proteksi Tombol Admin */
         body:not(.show-admin-tools) .admin-only,
         body:not(.show-admin-tools) .admin-col,
         body:not(.show-admin-tools) .admin-edit-btn,
@@ -136,12 +136,12 @@
             <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-user mr-1"></i> Username</label>
-                    <input type="text" id="loginUsername" required placeholder="Contoh: admin" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="text" id="loginUsername" required placeholder="username" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-lock mr-1"></i> Password</label>
                     <div class="relative">
-                        <input type="password" id="loginPassword" required placeholder="Contoh: admin123" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
+                        <input type="password" id="loginPassword" required placeholder="password" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
                         <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-primary transition">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
@@ -309,6 +309,7 @@
 
             <!-- Quick Stats -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <!-- Saldo Kas -->
                 <div onclick="showModule('modul-keuangan', document.querySelectorAll('.nav-item')[4])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-green-500/50">
                     <button onclick="event.stopPropagation(); openAdminModal('Keuangan', 'insert')" class="admin-action-btn absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-plus"></i></button>
                     <div class="flex items-center gap-4">
@@ -319,6 +320,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Info Jumat -->
                 <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('jadwal-ibadah', document.querySelectorAll('.imarah-tab')[0])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-blue-500/50">
                     <button onclick="event.stopPropagation(); openAdminModal('Jumat', 'insert')" class="admin-action-btn absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-calendar-plus"></i></button>
                     <div class="flex items-center gap-4">
@@ -329,6 +331,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Kegiatan -->
                 <div onclick="showModule('modul-imarah', document.querySelectorAll('.nav-item')[1]); switchImarahTab('kegiatan-rutin', document.querySelectorAll('.imarah-tab')[1])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-purple-500/50">
                      <button onclick="event.stopPropagation(); openAdminModal('Kegiatan', 'insert')" class="admin-action-btn absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-plus"></i></button>
                     <div class="flex items-center gap-4">
@@ -339,6 +342,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Laporan Kerusakan -->
                 <div onclick="showModule('modul-riayah', document.querySelectorAll('.nav-item')[2])" class="cursor-pointer bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border dark:border-gray-700 relative group transition-transform hover:-translate-y-1 hover:shadow-md hover:border-red-500/50">
                      <button onclick="event.stopPropagation(); openAdminModal('Laporan_Riayah', 'insert')" class="admin-action-btn admin-only absolute top-2 right-2 bg-gray-100 dark:bg-gray-700 p-1.5 rounded text-gray-500 hover:text-primary hidden text-xs"><i class="fas fa-exclamation"></i></button>
                     <div class="flex items-center gap-4">
@@ -388,7 +392,7 @@
                 </div>
             </div>
 
-            <!-- Banner Al-Quran di Beranda (Trigger) -->
+            <!-- Banner Al-Quran di Beranda -->
             <div class="bg-gradient-to-r from-teal-800 to-primary text-white rounded-xl shadow-lg p-6 mb-8 flex flex-col md:flex-row items-center justify-between relative overflow-hidden">
                 <div class="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">
                     <i class="fas fa-quran text-9xl"></i>
@@ -410,31 +414,56 @@
                     </button>
                 </div>
 
+                <!-- ===== QURAN MODULE: BEGIN ===== -->
                 <section id="quranModule">
                   <style>
-                    #quranModule { --q-green: #0d9488; --q-gold: #c5a15a; --q-paper: #fbfaf5; color: #24372e; font-family: system-ui, sans-serif; width: 100%; }
+                    #quranModule {
+                      --q-green: #164e3b;
+                      --q-gold: #c5a15a;
+                      --q-paper: #fbfaf5;
+                      color: #24372e;
+                      font-family: system-ui, sans-serif;
+                      width: 100%;
+                    }
                     #quranModule * { box-sizing: border-box; }
-                    #quranModule .q-head { background: linear-gradient(135deg,#0f766e,#0d9488); color: white; padding: 24px; border-radius: 18px; margin-bottom: 16px; }
+                    #quranModule .q-head {
+                      background: linear-gradient(135deg,#164e3b,#24674c);
+                      color: white;
+                      padding: 24px;
+                      border-radius: 18px;
+                      margin-bottom: 16px;
+                    }
                     #quranModule .q-head h2 { margin: 0 0 6px; font-size: 25px; }
                     #quranModule .q-head p { margin: 0; opacity: .85; font-size: 14px; }
                     #quranModule .q-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
                     #quranModule input, #quranModule select, #quranModule button { font: inherit; }
-                    #quranModule .q-input, #quranModule .q-select { width: 100%; min-width: 0; padding: 12px; border: 1px solid #d9e1da; border-radius: 10px; background: white; color: #24372e; }
-                    #quranModule .q-btn { padding: 10px 13px; border: 1px solid #d7e1d9; border-radius: 10px; background: white; color: var(--q-green); cursor: pointer; font-weight: 600; }
+                    #quranModule .q-input, #quranModule .q-select {
+                      width: 100%; min-width: 0; padding: 12px; border: 1px solid #d9e1da; border-radius: 10px; background: white; color: #24372e;
+                    }
+                    #quranModule .q-btn {
+                      padding: 10px 13px; border: 1px solid #d7e1d9; border-radius: 10px; background: white; color: var(--q-green); cursor: pointer; font-weight: 600;
+                    }
                     #quranModule .q-btn-primary { background: var(--q-green); color: white; border-color: var(--q-green); }
                     #quranModule .q-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-                    #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; color: #24372e; }
+                    #quranModule .q-status { padding: 10px 12px; background: #eef4ed; border-radius: 10px; font-size: 13px; margin: 12px 0; }
                     #quranModule .q-info { padding: 18px; text-align: center; color: #65746a; }
                     #quranModule .q-ayah { background: white; border: 1px solid #e5e9e2; border-radius: 14px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px #193c2510; }
                     #quranModule .q-ayah-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; border-bottom: 1px solid #edf0eb; padding-bottom: 12px; margin-bottom: 16px; }
                     #quranModule .q-number { color: var(--q-green); font-size: 13px; font-weight: 700; }
-                    #quranModule .q-arabic { font-family: "Noto Naskh Arabic", "Amiri", serif; font-size: 30px; line-height: 2.05; text-align: right; direction: rtl; margin: 12px 0 18px; overflow-wrap: anywhere; }
+                    #quranModule .q-arabic {
+                      font-family: "Noto Naskh Arabic", "Amiri", serif; font-size: 30px; line-height: 2.05; text-align: right; direction: rtl; margin: 12px 0 18px; overflow-wrap: anywhere;
+                    }
                     #quranModule .q-translation { font-size: 15px; line-height: 1.9; color: #425248; margin-bottom: 15px; }
                     #quranModule .q-ayah-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-                    #quranModule .q-tafsir { background: #f7f7f0; border-left: 3px solid var(--q-gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; color: #24372e; }
+                    #quranModule .q-tafsir { background: #f7f7f0; border-left: 3px solid var(--q-gold); border-radius: 6px; padding: 12px; margin-top: 12px; font-size: 14px; line-height: 1.8; white-space: pre-wrap; }
                     #quranModule .q-hidden { display: none; }
                     #quranModule .q-footer { color: #788279; font-size: 12px; line-height: 1.7; margin-top: 16px; }
-                    @media (max-width: 520px) { #quranModule .q-controls { grid-template-columns: 1fr; } #quranModule .q-head { padding: 19px; } #quranModule .q-arabic { font-size: 27px; } #quranModule .q-ayah { padding: 15px; } }
+                    @media (max-width: 520px) {
+                      #quranModule .q-controls { grid-template-columns: 1fr; }
+                      #quranModule .q-head { padding: 19px; }
+                      #quranModule .q-arabic { font-size: 27px; }
+                      #quranModule .q-ayah { padding: 15px; }
+                    }
                   </style>
 
                   <header class="q-head">
@@ -472,16 +501,18 @@
                     const API = "https://api.alquran.cloud/v1";
                     const AUDIO = "https://cdn.islamic.network/quran/audio/128";
                     const DB_NAME = "quran-module-cache-v1";
-                    const $ = id => document.getElementById(id);
 
+                    const $ = id => root.querySelector("#" + id);
+                    const status = $("qStatus");
                     const surahSelect = $("qSurah");
                     const editionSelect = $("qEdition");
                     const versesBox = $("qVerses");
                     const infoBox = $("qSurahInfo");
-                    let db; let surahs = []; let editions = []; let currentSurahNumber = 1; let currentAudio = null; let tafsirEdition = null;
+
+                    let db; let surahs = []; let editions = []; let currentData = null; let currentSurahNumber = 1; let currentAudio = null; let tafsirEdition = null;
                     
                     window._stopQuranAudio = () => { if(currentAudio) currentAudio.pause(); };
-                    function setStatus(message) { $("qStatus").textContent = message; }
+                    function setStatus(message) { status.textContent = message; }
                     function node(tag, className, text) { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; }
 
                     function openDB() {
@@ -649,6 +680,7 @@
                   })();
                   </script>
                 </section>
+                <!-- ===== QURAN MODULE: END ===== -->
             </div>
 
             <!-- Banner Hadis Arba'in (Trigger) -->
@@ -1001,7 +1033,7 @@
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Daftar aset, fasilitas, dan barang inventaris untuk transparansi jamaah.</p>
                     </div>
                     <div class="flex gap-2 w-full sm:w-auto">
-                        <button onclick="cetakLaporanInventaris()" class="flex-1 sm:flex-none bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center justify-center gap-2">
+                        <button onclick="cetakLaporanInventaris()" class="admin-action-btn hidden flex-1 sm:flex-none bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-md items-center justify-center gap-2">
                             <i class="fas fa-print"></i> Cetak Laporan
                         </button>
                         <button onclick="openAdminModal('Inventaris', 'insert')" class="admin-action-btn hidden flex-1 sm:flex-none bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition shadow-sm items-center justify-center gap-2">
@@ -1090,7 +1122,7 @@
                     <h2 class="text-2xl font-bold mb-1 dark:text-white">Laporan Keuangan Masjid</h2>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Transparansi Arus Kas, ZISWAF, dan Pengeluaran Operasional</p>
                 </div>
-                <button onclick="cetakLaporanBulanan()" class="bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md flex items-center gap-2 whitespace-nowrap w-fit">
+                <button onclick="cetakLaporanBulanan()" class="admin-col hidden bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md items-center gap-2 whitespace-nowrap w-fit">
                     <i class="fas fa-print"></i> Cetak PDF Laporan Bulan Ini
                 </button>
             </div>
