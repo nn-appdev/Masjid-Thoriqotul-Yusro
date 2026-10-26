@@ -1520,7 +1520,9 @@
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka || 0);
         }
 
-        // FUNGSI BARU: Hitung Pasaran Jumat Berdasarkan Tanggal
+        // ====================================================================
+        // 5. SISTEM WAKTU REAL-TIME & PASARAN JAWA
+        // ====================================================================
         function getPasaranJumat() {
             const today = new Date();
             const dayOfWeek = today.getDay(); 
@@ -1529,7 +1531,6 @@
             nearestFriday.setDate(today.getDate() + daysUntilFriday);
             nearestFriday.setHours(0, 0, 0, 0);
             
-            // Anchor: 1 Jan 2021 = Jumat Pahing
             const anchorDate = new Date(2021, 0, 1);
             anchorDate.setHours(0, 0, 0, 0);
             
@@ -1541,108 +1542,11 @@
             return pasaranArray[pIndex];
         }
 
-        // FUNGSI BARU: Pemindai Waktu Shalat Realtime untuk Tabel Imam
         function updateActivePrayerAndImam() {
             const rawatibCont = document.getElementById('beranda-info-rawatib');
             if (!rawatibCont) return;
 
-            let activePrayer = 'Subuh'; // Waktu default jika data belum siap
-            
-            if(window.jadwalShalatHarian) {
-                const now = new Date();
-                const currentMinutes = now.getHours() * 60 + now.getMinutes();
-                const j = window.jadwalShalatHarian;
-                
-                const parseTime = (timeStr) => {
-                    if(!timeStr) return 0;
-                    const parts = timeStr.split(':');
-                    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
-                };
-                
-                const times = [
-                    { name: 'Subuh', min: parseTime(j.subuh) },
-                    { name: 'Dzuhur', min: parseTime(j.dzuhur) },
-                    { name: 'Ashar', min: parseTime(j.ashar) },
-                    { name: 'Maghrib', min: parseTime(j.maghrib) },
-                    { name: 'Isya', min: parseTime(j.isya) }
-                ];
-                
-                // Cari batas waktu shalat saat ini
-                activePrayer = 'Isya'; 
-                for (let i = times.length - 1; i >= 0; i--) {
-                    if (currentMinutes >= times[i].min) {
-                        activePrayer = times[i].name;
-                        break;
-                    }
-                }
-            }
-
-            const rawatibData = appData.imam_harian || [];
-            const imamObj = rawatibData.find(x => x.waktu && x.waktu.toLowerCase() === activePrayer.toLowerCase());
-            
-            const newHtml = imamObj ? `
-                <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Waktu ${activePrayer}</p>
-                <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: <span class="text-primary-dark dark:text-primary-light">${imamObj.imam_utama || '-'}</span></p>
-                <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-microphone text-gray-400 w-4 mr-1"></i> Muadzin: ${imamObj.muadzin || '-'}</p>
-            ` : `
-                <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Waktu ${activePrayer}</p>
-                <p class="text-sm text-gray-500">Petugas belum dijadwalkan.</p>
-            `;
-            
-            // Cegah re-render kedip (flicker) jika konten tidak berubah
-            if (rawatibCont.innerHTML !== newHtml) {
-                rawatibCont.innerHTML = newHtml;
-            }
-        }
-
-        function updateDynamicBeranda() {
-            // 1. Eksekusi Jumat Terdekat
-            const pasaranSekarang = getPasaranJumat();
-            const elJumat = document.getElementById('infoPasaranJumat');
-            if (elJumat) elJumat.innerText = `Jumat ${pasaranSekarang}`;
-
-            const jumatCont = document.getElementById('beranda-info-jumat');
-            if (jumatCont) {
-                const jumatData = appData.jumat || [];
-                const j = jumatData.find(x => (x.pasaran || '').toLowerCase() === pasaranSekarang.toLowerCase());
-                
-                if (j) {
-                    jumatCont.innerHTML = `
-                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || pasaranSekarang}</p>
-                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
-                    `;
-                } else {
-                    jumatCont.innerHTML = `<p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${pasaranSekarang}</p><p class="text-sm text-gray-500">Jadwal belum tersedia.</p>`;
-                }
-            }
-
-            // 2. Eksekusi Pengajian Terdekat
-            const kajianCont = document.getElementById('beranda-info-kajian');
-            if (kajianCont) {
-                const kegiatanData = appData.kegiatan || [];
-                if (kegiatanData.length > 0) {
-                    const k = kegiatanData[0];
-                    kajianCont.innerHTML = `
-                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
-                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
-                    `;
-                } else {
-                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
-                }
-            }
-
-            // 3. Panggil deteksi Imam & Waktu (sekali saat awal muat)
-            updateActivePrayerAndImam();
-        }
-
-        // FUNGSI BARU: Pemindai Waktu Shalat Realtime untuk Tabel Imam
-        function updateActivePrayerAndImam() {
-            const rawatibCont = document.getElementById('beranda-info-rawatib');
-            if (!rawatibCont) return;
-
-            let activePrayer = 'Subuh'; // Waktu default jika data belum siap
+            let activePrayer = 'Subuh'; 
             
             if (window.jadwalShalatHarian) {
                 const now = new Date();
@@ -1663,7 +1567,6 @@
                     { name: 'Isya', min: parseTime(j.isya) }
                 ];
                 
-                // Cari batas waktu shalat saat ini
                 activePrayer = 'Isya'; 
                 for (let i = times.length - 1; i >= 0; i--) {
                     if (currentMinutes >= times[i].min) {
@@ -1685,10 +1588,46 @@
                 <p class="text-sm text-gray-500">Petugas belum dijadwalkan.</p>
             `;
             
-            // Cegah re-render kedip (flicker) jika konten tidak berubah
             if (rawatibCont.innerHTML !== newHtml) {
                 rawatibCont.innerHTML = newHtml;
             }
+        }
+
+        // ====================================================================
+        // 6. FUNGSI RENDER UTAMA
+        // ====================================================================
+        function renderJadwalJumat() {
+            const tbody = document.getElementById('tableBodyJumat');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            
+            const data = appData.jumat || [];
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500 italic">Belum ada jadwal tersimpan. Silakan tambah data.</td></tr>`;
+                return;
+            }
+
+            data.forEach((row, i) => {
+                const pasaran = row.pasaran || 'Wage';
+                const isCurrent = i === 0;
+
+                const tr = document.createElement('tr');
+                tr.className = `hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${isCurrent ? 'bg-primary-light/30 dark:bg-primary-dark/20' : ''}`;
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-bold text-primary dark:text-primary-light whitespace-nowrap">
+                        Jumat ${pasaran} 
+                        ${isCurrent ? '<span class="ml-2 bg-primary text-white text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider shadow-sm">Minggu Ini</span>' : ''}
+                    </td>
+                    <td class="px-4 py-3">${row.khatib || '-'}</td>
+                    <td class="px-4 py-3">${row.imam || '-'}</td>
+                    <td class="px-4 py-3">${row.muadzin || '-'}</td>
+                    <td class="px-4 py-3 text-right admin-col ${isAdmin ? '' : 'hidden'} whitespace-nowrap">
+                        <button onclick='openAdminModal("Jumat", "update", ${JSON.stringify(row).replace(/'/g, "&#39;")})' class="text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30 p-1.5 rounded transition mr-1"><i class="fas fa-edit"></i></button>
+                        <button onclick='deleteData("Jumat", "${row.id}")' class="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1.5 rounded transition"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         function renderImamHarian() {
@@ -1732,8 +1671,7 @@
             if(data.length === 0) {
                  data = [
                      { id: 'm1', nama_kegiatan: 'Pengajian Malam Jumat', kategori: 'Umum', waktu: 'Ba\'da Maghrib', pemateri: 'Kyai Setempat', deskripsi: 'Pembacaan Yasin & Tahlil bersama warga' },
-                     { id: 'm2', nama_kegiatan: 'Kajian Jumat Kliwon', kategori: 'Ibu-ibu', waktu: 'Pukul 14.00 WIB', pemateri: 'Ustadzah Aminah', deskripsi: 'Fiqih Kewanitaan dan Diba\'' },
-                     { id: 'm3', nama_kegiatan: 'Pengajian Selapanan', kategori: 'Umum', waktu: 'Ahad Pagi', pemateri: 'Pemateri Undangan', deskripsi: 'Kajian kitab kuning rutin' }
+                     { id: 'm2', nama_kegiatan: 'Kajian Jumat Kliwon', kategori: 'Ibu-ibu', waktu: 'Pukul 14.00 WIB', pemateri: 'Ustadzah Aminah', deskripsi: 'Fiqih Kewanitaan dan Diba\'' }
                  ];
             }
 
@@ -1828,9 +1766,7 @@
             let data = appData.ramadhan || [];
             if(data.length === 0) {
                  data = [
-                     { id: 'r1', kegiatan: 'Shalat Tarawih & Witir', waktu: 'Ba\'da Isya (Setiap Hari)', penceramah: 'Ust. H. Yasin, Lc (Imam Tetap)', pic: 'Seksi Ibadah' },
-                     { id: 'r2', kegiatan: 'Kuliah Subuh', waktu: 'Ba\'da Subuh (Sabtu & Ahad)', penceramah: 'Jadwal Bergilir', pic: 'Seksi Dakwah' },
-                     { id: 'r3', kegiatan: 'Pengajian Ifthar (Buka Puasa)', waktu: 'Pukul 17:00 WIB', penceramah: 'Tadarus & Kajian Ringkas', pic: 'Ibu-ibu DKM' }
+                     { id: 'r1', kegiatan: 'Shalat Tarawih & Witir', waktu: 'Ba\'da Isya (Setiap Hari)', penceramah: 'Ust. H. Yasin, Lc (Imam Tetap)', pic: 'Seksi Ibadah' }
                  ];
             }
 
@@ -2330,6 +2266,156 @@
             });
         }
 
+        function updateDynamicBeranda() {
+            // 1. Eksekusi Jumat Terdekat
+            const pasaranSekarang = getPasaranJumat();
+            const elJumat = document.getElementById('infoPasaranJumat');
+            if(elJumat) elJumat.innerText = `Jumat ${pasaranSekarang}`;
+
+            const jumatCont = document.getElementById('beranda-info-jumat');
+            if (jumatCont) {
+                const jumatData = appData.jumat || [];
+                const j = jumatData.find(x => (x.pasaran || '').toLowerCase() === pasaranSekarang.toLowerCase());
+                
+                if(j) {
+                    jumatCont.innerHTML = `
+                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || pasaranSekarang}</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
+                    `;
+                } else {
+                    jumatCont.innerHTML = `<p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${pasaranSekarang}</p><p class="text-sm text-gray-500">Jadwal belum tersedia.</p>`;
+                }
+            }
+
+            // 2. Eksekusi Pengajian Terdekat
+            const kajianCont = document.getElementById('beranda-info-kajian');
+            if (kajianCont) {
+                const kegiatanData = appData.kegiatan || [];
+                if(kegiatanData.length > 0) {
+                    const k = kegiatanData[0];
+                    kajianCont.innerHTML = `
+                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
+                    `;
+                } else {
+                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
+                }
+            }
+
+            // 3. Panggil deteksi Imam & Waktu
+            updateActivePrayerAndImam();
+        }
+
+        // ====================================================================
+        // PENGENDALI AL-QURAN DIGITAL & HADIS
+        // ====================================================================
+        function bukaQuranDiBeranda() {
+            const container = document.getElementById('quranContainerBeranda');
+            container.classList.remove('hidden');
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        function tutupQuranDiBeranda() {
+            document.getElementById('quranContainerBeranda').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(window._stopQuranAudio) window._stopQuranAudio();
+        }
+
+        function bukaHadisDiBeranda() {
+            const container = document.getElementById('hadisContainerBeranda');
+            container.classList.remove('hidden');
+            setTimeout(() => {
+                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+            if(window._initHadis) window._initHadis();
+        }
+
+        function tutupHadisDiBeranda() {
+            document.getElementById('hadisContainerBeranda').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ====================================================================
+        // API JADWAL WAKTU SHALAT (KEMENAG)
+        // ====================================================================
+        async function fetchPrayerTimes() {
+            const grid = document.getElementById('prayerTimesGrid');
+            const nextEl = document.getElementById('nextPrayerTime');
+            const nameEl = document.getElementById('nextPrayerName');
+            
+            try {
+                const d = new Date();
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                
+                const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/1628/${yyyy}/${mm}/${dd}`);
+                const data = await res.json();
+                
+                const jadwal = data.data.jadwal;
+                window.jadwalShalatHarian = jadwal; // Simpan jadwal ke global state
+
+                const times = [
+                    { name: 'Imsak', time: jadwal.imsak, icon: 'fa-cloud-moon' },
+                    { name: 'Subuh', time: jadwal.subuh, icon: 'fa-moon' },
+                    { name: 'Terbit', time: jadwal.terbit, icon: 'fa-sun text-yellow-500' },
+                    { name: 'Dzuhur', time: jadwal.dzuhur, icon: 'fa-sun text-yellow-600' },
+                    { name: 'Ashar', time: jadwal.ashar, icon: 'fa-cloud-sun text-orange-500' },
+                    { name: 'Maghrib', time: jadwal.maghrib, icon: 'fa-sunset text-red-500' },
+                    { name: 'Isya', time: jadwal.isya, icon: 'fa-star text-indigo-500' }
+                ];
+
+                const now = new Date();
+                const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
+                let nextPrayer = null;
+                const obligatory = ['Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
+                
+                for (let t of times) {
+                    if(!obligatory.includes(t.name)) continue;
+                    const [h, m] = t.time.split(':').map(Number);
+                    const prayerMinutes = h * 60 + m;
+                    if (prayerMinutes > currentTotalMinutes) {
+                        nextPrayer = t;
+                        break;
+                    }
+                }
+                
+                if (!nextPrayer) {
+                    nextPrayer = times.find(t => t.name === 'Subuh');
+                    nameEl.innerText = "Waktu " + nextPrayer.name + " (Besok)";
+                } else {
+                    nameEl.innerText = "Waktu " + nextPrayer.name;
+                }
+                nextEl.innerText = nextPrayer.time + " WIB";
+
+                grid.innerHTML = '';
+                times.forEach(t => {
+                    const isNext = (t.name === nextPrayer.name);
+                    const highlightClass = isNext ? 'border-primary shadow-md bg-primary-light/20 dark:bg-primary-dark/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-800 scale-105 z-10' : 'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shadow-sm hover:shadow-md';
+                    const textHighlight = isNext ? 'text-primary dark:text-primary-light' : 'text-gray-500 dark:text-gray-400';
+                    const iconHighlight = isNext ? 'text-primary drop-shadow-md' : t.icon.split(' ')[1] || '';
+
+                    grid.innerHTML += `
+                        <div class="text-center p-3.5 rounded-xl border transition-all duration-300 ${highlightClass}">
+                            <i class="fas ${t.icon.split(' ')[0]} text-xl mb-2.5 block ${iconHighlight}"></i>
+                            <p class="text-[11px] uppercase tracking-wider font-bold ${textHighlight}">${t.name}</p>
+                            <p class="text-base font-bold text-gray-800 dark:text-gray-200 mt-1">${t.time}</p>
+                        </div>
+                    `;
+                });
+
+                setTimeout(() => updateDynamicBeranda(), 500); 
+                
+            } catch(e) {
+                console.error("Gagal muat jadwal shalat:", e);
+                grid.innerHTML = '<div class="col-span-full text-red-500 text-sm py-4 bg-red-50 rounded text-center"><i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke Server Jadwal Kemenag.</div>';
+            }
+        }
+        
         function injectMockData() {
             appData = {
                 jumat: [{ id: '1', pasaran: 'Wage', khatib: 'Ust. H. Mahmud', imam: 'Ust. H. Mahmud', muadzin: 'Sdr. Fauzan' }],
@@ -2378,5 +2464,7 @@
             }
         };
     </script>
+</body>
+</html>
 </body>
 </html>
