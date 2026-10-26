@@ -136,12 +136,12 @@
             <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-user mr-1"></i> Username</label>
-                    <input type="text" id="loginUsername" required placeholder="Contoh: admin" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="text" id="loginUsername" required placeholder="username" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-lock mr-1"></i> Password</label>
                     <div class="relative">
-                        <input type="password" id="loginPassword" required placeholder="Contoh: admin123" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
+                        <input type="password" id="loginPassword" required placeholder="password" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
                         <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-primary transition">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
@@ -214,7 +214,7 @@
             </div>
             <div>
                 <h1 class="font-bold text-lg leading-tight hidden sm:block">Thoriqotul Yusro</h1>
-                <p class="text-xs text-gray-500 hidden sm:block dark:text-gray-400">Bugangan - Semarang</p>
+                <p class="text-xs text-gray-500 hidden sm:block dark:text-gray-400">Bugangan - Wonosobo</p>
             </div>
         </div>
 
@@ -1035,8 +1035,7 @@
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Daftar aset, fasilitas, dan barang inventaris untuk transparansi jamaah.</p>
                     </div>
                     <div class="flex gap-2 w-full sm:w-auto">
-                        <!-- Disembunyikan dari user biasa, hanya muncul di admin -->
-                        <button onclick="cetakLaporanInventaris()" class="admin-action-btn hidden flex-1 sm:flex-none bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-md items-center justify-center gap-2">
+                        <button onclick="cetakLaporanInventaris()" class="admin-col hidden flex-1 sm:flex-none bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-md items-center justify-center gap-2">
                             <i class="fas fa-print"></i> Cetak Laporan
                         </button>
                         <button onclick="openAdminModal('Inventaris', 'insert')" class="admin-action-btn hidden flex-1 sm:flex-none bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition shadow-sm items-center justify-center gap-2">
@@ -1547,7 +1546,7 @@
             const rawatibCont = document.getElementById('beranda-info-rawatib');
             if (!rawatibCont) return;
 
-            let activePrayer = 'Subuh'; // Waktu default
+            let activePrayer = 'Subuh'; // Waktu default jika data belum siap
             
             if(window.jadwalShalatHarian) {
                 const now = new Date();
@@ -1568,7 +1567,8 @@
                     { name: 'Isya', min: parseTime(j.isya) }
                 ];
                 
-                activePrayer = 'Isya'; // Jika sudah melebihi batas waktu terakhir
+                // Cari batas waktu shalat saat ini
+                activePrayer = 'Isya'; 
                 for (let i = times.length - 1; i >= 0; i--) {
                     if (currentMinutes >= times[i].min) {
                         activePrayer = times[i].name;
@@ -1593,6 +1593,48 @@
             if (rawatibCont.innerHTML !== newHtml) {
                 rawatibCont.innerHTML = newHtml;
             }
+        }
+
+        function updateDynamicBeranda() {
+            // 1. Eksekusi Jumat Terdekat
+            const pasaranSekarang = getPasaranJumat();
+            const elJumat = document.getElementById('infoPasaranJumat');
+            if(elJumat) elJumat.innerText = `Jumat ${pasaranSekarang}`;
+
+            const jumatCont = document.getElementById('beranda-info-jumat');
+            if (jumatCont) {
+                const jumatData = appData.jumat || [];
+                const j = jumatData.find(x => (x.pasaran || '').toLowerCase() === pasaranSekarang.toLowerCase());
+                
+                if(j) {
+                    jumatCont.innerHTML = `
+                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || pasaranSekarang}</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
+                    `;
+                } else {
+                    jumatCont.innerHTML = `<p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${pasaranSekarang}</p><p class="text-sm text-gray-500">Jadwal belum tersedia.</p>`;
+                }
+            }
+
+            // 2. Eksekusi Pengajian Terdekat
+            const kajianCont = document.getElementById('beranda-info-kajian');
+            if (kajianCont) {
+                const kegiatanData = appData.kegiatan || [];
+                if(kegiatanData.length > 0) {
+                    const k = kegiatanData[0];
+                    kajianCont.innerHTML = `
+                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
+                    `;
+                } else {
+                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
+                }
+            }
+
+            // 3. Panggil deteksi Imam & Waktu (sekali saat awal muat)
+            updateActivePrayerAndImam();
         }
 
         // ====================================================================
@@ -2269,260 +2311,6 @@
                     if(titleEl && val) titleEl.innerText = val;
                 }
             });
-        }
-
-        function updateDynamicBeranda() {
-            // 1. Eksekusi Jumat Terdekat
-            const pasaranSekarang = getPasaranJumat();
-            const elJumat = document.getElementById('infoPasaranJumat');
-            if(elJumat) elJumat.innerText = `Jumat ${pasaranSekarang}`;
-
-            const jumatCont = document.getElementById('beranda-info-jumat');
-            if (jumatCont) {
-                const jumatData = appData.jumat || [];
-                const j = jumatData.find(x => (x.pasaran || '').toLowerCase() === pasaranSekarang.toLowerCase());
-                
-                if(j) {
-                    jumatCont.innerHTML = `
-                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || pasaranSekarang}</p>
-                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
-                    `;
-                } else {
-                    jumatCont.innerHTML = `<p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${pasaranSekarang}</p><p class="text-sm text-gray-500">Jadwal belum tersedia.</p>`;
-                }
-            }
-
-            // 2. Eksekusi Pengajian Terdekat
-            const kajianCont = document.getElementById('beranda-info-kajian');
-            if (kajianCont) {
-                const kegiatanData = appData.kegiatan || [];
-                if(kegiatanData.length > 0) {
-                    const k = kegiatanData[0];
-                    kajianCont.innerHTML = `
-                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
-                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
-                    `;
-                } else {
-                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
-                }
-            }
-
-            // 3. Panggil deteksi Imam & Waktu (sekali saat awal muat)
-            updateActivePrayerAndImam();
-        }
-
-        // FUNGSI BARU: Pemindai Waktu Shalat Realtime untuk Tabel Imam
-        function updateActivePrayerAndImam() {
-            const rawatibCont = document.getElementById('beranda-info-rawatib');
-            if (!rawatibCont) return;
-
-            let activePrayer = 'Subuh'; // Waktu default jika data belum siap
-            
-            if(window.jadwalShalatHarian) {
-                const now = new Date();
-                const currentMinutes = now.getHours() * 60 + now.getMinutes();
-                const j = window.jadwalShalatHarian;
-                
-                const parseTime = (timeStr) => {
-                    if(!timeStr) return 0;
-                    const parts = timeStr.split(':');
-                    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
-                };
-                
-                const times = [
-                    { name: 'Subuh', min: parseTime(j.subuh) },
-                    { name: 'Dzuhur', min: parseTime(j.dzuhur) },
-                    { name: 'Ashar', min: parseTime(j.ashar) },
-                    { name: 'Maghrib', min: parseTime(j.maghrib) },
-                    { name: 'Isya', min: parseTime(j.isya) }
-                ];
-                
-                // Cari batas waktu shalat saat ini
-                activePrayer = 'Isya'; 
-                for (let i = times.length - 1; i >= 0; i--) {
-                    if (currentMinutes >= times[i].min) {
-                        activePrayer = times[i].name;
-                        break;
-                    }
-                }
-            }
-
-            const rawatibData = appData.imam_harian || [];
-            const imamObj = rawatibData.find(x => x.waktu && x.waktu.toLowerCase() === activePrayer.toLowerCase());
-            
-            const newHtml = imamObj ? `
-                <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Waktu ${activePrayer}</p>
-                <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: <span class="text-primary-dark dark:text-primary-light">${imamObj.imam_utama || '-'}</span></p>
-                <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-microphone text-gray-400 w-4 mr-1"></i> Muadzin: ${imamObj.muadzin || '-'}</p>
-            ` : `
-                <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-2 bg-primary/10 w-fit px-2 py-0.5 rounded border border-primary/20">Waktu ${activePrayer}</p>
-                <p class="text-sm text-gray-500">Petugas belum dijadwalkan.</p>
-            `;
-            
-            // Cegah re-render kedip (flicker) jika konten tidak berubah
-            if (rawatibCont.innerHTML !== newHtml) {
-                rawatibCont.innerHTML = newHtml;
-            }
-        }
-
-        // ====================================================================
-        // 7. SISTEM FORMULIR ADMIN UNIVERSAL (OPERASI CRUD KE SPREADSHEET)
-        // ====================================================================
-        function openAdminModal(sheetName, action = 'insert', existingData = null) {
-            const modal = document.getElementById('adminModal');
-            const title = document.getElementById('modalTitle');
-            const fieldsContainer = document.getElementById('modalFields');
-            
-            currentSubmitParams = { sheet: sheetName, action: action, id: existingData ? existingData.id : null };
-            
-            title.innerText = action === 'insert' ? `Input Data Baru (${sheetName})` : `Edit Data (${sheetName})`;
-            fieldsContainer.innerHTML = ''; 
-
-            const schema = {
-                'Jumat': ['pasaran|select:Legi,Pahing,Pon,Wage,Kliwon', 'khatib|text', 'imam|text', 'muadzin|text'],
-                'Imam_Harian': ['waktu|select:Subuh,Dzuhur,Ashar,Maghrib,Isya', 'imam_utama|text', 'imam_pengganti|text', 'muadzin|text'],
-                'Kegiatan': ['nama_kegiatan|text', 'kategori|select:Umum,Ibu-ibu,Remaja', 'waktu|text', 'pemateri|text', 'deskripsi|textarea'],
-                'Program': ['nama_program|text', 'bidang|select:PHBI,Ramadhan,Idul Qurban,Zakat Fitrah', 'target|text', 'status|select:Perencanaan,Berjalan,Selesai', 'pic|text'],
-                'Ramadhan': ['kegiatan|select:Shalat Tarawih,Kuliah Subuh,Pengajian Ifthar', 'waktu|text', 'penceramah|text', 'pic|text'],
-                'Laporan_Riayah': ['tanggal|date', 'fasilitas|text', 'pelapor|text', 'deskripsi_kerusakan|textarea', 'status|select:Pending,Proses,Selesai'],
-                'Inventaris': ['tanggal_masuk|date', 'nama_barang|text', 'kategori|select:Elektronik,Mebel,Kendaraan,Peralatan,Lainnya', 'jumlah|number', 'kondisi|select:Baik,Rusak Ringan,Rusak Berat', 'sumber|text'],
-                'Pengurus': ['nama|text', 'jabatan|text', 'bidang|text', 'kontak|text'],
-                'Surat': ['nomor|text', 'tanggal|date', 'jenis|select:Surat Masuk,Surat Keluar', 'perihal|text', 'file_url|url'],
-                'Keuangan': ['tanggal|date', 'tipe|select:Pemasukan,Pengeluaran', 'kategori|text', 'nominal|number', 'keterangan|textarea'],
-                'Jamaah': ['nama|text', 'no_hp|text', 'alamat|textarea', 'kategori_zakat|select:Muzakki,Mustahiq,Donatur Tetap'],
-                'Pengaturan': ['nilai|textarea'] 
-            };
-
-            const columns = schema[sheetName] || [];
-            
-            columns.forEach(colConfig => {
-                const [colName, colTypeInfo] = colConfig.split('|');
-                const [inputType, optionsStr] = colTypeInfo.split(':');
-                
-                const wrapper = document.createElement('div');
-                const label = document.createElement('label');
-                label.className = 'block text-sm font-semibold text-gray-700 dark:text-gray-300 capitalize mb-1';
-                label.innerText = colName.replace(/_/g, ' '); 
-
-                let inputEl;
-                if (inputType === 'select') {
-                    inputEl = document.createElement('select');
-                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
-                    const options = optionsStr.split(',');
-                    options.forEach(opt => {
-                        const option = document.createElement('option');
-                        option.value = opt;
-                        option.innerText = opt;
-                        inputEl.appendChild(option);
-                    });
-                } else if (inputType === 'textarea') {
-                    inputEl = document.createElement('textarea');
-                    inputEl.rows = 3;
-                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
-                } else {
-                    inputEl = document.createElement('input');
-                    inputEl.type = inputType;
-                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
-                }
-                
-                inputEl.id = `input_${colName}`;
-                inputEl.name = colName;
-                inputEl.required = true;
-                
-                if (existingData && existingData[colName]) {
-                    if(inputType === 'date') {
-                        try { 
-                            const d = new Date(existingData[colName]);
-                            if(!isNaN(d.getTime())) {
-                                inputEl.value = d.toISOString().split('T')[0]; 
-                            }
-                        } catch(e) {}
-                    } else {
-                        inputEl.value = existingData[colName];
-                    }
-                }
-
-                wrapper.appendChild(label);
-                wrapper.appendChild(inputEl);
-                fieldsContainer.appendChild(wrapper);
-            });
-
-            document.getElementById('adminModal').classList.add('active');
-        }
-
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.remove('active');
-        }
-
-        async function handleAdminFormSubmit(e) {
-            e.preventDefault(); 
-            
-            const btnText = document.getElementById('btnSubmitText');
-            const btnLoader = document.getElementById('btnSubmitLoader');
-            btnText.classList.add('hidden');
-            btnLoader.classList.remove('hidden');
-            document.getElementById('btnSubmitForm').disabled = true;
-
-            const formData = new FormData(e.target);
-            const dataObj = {};
-            formData.forEach((value, key) => { dataObj[key] = value; });
-
-            const payload = {
-                sheet: currentSubmitParams.sheet,
-                action: currentSubmitParams.action,
-                id: currentSubmitParams.id, 
-                data: dataObj
-            };
-
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' }, 
-                    body: JSON.stringify(payload)
-                });
-                
-                const result = await response.json();
-                
-                if(result.status === 'success') {
-                    showToast('Operasi database berhasil!', 'success');
-                    closeAdminModal();
-                    await fetchSpreadsheetData(); 
-                } else {
-                    showToast('Gagal memproses data: ' + result.message, 'error');
-                }
-            } catch(err) {
-                console.error("Submit Error:", err);
-                showToast('Gagal terhubung ke Server Database.', 'error');
-            } finally {
-                btnText.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                document.getElementById('btnSubmitForm').disabled = false;
-            }
-        }
-
-        async function deleteData(sheetName, id) {
-            if(!confirm(`PERINGATAN: Apakah Anda yakin ingin menghapus data ini dari Database (${sheetName}) secara permanen?`)) return;
-            showToast('Sedang menghapus baris data...', 'info');
-            try {
-                const response = await fetch(GAS_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify({ sheet: sheetName, action: 'delete', id: id }) 
-                });
-                
-                const result = await response.json();
-                
-                if(result.status === 'success') {
-                    showToast('Data berhasil dibasmi dari sistem!', 'success');
-                    await fetchSpreadsheetData();
-                } else {
-                    showToast('Gagal menghapus: ' + result.message, 'error');
-                }
-            } catch(e) {
-                showToast('Koneksi terputus saat proses penghapusan.', 'error');
-            }
         }
 
         function injectMockData() {
