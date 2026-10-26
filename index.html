@@ -204,7 +204,6 @@
 
     <!-- HEADER -->
     <header class="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b dark:border-gray-700 z-40 flex items-center justify-between px-4 lg:px-8 shadow-sm transition-colors duration-200">
-        <!-- Tombol Menu Mobile -->
         <button onclick="toggleMobileSidebar()" class="lg:hidden text-gray-500 hover:text-primary p-2">
             <i class="fas fa-bars text-xl"></i>
         </button>
@@ -1126,7 +1125,6 @@
                     <h2 class="text-2xl font-bold mb-1 dark:text-white">Laporan Keuangan Masjid</h2>
                     <p class="text-gray-500 dark:text-gray-400 text-sm">Transparansi Arus Kas, ZISWAF, dan Pengeluaran Operasional</p>
                 </div>
-                <!-- Tombol Cetak PDF Laporan (Hanya tampil untuk Admin) -->
                 <button onclick="cetakLaporanBulanan()" class="admin-col hidden bg-gray-800 hover:bg-gray-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition shadow-md items-center gap-2 whitespace-nowrap w-fit">
                     <i class="fas fa-print"></i> Cetak PDF Laporan Bulan Ini
                 </button>
@@ -1549,7 +1547,7 @@
             const rawatibCont = document.getElementById('beranda-info-rawatib');
             if (!rawatibCont) return;
 
-            let activePrayer = 'Subuh'; // Waktu default jika API belum siap
+            let activePrayer = 'Subuh'; // Waktu default
             
             if(window.jadwalShalatHarian) {
                 const now = new Date();
@@ -1570,8 +1568,7 @@
                     { name: 'Isya', min: parseTime(j.isya) }
                 ];
                 
-                // Cari batas waktu shalat saat ini
-                activePrayer = 'Isya'; 
+                activePrayer = 'Isya'; // Jika sudah melebihi batas waktu terakhir
                 for (let i = times.length - 1; i >= 0; i--) {
                     if (currentMinutes >= times[i].min) {
                         activePrayer = times[i].name;
@@ -2526,6 +2523,30 @@
             } catch(e) {
                 showToast('Koneksi terputus saat proses penghapusan.', 'error');
             }
+        }
+
+        function injectMockData() {
+            appData = {
+                jumat: [{ id: '1', pasaran: 'Wage', khatib: 'Ust. H. Mahmud', imam: 'Ust. H. Mahmud', muadzin: 'Sdr. Fauzan' }],
+                imam_harian: [{ id: '1', waktu: 'Maghrib', imam_utama: 'KH. Abdullah', imam_pengganti: 'Ust. Zaid', muadzin: 'Bpk. Sholeh' }],
+                kegiatan: [], 
+                program: [{ id: '1', nama_program: 'Kepanitiaan Idul Adha 2026', bidang: 'Idul Qurban', target: 'Penyembelihan 5 Ekor Sapi', status: 'Perencanaan', pic: 'H. Sudirman' }],
+                ramadhan: [], 
+                laporan_riayah: [{ id: '1', tanggal: '2026-10-01', fasilitas: 'AC Utama Shift Kanan', pelapor: 'Budi (Jamaah)', deskripsi_kerusakan: 'Bocor netes air deras', status: 'Pending' }],
+                inventaris: [
+                    { id: '1', tanggal_masuk: '2025-01-15', nama_barang: 'Karpet Shaf Utama', kategori: 'Mebel', jumlah: 10, kondisi: 'Baik', sumber: 'Wakaf H. Ahmad' },
+                    { id: '2', tanggal_masuk: '2026-05-10', nama_barang: 'AC Daikin 2 PK', kategori: 'Elektronik', jumlah: 4, kondisi: 'Baik', sumber: 'Kas Masjid' }
+                ],
+                keuangan: [{ id: '1', tanggal: '2026-10-02', tipe: 'Pemasukan', kategori: 'Kotak Jumat', keterangan: 'Kotak Amal Jumat Minggu ke-1', nominal: 2500000 }],
+                pengurus: [
+                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir DKM', kontak: '0812-xxxx-xxxx' },
+                    { id: '2', nama: 'Ust. Rasyid', jabatan: 'Koordinator', bidang: 'Imarah (Peribadatan)' },
+                    { id: '3', nama: 'Bpk. Wahyu', jabatan: 'Koordinator', bidang: 'Riayah (Fasilitas)' }
+                ],
+                surat: [{ id: '1', nomor: '001/DKM/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
+                pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }],
+                jamaah: []
+            };
         }
 
         // ====================================================================
