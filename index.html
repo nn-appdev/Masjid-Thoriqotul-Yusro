@@ -40,7 +40,7 @@
                         arabic: ['Amiri', 'serif'],
                     },
                     colors: {
-                        'primary': '#0d9488', // Teal 600
+                        'primary': '#0d9488',
                         'primary-dark': '#0f766e',
                         'primary-light': '#ccfbf1',
                     }
@@ -136,12 +136,12 @@
             <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-user mr-1"></i> Username</label>
-                    <input type="text" id="loginUsername" required placeholder="username" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
+                    <input type="text" id="loginUsername" required placeholder="Contoh: admin" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none transition">
                 </div>
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1"><i class="fas fa-lock mr-1"></i> Password</label>
                     <div class="relative">
-                        <input type="password" id="loginPassword" required placeholder="password" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
+                        <input type="password" id="loginPassword" required placeholder="Contoh: admin123" class="w-full border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 pr-10 focus:ring-2 focus:ring-primary outline-none transition">
                         <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-primary transition">
                             <i class="fas fa-eye" id="eyeIcon"></i>
                         </button>
@@ -1297,7 +1297,7 @@
         let isAdmin = false;
         
         // SANGAT PENTING: GANTI URL DI BAWAH INI DENGAN LINK APPS SCRIPT ANDA SENDIRI
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbyoCl2XY-nuEpcmkaGuQ4bMZc3tYiV8IpWoD_-2GEThjJ7vJIWoy1oXRM5JJW5I6hf-vA/exec";
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxa6HJgTEqsDocdD3_tesaPvT8odyeWQ2jYJrXo5jmr3me9G6Q6gXgfrXPGwi9BA7UtmA/exec";
         
         let appData = {}; 
         let currentSubmitParams = {}; 
@@ -1474,13 +1474,10 @@
                 } else {
                     showToast('Server Database Menolak: ' + result.message, 'error');
                     console.error("Server Apps Script menolak:", result.message);
-                    injectMockData(); 
                 }
             } catch (error) {
                 showToast('Koneksi gagal/diblokir. Memakai data lokal.', 'warning');
-                injectMockData(); 
             } finally {
-                // Perbaikan Typo di sini. Harus huruf besar "J" pada "Jadwal"
                 renderJadwalJumat();
                 renderImamHarian();
                 renderPengajian();
@@ -1496,6 +1493,7 @@
                 updateDynamicBeranda();
             }
         }
+
         async function forceSync() {
             await fetchSpreadsheetData();
         }
@@ -1731,30 +1729,6 @@
                 grid.innerHTML = '<div class="col-span-full text-red-500 text-sm py-4 bg-red-50 rounded text-center"><i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke Server Jadwal Kemenag.</div>';
             }
         }
-        
-        function injectMockData() {
-            appData = {
-                jumat: [{ id: '1', pasaran: 'Wage', khatib: 'Ust. H. Mahmud', imam: 'Ust. H. Mahmud', muadzin: 'Sdr. Fauzan' }],
-                imam_harian: [{ id: '1', waktu: 'Maghrib', imam_utama: 'KH. Abdullah', imam_pengganti: 'Ust. Zaid', muadzin: 'Bpk. Sholeh' }],
-                kegiatan: [], 
-                program: [{ id: '1', nama_program: 'Kepanitiaan Idul Adha 2026', bidang: 'Idul Qurban', target: 'Penyembelihan 5 Ekor Sapi', status: 'Perencanaan', pic: 'H. Sudirman' }],
-                ramadhan: [], 
-                laporan_riayah: [{ id: '1', tanggal: '2026-10-01', fasilitas: 'AC Utama Shift Kanan', pelapor: 'Budi (Jamaah)', deskripsi_kerusakan: 'Bocor netes air deras', status: 'Pending' }],
-                inventaris: [
-                    { id: '1', tanggal_masuk: '2025-01-15', nama_barang: 'Karpet Shaf Utama', kategori: 'Mebel', jumlah: 10, kondisi: 'Baik', sumber: 'Wakaf H. Ahmad' },
-                    { id: '2', tanggal_masuk: '2026-05-10', nama_barang: 'AC Daikin 2 PK', kategori: 'Elektronik', jumlah: 4, kondisi: 'Baik', sumber: 'Kas Masjid' }
-                ],
-                keuangan: [{ id: '1', tanggal: '2026-10-02', tipe: 'Pemasukan', kategori: 'Kotak Jumat', keterangan: 'Kotak Amal Jumat Minggu ke-1', nominal: 2500000 }],
-                pengurus: [
-                    { id: '1', nama: 'H. Sutikno', jabatan: 'Ketua Takmir DKM', kontak: '0812-xxxx-xxxx' },
-                    { id: '2', nama: 'Ust. Rasyid', jabatan: 'Koordinator', bidang: 'Imarah (Peribadatan)' },
-                    { id: '3', nama: 'Bpk. Wahyu', jabatan: 'Koordinator', bidang: 'Riayah (Fasilitas)' }
-                ],
-                surat: [{ id: '1', nomor: '001/DKM/X/2026', tanggal: '2026-10-05', jenis: 'Surat Keluar', perihal: 'Undangan Rapat Pengurus' }],
-                pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }],
-                jamaah: []
-            };
-        }
 
         // ====================================================================
         // 7. SISTEM FORMULIR ADMIN UNIVERSAL (OPERASI CRUD KE SPREADSHEET)
@@ -1866,7 +1840,6 @@
             };
 
             try {
-                // SANGAT KRUSIAL: redirect 'follow' agar tidak diblokir CORS Google
                 const response = await fetch(GAS_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -1940,7 +1913,6 @@
             const el = document.getElementById('clockDisplay');
             if(el) el.innerText = timeString;
             
-            // Periksa jadwal Imam & Jam real-time secara berkala
             if (typeof updateActivePrayerAndImam === "function") {
                 updateActivePrayerAndImam();
             }
