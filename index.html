@@ -168,7 +168,7 @@
             
             <div class="bg-gray-50 dark:bg-gray-900 border dark:border-gray-700 rounded-xl p-4 mb-4">
                 <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Bank Syariah Indonesia (BSI)</p>
-                <p class="text-2xl font-bold text-primary tracking-widest font-mono my-2">---</p>
+                <p class="text-2xl font-bold text-primary tracking-widest font-mono my-2">7123 4567 89</p>
                 <p class="text-xs text-gray-600 dark:text-gray-400">a.n Masjid Thoriqotul Yusro</p>
             </div>
             
@@ -1295,7 +1295,10 @@
         // 1. STATE & KONFIGURASI GLOBAL
         // ====================================================================
         let isAdmin = false;
+        
+        // SANGAT PENTING: GANTI URL DI BAWAH INI DENGAN LINK APPS SCRIPT ANDA SENDIRI
         const GAS_URL = "https://script.google.com/macros/s/AKfycbxa6HJgTEqsDocdD3_tesaPvT8odyeWQ2jYJrXo5jmr3me9G6Q6gXgfrXPGwi9BA7UtmA/exec";
+        
         let appData = {}; 
         let currentSubmitParams = {}; 
         window.jadwalShalatHarian = null;
@@ -1591,6 +1594,44 @@
             if (rawatibCont.innerHTML !== newHtml) {
                 rawatibCont.innerHTML = newHtml;
             }
+        }
+
+        function updateDynamicBeranda() {
+            const pasaranSekarang = getPasaranJumat();
+            const elJumat = document.getElementById('infoPasaranJumat');
+            if(elJumat) elJumat.innerText = `Jumat ${pasaranSekarang}`;
+
+            const jumatCont = document.getElementById('beranda-info-jumat');
+            if (jumatCont) {
+                const jumatData = appData.jumat || [];
+                const j = jumatData.find(x => (x.pasaran || '').toLowerCase() === pasaranSekarang.toLowerCase());
+                
+                if(j) {
+                    jumatCont.innerHTML = `
+                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || pasaranSekarang}</p>
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
+                    `;
+                } else {
+                    jumatCont.innerHTML = `<p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${pasaranSekarang}</p><p class="text-sm text-gray-500">Jadwal belum tersedia.</p>`;
+                }
+            }
+
+            const kajianCont = document.getElementById('beranda-info-kajian');
+            if (kajianCont) {
+                const kegiatanData = appData.kegiatan || [];
+                if(kegiatanData.length > 0) {
+                    const k = kegiatanData[0];
+                    kajianCont.innerHTML = `
+                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
+                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
+                    `;
+                } else {
+                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
+                }
+            }
+            updateActivePrayerAndImam();
         }
 
         // ====================================================================
@@ -2266,156 +2307,6 @@
             });
         }
 
-        function updateDynamicBeranda() {
-            // 1. Eksekusi Jumat Terdekat
-            const pasaranSekarang = getPasaranJumat();
-            const elJumat = document.getElementById('infoPasaranJumat');
-            if(elJumat) elJumat.innerText = `Jumat ${pasaranSekarang}`;
-
-            const jumatCont = document.getElementById('beranda-info-jumat');
-            if (jumatCont) {
-                const jumatData = appData.jumat || [];
-                const j = jumatData.find(x => (x.pasaran || '').toLowerCase() === pasaranSekarang.toLowerCase());
-                
-                if(j) {
-                    jumatCont.innerHTML = `
-                        <p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${j.pasaran || pasaranSekarang}</p>
-                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-1 truncate"><i class="fas fa-comment-dots text-gray-400 w-4 mr-1"></i> Khatib: <span class="text-green-700 dark:text-green-400">${j.khatib || '-'}</span></p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-tie text-gray-400 w-4 mr-1"></i> Imam: ${j.imam || '-'}</p>
-                    `;
-                } else {
-                    jumatCont.innerHTML = `<p class="text-[10px] text-green-600 font-bold uppercase tracking-wider mb-2 bg-green-50 w-fit px-2 py-0.5 rounded border border-green-200">Jumat ${pasaranSekarang}</p><p class="text-sm text-gray-500">Jadwal belum tersedia.</p>`;
-                }
-            }
-
-            // 2. Eksekusi Pengajian Terdekat
-            const kajianCont = document.getElementById('beranda-info-kajian');
-            if (kajianCont) {
-                const kegiatanData = appData.kegiatan || [];
-                if(kegiatanData.length > 0) {
-                    const k = kegiatanData[0];
-                    kajianCont.innerHTML = `
-                        <p class="text-[10px] text-purple-600 font-bold uppercase tracking-wider mb-2 bg-purple-50 w-fit px-2 py-0.5 rounded border border-purple-200">${k.kategori || 'Kajian Rutin'}</p>
-                        <p class="text-sm font-bold text-gray-800 dark:text-white mb-1 truncate" title="${k.nama_kegiatan}">${k.nama_kegiatan}</p>
-                        <p class="text-xs font-medium text-gray-600 dark:text-gray-300"><i class="fas fa-user-circle text-gray-400 w-4 mr-1"></i> ${k.pemateri || '-'}</p>
-                    `;
-                } else {
-                    kajianCont.innerHTML = `<p class="text-sm text-gray-500">Belum ada agenda kajian.</p>`;
-                }
-            }
-
-            // 3. Panggil deteksi Imam & Waktu
-            updateActivePrayerAndImam();
-        }
-
-        // ====================================================================
-        // PENGENDALI AL-QURAN DIGITAL & HADIS
-        // ====================================================================
-        function bukaQuranDiBeranda() {
-            const container = document.getElementById('quranContainerBeranda');
-            container.classList.remove('hidden');
-            setTimeout(() => {
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-
-        function tutupQuranDiBeranda() {
-            document.getElementById('quranContainerBeranda').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if(window._stopQuranAudio) window._stopQuranAudio();
-        }
-
-        function bukaHadisDiBeranda() {
-            const container = document.getElementById('hadisContainerBeranda');
-            container.classList.remove('hidden');
-            setTimeout(() => {
-                container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-            if(window._initHadis) window._initHadis();
-        }
-
-        function tutupHadisDiBeranda() {
-            document.getElementById('hadisContainerBeranda').classList.add('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ====================================================================
-        // API JADWAL WAKTU SHALAT (KEMENAG)
-        // ====================================================================
-        async function fetchPrayerTimes() {
-            const grid = document.getElementById('prayerTimesGrid');
-            const nextEl = document.getElementById('nextPrayerTime');
-            const nameEl = document.getElementById('nextPrayerName');
-            
-            try {
-                const d = new Date();
-                const yyyy = d.getFullYear();
-                const mm = String(d.getMonth() + 1).padStart(2, '0');
-                const dd = String(d.getDate()).padStart(2, '0');
-                
-                const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/1628/${yyyy}/${mm}/${dd}`);
-                const data = await res.json();
-                
-                const jadwal = data.data.jadwal;
-                window.jadwalShalatHarian = jadwal; // Simpan jadwal ke global state
-
-                const times = [
-                    { name: 'Imsak', time: jadwal.imsak, icon: 'fa-cloud-moon' },
-                    { name: 'Subuh', time: jadwal.subuh, icon: 'fa-moon' },
-                    { name: 'Terbit', time: jadwal.terbit, icon: 'fa-sun text-yellow-500' },
-                    { name: 'Dzuhur', time: jadwal.dzuhur, icon: 'fa-sun text-yellow-600' },
-                    { name: 'Ashar', time: jadwal.ashar, icon: 'fa-cloud-sun text-orange-500' },
-                    { name: 'Maghrib', time: jadwal.maghrib, icon: 'fa-sunset text-red-500' },
-                    { name: 'Isya', time: jadwal.isya, icon: 'fa-star text-indigo-500' }
-                ];
-
-                const now = new Date();
-                const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
-                let nextPrayer = null;
-                const obligatory = ['Subuh', 'Dzuhur', 'Ashar', 'Maghrib', 'Isya'];
-                
-                for (let t of times) {
-                    if(!obligatory.includes(t.name)) continue;
-                    const [h, m] = t.time.split(':').map(Number);
-                    const prayerMinutes = h * 60 + m;
-                    if (prayerMinutes > currentTotalMinutes) {
-                        nextPrayer = t;
-                        break;
-                    }
-                }
-                
-                if (!nextPrayer) {
-                    nextPrayer = times.find(t => t.name === 'Subuh');
-                    nameEl.innerText = "Waktu " + nextPrayer.name + " (Besok)";
-                } else {
-                    nameEl.innerText = "Waktu " + nextPrayer.name;
-                }
-                nextEl.innerText = nextPrayer.time + " WIB";
-
-                grid.innerHTML = '';
-                times.forEach(t => {
-                    const isNext = (t.name === nextPrayer.name);
-                    const highlightClass = isNext ? 'border-primary shadow-md bg-primary-light/20 dark:bg-primary-dark/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-gray-800 scale-105 z-10' : 'border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 shadow-sm hover:shadow-md';
-                    const textHighlight = isNext ? 'text-primary dark:text-primary-light' : 'text-gray-500 dark:text-gray-400';
-                    const iconHighlight = isNext ? 'text-primary drop-shadow-md' : t.icon.split(' ')[1] || '';
-
-                    grid.innerHTML += `
-                        <div class="text-center p-3.5 rounded-xl border transition-all duration-300 ${highlightClass}">
-                            <i class="fas ${t.icon.split(' ')[0]} text-xl mb-2.5 block ${iconHighlight}"></i>
-                            <p class="text-[11px] uppercase tracking-wider font-bold ${textHighlight}">${t.name}</p>
-                            <p class="text-base font-bold text-gray-800 dark:text-gray-200 mt-1">${t.time}</p>
-                        </div>
-                    `;
-                });
-
-                setTimeout(() => updateDynamicBeranda(), 500); 
-                
-            } catch(e) {
-                console.error("Gagal muat jadwal shalat:", e);
-                grid.innerHTML = '<div class="col-span-full text-red-500 text-sm py-4 bg-red-50 rounded text-center"><i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke Server Jadwal Kemenag.</div>';
-            }
-        }
-        
         function injectMockData() {
             appData = {
                 jumat: [{ id: '1', pasaran: 'Wage', khatib: 'Ust. H. Mahmud', imam: 'Ust. H. Mahmud', muadzin: 'Sdr. Fauzan' }],
@@ -2438,6 +2329,181 @@
                 pengaturan: [{ kunci: 'hero_text', nilai: 'Selamat Datang di T. Yusro (Mode Luring)' }],
                 jamaah: []
             };
+        }
+
+        // ====================================================================
+        // 7. SISTEM FORMULIR ADMIN UNIVERSAL (OPERASI CRUD KE SPREADSHEET)
+        // ====================================================================
+        function openAdminModal(sheetName, action = 'insert', existingData = null) {
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('modalTitle');
+            const fieldsContainer = document.getElementById('modalFields');
+            
+            currentSubmitParams = { sheet: sheetName, action: action, id: existingData ? existingData.id : null };
+            
+            title.innerText = action === 'insert' ? `Input Data Baru (${sheetName})` : `Edit Data (${sheetName})`;
+            fieldsContainer.innerHTML = ''; 
+
+            const schema = {
+                'Jumat': ['pasaran|select:Legi,Pahing,Pon,Wage,Kliwon', 'khatib|text', 'imam|text', 'muadzin|text'],
+                'Imam_Harian': ['waktu|select:Subuh,Dzuhur,Ashar,Maghrib,Isya', 'imam_utama|text', 'imam_pengganti|text', 'muadzin|text'],
+                'Kegiatan': ['nama_kegiatan|text', 'kategori|select:Umum,Ibu-ibu,Remaja', 'waktu|text', 'pemateri|text', 'deskripsi|textarea'],
+                'Program': ['nama_program|text', 'bidang|select:PHBI,Ramadhan,Idul Qurban,Zakat Fitrah', 'target|text', 'status|select:Perencanaan,Berjalan,Selesai', 'pic|text'],
+                'Ramadhan': ['kegiatan|select:Shalat Tarawih,Kuliah Subuh,Pengajian Ifthar', 'waktu|text', 'penceramah|text', 'pic|text'],
+                'Laporan_Riayah': ['tanggal|date', 'fasilitas|text', 'pelapor|text', 'deskripsi_kerusakan|textarea', 'status|select:Pending,Proses,Selesai'],
+                'Inventaris': ['tanggal_masuk|date', 'nama_barang|text', 'kategori|select:Elektronik,Mebel,Kendaraan,Peralatan,Lainnya', 'jumlah|number', 'kondisi|select:Baik,Rusak Ringan,Rusak Berat', 'sumber|text'],
+                'Pengurus': ['nama|text', 'jabatan|text', 'bidang|text', 'kontak|text'],
+                'Surat': ['nomor|text', 'tanggal|date', 'jenis|select:Surat Masuk,Surat Keluar', 'perihal|text', 'file_url|url'],
+                'Keuangan': ['tanggal|date', 'tipe|select:Pemasukan,Pengeluaran', 'kategori|text', 'nominal|number', 'keterangan|textarea'],
+                'Jamaah': ['nama|text', 'no_hp|text', 'alamat|textarea', 'kategori_zakat|select:Muzakki,Mustahiq,Donatur Tetap'],
+                'Pengaturan': ['nilai|textarea'] 
+            };
+
+            const columns = schema[sheetName] || [];
+            
+            columns.forEach(colConfig => {
+                const [colName, colTypeInfo] = colConfig.split('|');
+                const [inputType, optionsStr] = colTypeInfo.split(':');
+                
+                const wrapper = document.createElement('div');
+                const label = document.createElement('label');
+                label.className = 'block text-sm font-semibold text-gray-700 dark:text-gray-300 capitalize mb-1';
+                label.innerText = colName.replace(/_/g, ' '); 
+
+                let inputEl;
+                if (inputType === 'select') {
+                    inputEl = document.createElement('select');
+                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
+                    const options = optionsStr.split(',');
+                    options.forEach(opt => {
+                        const option = document.createElement('option');
+                        option.value = opt;
+                        option.innerText = opt;
+                        inputEl.appendChild(option);
+                    });
+                } else if (inputType === 'textarea') {
+                    inputEl = document.createElement('textarea');
+                    inputEl.rows = 3;
+                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
+                } else {
+                    inputEl = document.createElement('input');
+                    inputEl.type = inputType;
+                    inputEl.className = 'w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg p-2.5 focus:ring-2 focus:ring-primary outline-none';
+                }
+                
+                inputEl.id = `input_${colName}`;
+                inputEl.name = colName;
+                inputEl.required = true;
+                
+                if (existingData && existingData[colName]) {
+                    if(inputType === 'date') {
+                        try { 
+                            const d = new Date(existingData[colName]);
+                            if(!isNaN(d.getTime())) {
+                                inputEl.value = d.toISOString().split('T')[0]; 
+                            }
+                        } catch(e) {}
+                    } else {
+                        inputEl.value = existingData[colName];
+                    }
+                }
+
+                wrapper.appendChild(label);
+                wrapper.appendChild(inputEl);
+                fieldsContainer.appendChild(wrapper);
+            });
+
+            document.getElementById('adminModal').classList.add('active');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        async function handleAdminFormSubmit(e) {
+            e.preventDefault(); 
+            
+            const btnText = document.getElementById('btnSubmitText');
+            const btnLoader = document.getElementById('btnSubmitLoader');
+            btnText.classList.add('hidden');
+            btnLoader.classList.remove('hidden');
+            document.getElementById('btnSubmitForm').disabled = true;
+
+            const formData = new FormData(e.target);
+            const dataObj = {};
+            formData.forEach((value, key) => { dataObj[key] = value; });
+
+            const payload = {
+                sheet: currentSubmitParams.sheet,
+                action: currentSubmitParams.action,
+                id: currentSubmitParams.id, 
+                data: dataObj
+            };
+
+            try {
+                // SANGAT KRUSIAL: redirect 'follow' agar tidak diblokir CORS Google
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    redirect: 'follow', 
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                     throw new Error(`Koneksi ke server ditolak (HTTP ${response.status})`);
+                }
+
+                const textResult = await response.text();
+                let result;
+                
+                try {
+                    result = JSON.parse(textResult);
+                } catch(parseErr) {
+                    console.error("Format balasan server salah (Bukan JSON):", textResult);
+                    throw new Error("Server Apps Script mengembalikan halaman HTML/Error, bukan Data JSON. (Periksa Hak Akses Deploy)");
+                }
+                
+                if(result.status === 'success') {
+                    showToast('Operasi database berhasil!', 'success');
+                    closeAdminModal();
+                    await fetchSpreadsheetData(); 
+                } else {
+                    showToast('Gagal memproses data: ' + result.message, 'error');
+                }
+            } catch(err) {
+                console.error("Submit Error:", err);
+                showToast('Gagal mengirim data!', 'error');
+                alert("PERINGATAN SISTEM: Gagal menyimpan data.\n\nAlasan:\n" + err.message + "\n\nSOLUSI:\n1. Pastikan GAS_URL di HTML sudah diganti dengan link Anda sendiri.\n2. Pastikan Code.gs sudah di-Deploy ulang (New Version).\n3. Pastikan 'Who has access' pada saat deploy adalah 'Anyone' (Siapa saja).");
+            } finally {
+                btnText.classList.remove('hidden');
+                btnLoader.classList.add('hidden');
+                document.getElementById('btnSubmitForm').disabled = false;
+            }
+        }
+
+        async function deleteData(sheetName, id) {
+            if(!confirm(`PERINGATAN: Apakah Anda yakin ingin menghapus data ini dari Database (${sheetName}) secara permanen?`)) return;
+            showToast('Sedang menghapus baris data...', 'info');
+            try {
+                const response = await fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    redirect: 'follow',
+                    body: JSON.stringify({ sheet: sheetName, action: 'delete', id: id }) 
+                });
+                
+                const textResult = await response.text();
+                const result = JSON.parse(textResult);
+                
+                if(result.status === 'success') {
+                    showToast('Data berhasil dibasmi dari sistem!', 'success');
+                    await fetchSpreadsheetData();
+                } else {
+                    showToast('Gagal menghapus: ' + result.message, 'error');
+                }
+            } catch(e) {
+                showToast('Koneksi terputus saat proses penghapusan. Cek URL Anda.', 'error');
+            }
         }
 
         // ====================================================================
@@ -2464,7 +2530,5 @@
             }
         };
     </script>
-</body>
-</html>
 </body>
 </html>
