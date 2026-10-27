@@ -1474,13 +1474,13 @@
                 } else {
                     showToast('Server Database Menolak: ' + result.message, 'error');
                     console.error("Server Apps Script menolak:", result.message);
-                    injectMockData(); // Buka gembok loading dengan data dummy
+                    injectMockData(); 
                 }
             } catch (error) {
                 showToast('Koneksi gagal/diblokir. Memakai data lokal.', 'warning');
-                injectMockData(); // Buka gembok loading dengan data dummy
+                injectMockData(); 
             } finally {
-                // BLOK ABSOLUT: Pastikan UI dirender dengan data apa pun yang didapat
+                // Perbaikan Typo di sini. Harus huruf besar "J" pada "Jadwal"
                 renderJadwalJumat();
                 renderImamHarian();
                 renderPengajian();
@@ -1496,7 +1496,6 @@
                 updateDynamicBeranda();
             }
         }
-
         async function forceSync() {
             await fetchSpreadsheetData();
         }
